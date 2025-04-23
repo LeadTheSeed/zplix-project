@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Raindrops</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        .game-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: 20px auto;
+            border: 4px solid #4fc3f7;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to bottom, #bbdefb, #e3f2fd);
+        }
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .score-container, .lives-container, .level-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #0277bd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .question-container {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #01579b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .start-screen, .game-over-screen, .level-up-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 20;
+        }
+        .start-screen h1, .game-over-screen h1, .level-up-screen h1 {
+            color: #ffffff;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .start-screen p, .game-over-screen p, .level-up-screen p {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .game-over-screen {
+            display: none;
+        }
+        .level-up-screen {
+            display: none;
+        }
+        .settings {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            width: 80%;
+        }
+        .settings label {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #01579b;
+        }
+        .settings select {
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #4fc3f7;
+            margin-bottom: 10px;
+        }
+        .raindrop {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+            z-index: 5;
+            transition: transform 0.1s;
+        }
+        .raindrop:hover {
+            transform: scale(1.1);
+        }
+        @keyframes splash {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        .splash {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            animation: splash 0.5s forwards;
+            z-index: 4;
+        }
+        .feedback {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            animation: feedback 1s forwards;
+            z-index: 15;
+        }
+        @keyframes feedback {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+        .correct {
+            color: #4caf50;
+        }
+        .incorrect {
+            color: #f44336;
+        }
+        .instructions {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #01579b;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div class="ui-container">
+            <div class="score-container">Score: <span id="score">0</span></div>
+            <div class="level-container">Level: <span id="level">1</span></div>
+            <div class="lives-container">Lives: <span id="lives">3</span></div>
+        </div>
+        <div class="question-container" id="question">
+            What is 3 × 4?
+        </div>
+        <div class="start-screen" id="start-screen">
+            <h1>Multiplication Raindrops</h1>
+            <p>Click on the falling raindrops with the correct answer to the multiplication question. Be quick before they reach the bottom!</p>
+            <div class="settings">
+                <label for="difficulty">Difficulty Level:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy (1-5 times tables)</option>
+                    <option value="medium" selected>Medium (1-10 times tables)</option>
+                    <option value="hard">Hard (1-12 times tables)</option>
+                </select>
+                <label for="speed">Game Speed:</label>
+                <select id="speed">
+                    <option value="slow">Slow</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="fast">Fast</option>
+                </select>
+            </div>
+            <button class="btn" id="start-btn">Start Game</button>
+        </div>
+        <div class="game-over-screen" id="game-over-screen">
+            <h1>Game Over!</h1>
+            <p>Your final score: <span id="final-score">0</span></p>
+            <p>You reached level: <span id="final-level">1</span></p>
+            <button class="btn" id="restart-btn">Play Again</button>
+        </div>
+        <div class="level-up-screen" id="level-up-screen">
+            <h1>Level Up!</h1>
+            <p>Great job! You've advanced to level <span id="new-level">2</span></p>
+            <p>Get ready for faster raindrops and tougher questions!</p>
+            <button class="btn" id="continue-btn">Continue</button>
+        </div>
+    </div>
+    <div class="instructions">
+        <p><strong>How to Play:</strong> Click on the raindrop with the correct answer to the multiplication question shown. Each correct answer gives you points. Missing a raindrop or clicking the wrong answer costs you a life. The game gets faster as you level up!</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Game elements
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            const startScreen = document.getElementById('start-screen');
+            const gameOverScreen = document.getElementById('game-over-screen');
+            const levelUpScreen = document.getElementById('level-up-screen');
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const continueBtn = document.getElementById('continue-btn');
+            const scoreElement = document.getElementById('score');
+            const livesElement = document.getElementById('lives');
+            const levelElement = document.getElementById('level');
+            const questionElement = document.getElementById('question');
+            const finalScoreElement = document.getElementById('final-score');
+            const finalLevelElement = document.getElementById('final-level');
+            const newLevelElement = document.getElementById('new-level');
+            const difficultySelect = document.getElementById('difficulty');
+            const speedSelect = document.getElementById('speed');
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            // Game variables
+            let gameRunning = false;
+            let score = 0;
+            let lives = 3;
+            let level = 1;
+            let raindrops = [];
+            let currentQuestion = {};
+            let lastFrameTime = 0;
+            let raindropSpeed = 1;
+            let raindropFrequency = 2000;
+            let lastRaindropTime = 0;
+            let difficultyRange = { min: 1, max: 10 };
+            let baseSpeed = 1;
+            // Sound effects using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            function playTone(frequency, type, duration) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.type = type;
+                oscillator.frequency.value = frequency;
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + duration);
+            }
+            function playCorrectSound() {
+                playTone(523.25, 'sine', 0.3);
+                setTimeout(() => playTone(659.25, 'sine', 0.3), 100);
+                setTimeout(() => playTone(783.99, 'sine', 0.3), 200);
+            }
+            function playWrongSound() {
+                playTone(311.13, 'square', 0.3);
+                setTimeout(() => playTone(293.66, 'square', 0.5), 300);
+            }
+            function playLevelUpSound() {
+                playTone(523.25, 'sine', 0.2);
+                setTimeout(() => playTone(587.33, 'sine', 0.2), 200);
+                setTimeout(() => playTone(659.25, 'sine', 0.2), 400);
+                setTimeout(() => playTone(698.46, 'sine', 0.2), 600);
+                setTimeout(() => playTone(783.99, 'sine', 0.4), 800);
+            }
+            function generateQuestion() {
+                const a = Math.floor(Math.random() * (difficultyRange.max - difficultyRange.min + 1)) + difficultyRange.min;
+                const b = Math.floor(Math.random() * (difficultyRange.max - difficultyRange.min + 1)) + difficultyRange.min;
+                const answer = a * b;
+                questionElement.textContent = `What is ${a} × ${b}?`;
+                return { a, b, answer };
+            }
+            function createRaindrop() {
+                const number = Math.random() < 0.6 ? currentQuestion.answer : 
+                    Math.max(1, currentQuestion.answer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 1));
+                const raindrop = document.createElement('div');
+                raindrop.className = 'raindrop';
+                raindrop.style.left = `${Math.random() * (canvas.width - 60)}px`;
+                raindrop.style.background = ['#4fc3f7', '#29b6f6', '#03a9f4', '#039be5', '#0288d1'][Math.floor(Math.random() * 5)];
+                raindrop.textContent = number;
+                raindrop.addEventListener('click', () => handleRaindropClick(raindrop, number));
+                canvas.parentElement.appendChild(raindrop);
+                raindrops.push({
+                    element: raindrop,
+                    y: 0,
+                    number: number,
+                    speed: raindropSpeed * (0.8 + Math.random() * 0.4)
+                });
+            }
+            function handleRaindropClick(raindrop, number) {
+                const index = raindrops.findIndex(drop => drop.element === raindrop);
+                if (index === -1) return;
+                const drop = raindrops[index];
+                createSplash(drop.element.offsetLeft, drop.element.offsetTop);
+                if (number === currentQuestion.answer) {
+                    playCorrectSound();
+                    showFeedback(drop.element.offsetLeft, drop.element.offsetTop, 'Correct!', 'correct');
+                    score += 10 * level;
+                    scoreElement.textContent = score;
+                    if (score >= level * 100) {
+                        levelUp();
+                    } else {
+                        currentQuestion = generateQuestion();
+                    }
+                } else {
+                    playWrongSound();
+                    showFeedback(drop.element.offsetLeft, drop.element.offsetTop, 'Wrong!', 'incorrect');
+                    if (--lives <= 0) gameOver();
+                    livesElement.textContent = lives;
+                }
+                raindrop.remove();
+                raindrops.splice(index, 1);
+            }
+            function createSplash(x, y) {
+                const splash = document.createElement('div');
+                splash.className = 'splash';
+                splash.style.left = `${x}px`;
+                splash.style.top = `${y}px`;
+                canvas.parentElement.appendChild(splash);
+                setTimeout(() => splash.remove(), 500);
+            }
+            function showFeedback(x, y, text, className) {
+                const feedback = document.createElement('div');
+                feedback.className = `feedback ${className}`;
+                feedback.textContent = text;
+                feedback.style.left = `${x}px`;
+                feedback.style.top = `${y}px`;
+                canvas.parentElement.appendChild(feedback);
+                setTimeout(() => feedback.remove(), 1000);
+            }
+            function levelUp() {
+                level++;
+                levelElement.textContent = level;
+                newLevelElement.textContent = level;
+                difficultyRange.max = Math.min(12, difficultyRange.max + (level % 3 === 0 ? 2 : 0));
+                raindropSpeed = baseSpeed + (level * 0.1);
+                raindropFrequency = Math.max(500, 2000 - (level * 100));
+                gameRunning = false;
+                levelUpScreen.style.display = 'flex';
+                playLevelUpSound();
+                raindrops.forEach(drop => drop.element.remove());
+                raindrops = [];
+            }
+            function gameOver() {
+                gameRunning = false;
+                finalScoreElement.textContent = score;
+                finalLevelElement.textContent = level;
+                gameOverScreen.style.display = 'flex';
+                raindrops.forEach(drop => drop.element.remove());
+                raindrops = [];
+            }
+            function update(timestamp) {
+                if (!gameRunning) return;
+                const deltaTime = timestamp - lastFrameTime;
+                lastFrameTime = timestamp;
+                if (timestamp - lastRaindropTime > raindropFrequency) {
+                    createRaindrop();
+                    lastRaindropTime = timestamp;
+                }
+                for (let i = raindrops.length - 1; i >= 0; i--) {
+                    const drop = raindrops[i];
+                    drop.y += drop.speed * deltaTime * 0.1;
+                    drop.element.style.top = `${drop.y}px`;
+                    if (drop.y > canvas.height) {
+                        if (drop.number === currentQuestion.answer && --lives <= 0) gameOver();
+                        drop.element.remove();
+                        raindrops.splice(i, 1);
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+            function drawBackground() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                for (let i = 0; i < 5; i++) {
+                    const x = (i * canvas.width / 5) + Math.sin(Date.now() * 0.001 + i) * 20;
+                    const y = 50 + Math.sin(Date.now() * 0.002 + i) * 10;
+                    drawCloud(x, y, 80 + i * 10);
+                }
+                requestAnimationFrame(drawBackground);
+            }
+            function drawCloud(x, y, size) {
+                ctx.beginPath();
+                ctx.arc(x, y, size/3, 0, Math.PI*2);
+                ctx.arc(x + size/3, y - size/6, size/3, 0, Math.PI*2);
+                ctx.arc(x + size/2, y + size/6, size/4, 0, Math.PI*2);
+                ctx.arc(x + size/1.5, y - size/8, size/3, 0, Math.PI*2);
+                ctx.fill();
+            }
+            function startGame() {
+                score = 0;
+                lives = 3;
+                level = 1;
+                raindrops = [];
+                lastFrameTime = 0;
+                scoreElement.textContent = score;
+                livesElement.textContent = lives;
+                levelElement.textContent = level;
+                switch(difficultySelect.value) {
+                    case 'easy': difficultyRange = { min: 1, max: 5 }; break;
+                    case 'medium': difficultyRange = { min: 1, max: 10 }; break;
+                    case 'hard': difficultyRange = { min: 1, max: 12 }; break;
+                }
+                switch(speedSelect.value) {
+                    case 'slow': baseSpeed = 0.7; raindropFrequency = 2500; break;
+                    case 'medium': baseSpeed = 1; raindropFrequency = 2000; break;
+                    case 'fast': baseSpeed = 1.3; raindropFrequency = 1500; break;
+                }
+                raindropSpeed = baseSpeed;
+                currentQuestion = generateQuestion();
+                startScreen.style.display = 'none';
+                gameOverScreen.style.display = 'none';
+                levelUpScreen.style.display = 'none';
+                gameRunning = true;
+                lastRaindropTime = performance.now();
+                requestAnimationFrame(update);
+            }
+            startBtn.addEventListener('click', startGame);
+            restartBtn.addEventListener('click', startGame);
+            continueBtn.addEventListener('click', () => {
+                levelUpScreen.style.display = 'none';
+                currentQuestion = generateQuestion();
+                gameRunning = true;
+                requestAnimationFrame(update);
+            });
+            drawBackground();
+        });
+    </script>
+</body>
+</html>
