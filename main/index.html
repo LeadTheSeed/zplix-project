@@ -4,56 +4,140 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zplix Tools</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234a90e2'/><text x='50' y='60' font-size='50' fill='white' text-anchor='middle' font-family='Arial'>Z</text></svg>">
-<meta name="description" content="Zplix Tools – Explore, use, and submit mini web apps in one click. Calculator, clock, quote generator, and more!"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234a90e2'/><text x='50' y='60' font-size='50' fill='white' text-anchor='middle' font-family='Arial'>Z</text></svg>">
+  <meta name="description" content="Zplix Tools – Explore, use, and submit mini web apps in one click. Calculator, clock, quote generator, and more!"/>
   <style>
-    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 1.1em; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 9999; }
-    .toast.show { opacity: 1; pointer-events:auto; }
-    .footer {margin-top:40px; padding:20px 0; text-align:center; color:#888; font-size:0.95em; background: linear-gradient(90deg,#f5f5f5 60%,#eaf6ff 100%);}
-    .card .icon {font-size:2.5em; margin-bottom:10px; display:block;}
-    .modal {backdrop-filter: blur(2px);}
-    .modal-content {box-shadow: 0 8px 32px rgba(0,0,0,0.22);}
-    #addAppBtn {font-size:1.2em; padding:16px 32px; margin-top:18px;}
-    .card {transition: box-shadow 0.2s, transform 0.2s;}
-    .card:hover {box-shadow:0 4px 16px rgba(76,144,226,0.20); transform: translateY(-3px) scale(1.03);}
-    .card h3 {font-size:1.2em;}
-    .card a {font-weight:600; letter-spacing:0.03em;}
-    @media (max-width:600px) {.modal-content {padding:10px;} #addAppBtn {width:100%;}}
-
-    body {margin:0; font-family: Arial, sans-serif; background: #f5f5f5; color: #333;}
-    header {background: #4a90e2; color:#fff; padding:20px; text-align:center;}
-    h1 {margin:0; font-size:2em;}
-    main {max-width:1000px; margin: 40px auto; padding:0 20px;}
-    .grid {display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:20px;}
-    .card {background:#fff; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); padding:20px; text-align:center;}
-    .card h3 {margin-top:0;}
-    .card a {display:inline-block; margin-top:10px; padding:8px 16px; background:#4a90e2; color:#fff; text-decoration:none; border-radius:4px;}
-    #addAppBtn {padding:10px 20px; background:#50e3c2; border:none; color:#fff; border-radius:4px; cursor:pointer;}
-    .modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center;}
-    .modal.active {display:flex;}
-    .modal-content {background:#fff; padding:20px; border-radius:8px; max-width:600px; width:100%;}
-    .modal-content h2 {margin-top:0;}
-    .modal-content textarea {width:100%; height:80px; margin-bottom:10px; font-family:monospace;}
-    .modal-content input[type="text"] {width:100%; padding:8px; margin-bottom:10px;}
-    .modal-content button {padding:8px 16px; border:none; background:#4a90e2; color:#fff; border-radius:4px; cursor:pointer;}
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf6ff 0%, #f5f5f5 100%);
+      color: #222;
+    }
+    header {
+      background: #4a90e2;
+      color: #fff;
+      padding: 36px 0 24px 0;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.7em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .hero {
+      text-align: center;
+      margin: 36px auto 30px auto;
+      max-width: 650px;
+    }
+    .hero p {
+      font-size: 1.25em;
+      color: #3c3c3c;
+      margin: 18px 0 0 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(76,144,226,0.09);
+      padding: 30px 18px 24px 18px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 200px;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(76,144,226,0.16);
+      transform: translateY(-4px) scale(1.025);
+    }
+    .card .icon {
+      font-size: 3.2em;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.18em;
+      font-weight: 700;
+      color: #2563a6;
+    }
+    .card p {
+      color: #555;
+      font-size: 1em;
+      margin: 0 0 18px 0;
+      min-height: 40px;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: auto;
+      padding: 9px 22px;
+      background: linear-gradient(90deg,#4a90e2 60%,#50e3c2 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 1.05em;
+      transition: background 0.15s;
+    }
+    .card a:hover {
+      background: linear-gradient(90deg,#50e3c2 60%,#4a90e2 100%);
+    }
+    .footer {
+      margin-top: 60px;
+      padding: 20px 0;
+      text-align: center;
+      color: #888;
+      font-size: 0.98em;
+      background: linear-gradient(90deg,#f5f5f5 60%,#eaf6ff 100%);
+    }
+    .footer a { color: #4a90e2; text-decoration: none; }
+    @media (max-width: 700px) {
+      .hero {padding: 0 10px;}
+      .grid {gap: 18px;}
+      .card {padding: 22px 8px 18px 8px;}
+    }
   </style>
 </head>
 <body>
   <header><h1>Zplix Tools</h1></header>
   <main>
-    <div style="text-align:center; margin-bottom:32px;">
-      <p style="font-size:1.2em; color:#555; max-width:600px; margin:20px auto;">
-        Welcome to <b>Zplix Tools</b>! Explore sample apps below or instantly add your own. Submit a self-contained HTML/CSS/JS mini-app and it will appear as a new tool for everyone.
-      </p>
-    </div>
-    <section class="grid" id="appGrid"></section>
-    <div style="text-align:center; margin-top:20px;">
-      <button id="addAppBtn">Submit Your App</button>
-    </div>
-    <div class="toast" id="toast"></div>
+    <section class="hero">
+      <h2 style="font-size:1.45em; font-weight:600; color:#2563a6; margin-bottom:0;">A growing collection of simple, useful web tools</h2>
+      <p>Explore the tools below. Each is a self-contained app—no ads, no clutter, just utility. More coming soon!</p>
+    </section>
+    <section class="grid">
+      <div class="card">
+        <span class="icon">🧮</span>
+        <h3>Calculator</h3>
+        <p>Basic calculator for quick math operations.</p>
+        <a href="./calculator/index.html" target="_blank">Open Tool</a>
+      </div>
+      <div class="card">
+        <span class="icon">⏰</span>
+        <h3>Digital Clock</h3>
+        <p>See the current time in a clean digital format.</p>
+        <a href="./app1/index.html" target="_blank">Open Tool</a>
+      </div>
+      <div class="card">
+        <span class="icon">💬</span>
+        <h3>Quote Generator</h3>
+        <p>Get a random inspirational quote with one click.</p>
+        <a href="./app2/index.html" target="_blank">Open Tool</a>
+      </div>
+    </section>
   </main>
   <footer class="footer">
-    &copy; 2025 Zplix Tools &mdash; <a href="https://github.com/LeadTheSeed/zplix-project" target="_blank" style="color:#4a90e2;text-decoration:none;">GitHub</a>
+    &copy; 2025 Zplix Tools &mdash; <a href="https://github.com/LeadTheSeed/zplix-project" target="_blank">GitHub</a>
   </footer>
 
   <!-- Modal -->
@@ -71,70 +155,6 @@
     </div>
   </div>
 
-  <script>
-    const modal = document.getElementById('appModal');
-    const addBtn = document.getElementById('addAppBtn');
-    const closeBtn = document.getElementById('closeModal');
-    const submitBtn = document.getElementById('submitApp');
-    const grid = document.getElementById('appGrid');
-
-    function toggleModal(show) {
-      modal.classList.toggle('active', show);
-    }
-
-    addBtn.addEventListener('click', () => toggleModal(true));
-    closeBtn.addEventListener('click', () => toggleModal(false));
-
-    function getApps() {
-      return JSON.parse(localStorage.getItem('userApps')||'[]');
-    }
-    function saveApps(apps) {
-      localStorage.setItem('userApps', JSON.stringify(apps));
-    }
-
-    function renderApps() {
-      grid.innerHTML = '';
-      const base = [
-        {icon:'🧮', name:'Calculator',url:'./calculator/index.html'},
-        {icon:'⏰', name:'Digital Clock',url:'./app1/index.html'},
-        {icon:'💬', name:'Quote Generator',url:'./app2/index.html'}
-      ];
-      base.concat(getApps()).forEach((app,i) => {
-        const card = document.createElement('div');card.className='card';
-        if(app.icon) { const icon = document.createElement('span'); icon.className='icon'; icon.textContent=app.icon; card.append(icon); }
-        const title = document.createElement('h3');title.textContent=app.name;
-        const link = document.createElement('a');link.textContent='Open';link.href=app.url;link.target='_blank';
-        card.append(title,link);
-        grid.appendChild(card);
-      });
-    }
-
-    submitBtn.addEventListener('click', () => {
-      const name = document.getElementById('appName').value.trim();
-      const html = document.getElementById('appHTML').value;
-      const css = document.getElementById('appCSS').value;
-      const js = document.getElementById('appJS').value;
-      if(!name||!html) { showToast('Provide at least a name & HTML.'); return; }
-      if(!/<html[\s>]/i.test(html) || !/<\/html>/i.test(html)) { showToast('Your HTML must include <html> and </html> tags.'); return; }
-      let full = html;
-      if(css) full = full.replace('</head>',`<style>${css}</style></head>`);
-      if(js) full = full.replace('</body>',`<script>${js}</script></body>`);
-      const blob = new Blob([full],{type:'text/html'});
-      const url = URL.createObjectURL(blob);
-      const apps = getApps();apps.push({name,url});
-      saveApps(apps);
-      renderApps();toggleModal(false);
-      showToast('App submitted! It appears below.');
-    });
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    renderApps();
-  </script>
+  
 </body>
 </html>
