@@ -545,6 +545,15 @@
                 gameRunning = true;
                 requestAnimationFrame(update);
             });
+            // Attach event listeners after DOM elements are defined
+            startBtn.addEventListener('click', startGame);
+            restartBtn.addEventListener('click', startGame);
+            continueBtn.addEventListener('click', () => {
+                levelUpScreen.style.display = 'none';
+                currentQuestion = generateQuestion();
+                gameRunning = true;
+                requestAnimationFrame(update);
+            });
             drawBackground();
         });
     </script>
