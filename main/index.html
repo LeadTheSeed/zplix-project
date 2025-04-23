@@ -144,17 +144,277 @@
   <div class="modal" id="appModal">
     <div class="modal-content">
       <h2>Submit Your App</h2>
-      <input type="text" id="appName" placeholder="App Name (e.g., My Cool App)" />
-      <textarea id="appHTML" placeholder="Paste full HTML here"></textarea>
-      <textarea id="appCSS" placeholder="Paste CSS code here"></textarea>
-      <textarea id="appJS" placeholder="Paste JavaScript code here"></textarea>
-      <div style="text-align:right;">
-        <button id="submitApp">Add App</button>
-        <button id="closeModal" style="background:#ccc; color:#333; margin-left:10px;">Cancel</button>
+      <form id="submitAppForm" autocomplete="off">
+        <input type="text" id="appName" placeholder="App Name (e.g., My Cool App)" required />
+        <select id="appCategory" required>
+          <option value="">Select Category</option>
+          <option value="Utility">Utility</option>
+          <option value="Fun">Fun</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Tools">Tools</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="appKeywords" placeholder="Keywords (comma separated)" required />
+        <textarea id="appCode" placeholder="Paste full HTML/CSS/JS code here" required style="min-height:120px;"></textarea>
+        <div style="text-align:right; margin-top:10px;">
+          <button type="submit" id="submitApp">Add App</button>
+          <button type="button" id="closeModal" style="background:#ccc; color:#333; margin-left:10px;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Admin Login Modal -->
+  <div class="modal" id="adminLoginModal" style="display:none;">
+    <div class="modal-content">
+      <h2>Admin Login</h2>
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password" />
+      <div style="text-align:right; margin-top:10px;">
+        <button id="adminLoginBtn">Login</button>
+        <button id="closeAdminModal" style="background:#ccc; color:#333; margin-left:10px;">Cancel</button>
       </div>
     </div>
   </div>
-
+  <!-- Pending Apps Modal (Admin) -->
+  <div class="modal" id="pendingAppsModal" style="display:none;">
+    <div class="modal-content" style="min-width:320px; max-width:480px;">
+      <h2>Pending App Submissions</h2>
+      <div id="pendingAppsList">
+        <!-- Pending apps will be listed here -->
+      </div>
+      <div style="text-align:right; margin-top:10px;">
+        <button id="closePendingModal" style="background:#ccc; color:#333;">Close</button>
+      </div>
+    </div>
+  </div>
   
+<script>
+// --- LocalStorage Keys ---
+const PENDING_KEY = 'zplix_pending_apps';
+const APPROVED_KEY = 'zplix_approved_apps';
+const ADMIN_LOGGED_KEY = 'zplix_admin_logged';
+
+// --- DOM Elements ---
+const appModal = document.getElementById('appModal');
+const submitAppForm = document.getElementById('submitAppForm');
+const closeModalBtn = document.getElementById('closeModal');
+const grid = document.querySelector('.grid');
+
+const adminLoginModal = document.getElementById('adminLoginModal');
+const adminLoginBtn = document.getElementById('adminLoginBtn');
+const closeAdminModalBtn = document.getElementById('closeAdminModal');
+const adminPasswordInput = document.getElementById('adminPassword');
+
+const pendingAppsModal = document.getElementById('pendingAppsModal');
+const pendingAppsList = document.getElementById('pendingAppsList');
+const closePendingModalBtn = document.getElementById('closePendingModal');
+
+// --- Helper Functions ---
+function showModal(modal) { modal.style.display = 'flex'; }
+function hideModal(modal) { modal.style.display = 'none'; }
+function showToast(msg) {
+  let t = document.createElement('div');
+  t.textContent = msg;
+  t.style.position = 'fixed'; t.style.bottom = '36px'; t.style.left = '50%'; t.style.transform = 'translateX(-50%)';
+  t.style.background = '#4a90e2'; t.style.color = '#fff'; t.style.padding = '12px 32px'; t.style.borderRadius = '8px'; t.style.zIndex = 9999;
+  t.style.fontWeight = '600'; t.style.fontSize = '1.1em'; t.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 1900);
+}
+function getPendingApps() {
+  return JSON.parse(localStorage.getItem(PENDING_KEY) || '[]');
+}
+function setPendingApps(apps) {
+  localStorage.setItem(PENDING_KEY, JSON.stringify(apps));
+}
+function getApprovedApps() {
+  return JSON.parse(localStorage.getItem(APPROVED_KEY) || '[]');
+}
+function setApprovedApps(apps) {
+  localStorage.setItem(APPROVED_KEY, JSON.stringify(apps));
+}
+function isAdminLogged() {
+  return localStorage.getItem(ADMIN_LOGGED_KEY) === '1';
+}
+function setAdminLogged(val) {
+  if(val) localStorage.setItem(ADMIN_LOGGED_KEY, '1');
+  else localStorage.removeItem(ADMIN_LOGGED_KEY);
+}
+
+// --- App Submission Logic ---
+submitAppForm.onsubmit = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('appName').value.trim();
+  const category = document.getElementById('appCategory').value;
+  const keywords = document.getElementById('appKeywords').value.trim();
+  const code = document.getElementById('appCode').value.trim();
+  if(!name || !category || !keywords || !code) {
+    showToast('Please fill in all fields.');
+    return;
+  }
+  const app = {
+    id: 'app_' + Date.now(),
+    name, category, keywords,
+    code,
+    submitted: new Date().toISOString()
+  };
+  const pending = getPendingApps();
+  pending.push(app);
+  setPendingApps(pending);
+  showToast('App submitted for review!');
+  submitAppForm.reset();
+  hideModal(appModal);
+};
+closeModalBtn.onclick = () => { hideModal(appModal); };
+
+// --- Admin Login Logic ---
+document.addEventListener('keydown', function(e) {
+  if(e.ctrlKey && e.key.toLowerCase() === 'a') {
+    showModal(adminLoginModal); adminPasswordInput.value = '';
+    setTimeout(()=>adminPasswordInput.focus(), 100);
+  }
+});
+adminLoginBtn.onclick = function() {
+  if(adminPasswordInput.value === 'Admin') {
+    setAdminLogged(true);
+    hideModal(adminLoginModal);
+    showToast('Admin logged in!');
+    showPendingAppsModal();
+  } else {
+    showToast('Wrong password!');
+  }
+};
+closeAdminModalBtn.onclick = () => { hideModal(adminLoginModal); };
+
+// --- Pending Apps Modal Logic ---
+function showPendingAppsModal() {
+  if(!isAdminLogged()) { showToast('Admin only!'); return; }
+  renderPendingApps();
+  showModal(pendingAppsModal);
+}
+closePendingModalBtn.onclick = () => { hideModal(pendingAppsModal); };
+
+function renderPendingApps() {
+  const pending = getPendingApps();
+  if(!pending.length) {
+    pendingAppsList.innerHTML = '<div style="color:#888; text-align:center; margin:18px 0;">No pending apps.</div>';
+    return;
+  }
+  pendingAppsList.innerHTML = '';
+  pending.forEach((app, idx) => {
+    const div = document.createElement('div');
+    div.style.border = '1px solid #e0e0e0';
+    div.style.borderRadius = '8px';
+    div.style.padding = '10px 12px 8px 12px';
+    div.style.margin = '10px 0';
+    div.style.background = '#fafcff';
+    div.innerHTML = `
+      <b>${app.name}</b> <span style="color:#4a90e2; font-size:0.92em;">[${app.category}]</span><br>
+      <span style="color:#888; font-size:0.97em;">${app.keywords}</span>
+      <pre style="background:#f7f7f7; border-radius:4px; padding:8px; max-height:120px; overflow:auto; font-size:0.93em; margin:8px 0 0 0;">${escapeHTML(app.code).slice(0,400)}${app.code.length>400?'...':''}</pre>
+      <button data-approve="${app.id}" style="background:#4a90e2; color:#fff; border:none; border-radius:5px; padding:5px 14px; margin-right:8px; cursor:pointer;">Approve</button>
+      <button data-disapprove="${app.id}" style="background:#aaa; color:#fff; border:none; border-radius:5px; padding:5px 14px; cursor:pointer;">Disapprove</button>
+    `;
+    pendingAppsList.appendChild(div);
+  });
+  // Approve/Disapprove handlers
+  pendingAppsList.querySelectorAll('button[data-approve]').forEach(btn => {
+    btn.onclick = function() {
+      const id = btn.getAttribute('data-approve');
+      let pending = getPendingApps();
+      const idx = pending.findIndex(a=>a.id===id);
+      if(idx>-1) {
+        let app = pending[idx];
+        pending.splice(idx,1);
+        setPendingApps(pending);
+        let approved = getApprovedApps();
+        approved.push(app);
+        setApprovedApps(approved);
+        showToast('App approved!');
+        renderPendingApps();
+        renderApprovedApps();
+      }
+    };
+  });
+  pendingAppsList.querySelectorAll('button[data-disapprove]').forEach(btn => {
+    btn.onclick = function() {
+      const id = btn.getAttribute('data-disapprove');
+      let pending = getPendingApps();
+      const idx = pending.findIndex(a=>a.id===id);
+      if(idx>-1) {
+        pending.splice(idx,1);
+        setPendingApps(pending);
+        showToast('App disapproved.');
+        renderPendingApps();
+      }
+    };
+  });
+}
+
+// --- Render Approved Apps in Grid ---
+function renderApprovedApps() {
+  // Keep built-in cards
+  const builtIn = Array.from(document.querySelectorAll('.grid .card')).slice(0,3);
+  grid.innerHTML = '';
+  builtIn.forEach(card=>grid.appendChild(card));
+  const apps = getApprovedApps();
+  apps.forEach(app => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <span class="icon">🧩</span>
+      <h3>${escapeHTML(app.name)}</h3>
+      <p style="min-height:40px; color:#555;">${escapeHTML(app.category)}<br><span style="font-size:0.93em; color:#888;">${escapeHTML(app.keywords)}</span></p>
+      <button onclick="openUserApp('${app.id}')" style="margin-top:auto;">Open Tool</button>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+window.openUserApp = function(id) {
+  const app = getApprovedApps().find(a=>a.id===id);
+  if(!app) return alert('App not found!');
+  // Open in preview modal
+  let modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.style.display = 'flex';
+  modal.innerHTML = `<div class="modal-content" style="max-width:650px; min-width:320px;">
+    <h2 style="margin-bottom:8px;">${escapeHTML(app.name)}</h2>
+    <div style="font-size:0.97em; color:#4a90e2; margin-bottom:8px;">${escapeHTML(app.category)} | <span style="color:#888;">${escapeHTML(app.keywords)}</span></div>
+    <iframe srcdoc="${escapeHTMLAttr(app.code)}" style="width:100%; min-height:350px; border:1px solid #eee; border-radius:7px; background:#fff;"></iframe>
+    <div style="text-align:right; margin-top:12px;"><button onclick="this.closest('.modal').remove()" style="background:#ccc; color:#333; border:none; border-radius:5px; padding:6px 18px;">Close</button></div>
+  </div>`;
+  document.body.appendChild(modal);
+};
+
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, function(m) {
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+  });
+}
+function escapeHTMLAttr(str) {
+  // For srcdoc: escape only ", ', and &
+  return str.replace(/[&"]/g, function(m) {
+    return ({'&':'&amp;','"':'&quot;'})[m];
+  }).replace(/'/g,"&#39;");
+}
+
+// --- Show Modals (FAB not yet implemented) ---
+// For demo: show submit modal with Ctrl+S, admin login with Ctrl+A, pending with Ctrl+P
+addEventListener('keydown', function(e) {
+  if(e.ctrlKey && e.key.toLowerCase()==='s') {
+    showModal(appModal);
+    setTimeout(()=>document.getElementById('appName').focus(), 100);
+    e.preventDefault();
+  }
+  if(e.ctrlKey && e.key.toLowerCase()==='p') {
+    showPendingAppsModal();
+    e.preventDefault();
+  }
+});
+
+// --- Initial Render ---
+renderApprovedApps();
+
+</script>
 </body>
 </html>
