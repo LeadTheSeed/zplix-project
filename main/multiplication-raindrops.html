@@ -322,6 +322,7 @@
             const newLevelElement = document.getElementById('new-level');
             const difficultySelect = document.getElementById('difficulty');
             const speedSelect = document.getElementById('speed');
+            let raindrops = [];
             // Set canvas size
             function resizeCanvas() {
                 canvas.width = canvas.parentElement.clientWidth;
@@ -347,7 +348,7 @@
             let score = 0;
             let lives = 3;
             let level = 1;
-            let raindrops = [];
+            raindrops = [];
             let currentQuestion = {};
             let lastFrameTime = 0;
             let raindropSpeed = 1;
@@ -535,20 +536,13 @@
                 levelUpScreen.style.display = 'none';
                 gameRunning = true;
                 lastRaindropTime = performance.now();
+                createRaindrop();  // spawn first raindrop immediately on game start
                 requestAnimationFrame(update);
             }
+            // Attach button event listeners
             startBtn.addEventListener('click', startGame);
             restartBtn.addEventListener('click', startGame);
-            continueBtn.addEventListener('click', () => {
-                levelUpScreen.style.display = 'none';
-                currentQuestion = generateQuestion();
-                gameRunning = true;
-                requestAnimationFrame(update);
-            });
-            // Attach event listeners after DOM elements are defined
-            startBtn.addEventListener('click', startGame);
-            restartBtn.addEventListener('click', startGame);
-            continueBtn.addEventListener('click', () => {
+            continueBtn.addEventListener('click', function() {
                 levelUpScreen.style.display = 'none';
                 currentQuestion = generateQuestion();
                 gameRunning = true;
