@@ -1032,10 +1032,10 @@
             <input type="text" id="name" name="name" required>
           </div>
           
-          <div class="form-group">
+          <div class="form-group" id="country-group" style="display: none;">
             <label for="country" class="ar">الدولة</label>
             <label for="country" class="en">Country</label>
-            <input type="text" id="country" name="country" required>
+            <input type="text" id="country" name="country" value="الأردن">
           </div>
           
           <div class="form-group">
@@ -1094,6 +1094,30 @@
     
     document.addEventListener('DOMContentLoaded', function() {
       const whatsappForm = document.getElementById('whatsapp-form');
+      const countryGroup = document.getElementById('country-group');
+      const locationRadios = document.querySelectorAll('input[name="location"]');
+      
+      // Function to toggle country field visibility
+      function toggleCountryField() {
+        const locationValue = document.querySelector('input[name="location"]:checked').value;
+        if (locationValue === 'outside') {
+          countryGroup.style.display = 'block';
+          document.getElementById('country').setAttribute('required', 'required');
+        } else {
+          countryGroup.style.display = 'none';
+          document.getElementById('country').removeAttribute('required');
+          document.getElementById('country').value = 'الأردن'; // Set default to Jordan
+        }
+      }
+      
+      // Initial toggle based on default selection
+      toggleCountryField();
+      
+      // Add event listeners to radio buttons
+      locationRadios.forEach(radio => {
+        radio.addEventListener('change', toggleCountryField);
+      });
+      
       
       whatsappForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1109,15 +1133,15 @@
         
         if (isArabic) {
           if (location === 'inside') {
-            message = `مرحباً، أنا ${name} من ${city}، ${country}. أود الاستفسار عن فرص توزيع منتجات بريتي سكن داخل الأردن.`;
+            message = `مرحباً، أنا ${name} من ${city}. أود الاستفسار عن فرص توزيع منتجات بريتي سكن داخل الأردن. (وصلت من خلال صفحة zplix)`;
           } else {
-            message = `مرحباً، أنا ${name} من ${city}، ${country}. أود الاستفسار عن فرص توزيع منتجات بريتي سكن خارج الأردن.`;
+            message = `مرحباً، أنا ${name} من ${city}، ${country}. أود الاستفسار عن فرص توزيع منتجات بريتي سكن خارج الأردن. (وصلت من خلال صفحة zplix)`;
           }
         } else {
           if (location === 'inside') {
-            message = `Hello, I am ${name} from ${city}, ${country}. I would like to inquire about PRETTYSKIN distribution opportunities within Jordan.`;
+            message = `Hello, I am ${name} from ${city}. I would like to inquire about PRETTYSKIN distribution opportunities within Jordan. (Reached through zplix page)`;
           } else {
-            message = `Hello, I am ${name} from ${city}, ${country}. I would like to inquire about PRETTYSKIN distribution opportunities outside Jordan.`;
+            message = `Hello, I am ${name} from ${city}, ${country}. I would like to inquire about PRETTYSKIN distribution opportunities outside Jordan. (Reached through zplix page)`;
           }
         }
         
