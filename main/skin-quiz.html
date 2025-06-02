@@ -90,7 +90,7 @@
     /* Header */
     header {
       text-align: center;
-      padding: 40px 0;
+      padding: 15px 0;
     }
     
     .logo {
@@ -109,32 +109,35 @@
       background-color: white;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      padding: 30px;
-      margin: 30px auto;
+      padding: 20px;
+      margin: 10px auto;
       max-width: 800px;
     }
     
     .quiz-step {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
     }
     
     .quiz-step h3 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
       color: #333;
       text-align: center;
     }
     
     .quiz-options {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      flex-wrap: nowrap;
+      gap: 10px;
       justify-content: center;
+      overflow-x: auto;
+      padding: 10px 0;
     }
     
     .quiz-option {
-      width: 180px;
-      padding: 20px;
+      min-width: 120px;
+      flex: 1;
+      padding: 15px 10px;
       background-color: #f9f9f9;
       border-radius: 15px;
       text-align: center;
@@ -290,15 +293,11 @@
 
   <div class="container">
     <header>
-      <img src="images/prettyskin/logo.png" alt="PRETTYSKIN Logo" class="logo">
-      <h1>
+      <img src="images/prettyskin/logo.png" alt="PRETTYSKIN Logo" class="logo" style="max-width: 120px; margin: 10px auto;">
+      <h2 style="margin-bottom: 10px;">
         <span class="ar">اختبار نوع البشرة المثالي</span>
         <span class="en">Perfect Skin Type Quiz</span>
-      </h1>
-      <p>
-        <span class="ar">اكتشف واقي الشمس المثالي لبشرتك في خطوتين بسيطتين!</span>
-        <span class="en">Discover your perfect sunscreen in just two simple steps!</span>
-      </p>
+      </h2>
     </header>
 
     <div class="quiz-container">
@@ -430,6 +429,7 @@
         </div>
       </div>
       
+      <!-- Quiz Nav -->
       <div class="quiz-nav">
         <button id="quiz-prev" class="quiz-btn" style="display: none;">
           <span class="ar">السابق</span>
@@ -485,7 +485,7 @@
       let selectedSkinType = '';
       let selectedConcern = '';
       
-      // Add click event to options
+      // Add click event to options - automatically move to next step when option is clicked
       quizOptions.forEach(option => {
         option.addEventListener('click', function() {
           // Remove selected class from siblings
@@ -497,44 +497,31 @@
           // Add selected class to clicked option
           this.classList.add('selected');
           
-          // Store the selection
+          // Store the selection and move to next step
           if (currentStep === 1) {
             selectedSkinType = this.getAttribute('data-type');
+            // Move to step 2 after a short delay to show selection
+            setTimeout(() => {
+              document.getElementById('quiz-step-1').style.display = 'none';
+              document.getElementById('quiz-step-2').style.display = 'block';
+              prevBtn.style.display = 'inline-block';
+              currentStep = 2;
+            }, 400); // Short delay to see the selection
           } else if (currentStep === 2) {
             selectedConcern = this.getAttribute('data-concern');
+            // Move to results after a short delay to show selection
+            setTimeout(() => {
+              document.getElementById('quiz-step-2').style.display = 'none';
+              document.getElementById('quiz-results').style.display = 'block';
+              restartBtn.style.display = 'inline-block';
+              showRecommendation(selectedSkinType, selectedConcern);
+              currentStep = 3;
+            }, 400); // Short delay to see the selection
           }
         });
       });
       
-      // Next button handler
-      nextBtn.addEventListener('click', function() {
-        const currentStepDiv = document.getElementById(`quiz-step-${currentStep}`);
-        const selectedOption = currentStepDiv.querySelector('.quiz-option.selected');
-        
-        if (!selectedOption && currentStep < 3) {
-          // Alert user to select an option
-          alert(document.body.classList.contains('rtl') ? 
-                'الرجاء اختيار إجابة قبل المتابعة' : 
-                'Please select an option before continuing');
-          return;
-        }
-        
-        if (currentStep === 1) {
-          // Move to step 2
-          document.getElementById('quiz-step-1').style.display = 'none';
-          document.getElementById('quiz-step-2').style.display = 'block';
-          prevBtn.style.display = 'inline-block';
-          currentStep = 2;
-        } else if (currentStep === 2) {
-          // Show results
-          document.getElementById('quiz-step-2').style.display = 'none';
-          document.getElementById('quiz-results').style.display = 'block';
-          nextBtn.style.display = 'none';
-          restartBtn.style.display = 'inline-block';
-          showRecommendation(selectedSkinType, selectedConcern);
-          currentStep = 3;
-        }
-      });
+      // We've removed the Next button, so we handle the step transition directly when an option is clicked
       
       // Previous button handler
       prevBtn.addEventListener('click', function() {
