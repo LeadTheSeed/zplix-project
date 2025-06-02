@@ -796,17 +796,26 @@
       display: none;
       text-align: center;
       padding: 20px;
-      max-width: 300px;
+      max-width: 400px;
       margin: 0 auto;
       animation: fadeIn 0.5s ease;
     }
     
-    .result-container img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
+    .result-container img.result-product-image {
+      width: 280px;
+      height: auto;
+      object-fit: contain;
       border-radius: 10px;
-      margin-bottom: 15px;
+      margin: 20px auto;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+    }
+    
+    .result-container img.result-product-image:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
     
     @keyframes fadeIn {
@@ -1110,40 +1119,16 @@
           <span class="en">Result: Your Perfect Sunscreen</span>
         </h3>
         <div class="result-container" id="result-yellow">
-          <img src="images/prettyskin/daily-moisture-2.jpeg" alt="Daily Moisture Sun Cream" />
-          <h4>
-            <span class="ar">سن كريم الترطيب اليومي</span>
-            <span class="en">Daily Moisture Sun Cream</span>
-          </h4>
-          <p class="ar">مثالي للبشرة المختلطة والعادية، يوفر ترطيبًا متوازنًا مع حماية عالية من الشمس</p>
-          <p class="en">Perfect for combination and normal skin, provides balanced hydration with high sun protection</p>
+          <img src="images/prettyskin/daily-moisture-1.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
         </div>
         <div class="result-container" id="result-white">
-          <img src="images/prettyskin/no-sebum-1.jpeg" alt="No-sebum Tone Up Sun Cream" />
-          <h4>
-            <span class="ar">سن كريم بدون زيوت</span>
-            <span class="en">No-sebum Tone Up Sun Cream</span>
-          </h4>
-          <p class="ar">مثالي للبشرة الدهنية، يتحكم في إفراز الزيوت مع توفير حماية من الشمس</p>
-          <p class="en">Ideal for oily skin, controls oil production while providing sun protection</p>
+          <img src="images/prettyskin/no-sebum-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
         </div>
         <div class="result-container" id="result-green">
-          <img src="images/prettyskin/super-aqua-1.jpeg" alt="Super Aqua Sun Cream" />
-          <h4>
-            <span class="ar">سن كريم سوبر أكوا</span>
-            <span class="en">Super Aqua Sun Cream</span>
-          </h4>
-          <p class="ar">مثالي للبشرة الجافة، يوفر ترطيبًا مكثفًا وتهدئة للبشرة مع حماية من الشمس</p>
-          <p class="en">Perfect for dry skin, provides intensive hydration and soothing effect with sun protection</p>
+          <img src="images/prettyskin/super-aqua-2.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
         </div>
         <div class="result-container" id="result-pink">
-          <img src="images/prettyskin/pink-tone-1.jpeg" alt="Pink Tone Up Sun Cream" />
-          <h4>
-            <span class="ar">سن كريم بينك تون أب</span>
-            <span class="en">Pink Tone Up Sun Cream</span>
-          </h4>
-          <p class="ar">مثالي للبشرة الباهتة، يمنح إشراقة فورية مع تأثير تفتيح وحماية من الشمس</p>
-          <p class="en">Perfect for dull skin, gives instant radiance with brightening effect and sun protection</p>
+          <img src="images/prettyskin/pink-tone-2.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
         </div>
       </div>
       
