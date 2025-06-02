@@ -411,7 +411,7 @@
     function updateWhatsAppLink() {
       const whatsappLink = document.getElementById('whatsapp-link');
       const isArabic = document.body.classList.contains('rtl');
-      const phone = '+962790468328';
+      const phone = '962790468328'; // Removed the + sign as it's handled in the URL format
       let message = '';
       
       if (isArabic) {
@@ -420,7 +420,7 @@
         message = encodeURIComponent('Hello, I would like to inquire about PRETTYSKIN sunscreen products. Can you provide me with more information?');
       }
       
-      whatsappLink.href = `https://wa.me/${phone}?text=${message}`;
+      whatsappLink.href = `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
     }
     
     // Initialize WhatsApp link on page load
