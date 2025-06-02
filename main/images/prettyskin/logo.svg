@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="240" height="80" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .logo-text {
+      font-family: Arial, sans-serif;
+      font-weight: 300;
+      font-size: 38px;
+      letter-spacing: 3px;
+      fill: #555;
+    }
+    .logo-text-accent {
+      font-weight: 700;
+      fill: #ff80ab;
+    }
+  </style>
+  <rect width="240" height="80" fill="white"/>
+  <text x="20" y="50" class="logo-text">PRETTY<tspan class="logo-text-accent">SKIN</tspan></text>
+  <rect x="80" y="60" width="80" height="3" rx="1.5" fill="url(#gradient)" />
+  
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff80ab"/>
+      <stop offset="50%" stop-color="#ff9eb5"/>
+      <stop offset="100%" stop-color="#ff80ab"/>
+    </linearGradient>
+  </defs>
+</svg>
