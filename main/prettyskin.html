@@ -367,11 +367,13 @@
     </div>
     <p class="ar">السعر يشمل التوصيل لجميع مناطق الأردن</p>
     <p class="en">Price includes delivery to all areas in Jordan</p>
-    <a href="https://wa.me/+962XXXXXXXX" class="cta-button">
-      <span class="ar">تواصل معنا للطلب</span>
-      <span class="en">Contact Us to Order</span>
+    <a href="#" id="whatsapp-link" class="cta-button">
+      <span class="ar">تواصل معنا عبر واتساب</span>
+      <span class="en">Contact Us via WhatsApp</span>
     </a>
   </section>
+  
+
 
   <footer>
     <p>
@@ -398,7 +400,33 @@
         body.classList.add('rtl');
         body.setAttribute('lang', 'ar');
       }
+      
+      // Update WhatsApp link when language changes
+      if (typeof updateWhatsAppLink === 'function') {
+        updateWhatsAppLink();
+      }
     }
+    
+    // WhatsApp link with dynamic message based on language
+    function updateWhatsAppLink() {
+      const whatsappLink = document.getElementById('whatsapp-link');
+      const isArabic = document.body.classList.contains('rtl');
+      const phone = '+962790468328';
+      let message = '';
+      
+      if (isArabic) {
+        message = encodeURIComponent('مرحباً، أود الاستفسار عن منتجات بريتي سكن واقي الشمس. هل يمكنكم تزويدي بمزيد من المعلومات؟');
+      } else {
+        message = encodeURIComponent('Hello, I would like to inquire about PRETTYSKIN sunscreen products. Can you provide me with more information?');
+      }
+      
+      whatsappLink.href = `https://wa.me/${phone}?text=${message}`;
+    }
+    
+    // Initialize WhatsApp link on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateWhatsAppLink();
+    });
   </script>
 </body>
 </html>
