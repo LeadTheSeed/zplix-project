@@ -69,7 +69,15 @@
       width: 100% !important;
     }
     
-    @media (min-width: 768px) {
+    /* Portrait mode - always 2x2 grid */
+    @media screen and (orientation: portrait) {
+      .quiz-options {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    
+    /* Desktop view - 4 columns */
+    @media (min-width: 768px) and (orientation: landscape) {
       .quiz-options {
         grid-template-columns: repeat(4, 1fr) !important;
       }
