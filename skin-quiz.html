@@ -101,18 +101,33 @@
     
     .result-container {
       display: none;
-      text-align: center;
-      max-width: 600px;
+      max-width: 900px;
       margin: 0 auto;
       animation: fadeIn 0.5s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: left;
+    }
+    
+    .rtl .result-container {
+      text-align: right;
+      flex-direction: row-reverse;
+    }
+    
+    .result-product-image-container {
+      flex: 0 0 280px;
     }
     
     .result-container img.result-product-image {
-      width: 280px;
+      width: 100%;
       height: auto;
+      max-width: 280px;
       object-fit: contain;
       border-radius: 10px;
-      margin: 20px auto;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       background: rgba(255, 255, 255, 0.8);
@@ -125,7 +140,8 @@
     }
     
     .result-explanation {
-      margin-top: 25px;
+      flex: 1;
+      min-width: 280px;
       padding: 20px;
       background-color: rgba(255, 255, 255, 0.9);
       border-radius: 15px;
@@ -145,7 +161,6 @@
       line-height: 1.6;
       margin-bottom: 15px;
       font-size: 16px;
-      text-align: center;
     }
     
     .rtl .result-explanation p.ar {
@@ -353,7 +368,9 @@
           <span class="en">Result: Your Perfect Sunscreen</span>
         </h3>
         <div class="result-container" id="result-yellow">
-          <img src="main/images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+          <div class="result-product-image-container">
+            <img src="main/images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+          </div>
           <div class="result-explanation">
             <h4>
               <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
@@ -364,7 +381,9 @@
           </div>
         </div>
         <div class="result-container" id="result-white">
-          <img src="main/images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-product-image-container">
+            <img src="main/images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+          </div>
           <div class="result-explanation">
             <h4>
               <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
@@ -375,7 +394,9 @@
           </div>
         </div>
         <div class="result-container" id="result-green">
-          <img src="main/images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+          <div class="result-product-image-container">
+            <img src="main/images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+          </div>
           <div class="result-explanation">
             <h4>
               <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
@@ -386,7 +407,9 @@
           </div>
         </div>
         <div class="result-container" id="result-pink">
-          <img src="main/images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-product-image-container">
+            <img src="main/images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+          </div>
           <div class="result-explanation">
             <h4>
               <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
