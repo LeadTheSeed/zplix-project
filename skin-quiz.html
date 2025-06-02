@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PRETTYSKIN - اختبار نوع البشرة</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap">
   <style>
@@ -14,6 +14,19 @@
       padding: 20px;
       margin: 10px auto;
       max-width: 800px;
+      width: 100%;
+    }
+    
+    @media (max-width: 576px) {
+      .quiz-container {
+        padding: 15px;
+        border-radius: 15px;
+      }
+      
+      .quiz-step h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
     }
     
     .quiz-step {
@@ -34,6 +47,27 @@
       justify-content: center;
       overflow-x: auto;
       padding: 10px 0;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+    
+    .quiz-options::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome/Safari */
+    }
+    
+    @media (max-width: 576px) {
+      .quiz-option {
+        min-width: 100px;
+        padding: 10px 5px;
+      }
+      
+      .option-icon {
+        font-size: 1.8rem;
+      }
+      
+      .quiz-option h4 {
+        font-size: 0.9rem;
+      }
     }
     
     .quiz-option {
@@ -99,6 +133,21 @@
       color: #333;
     }
     
+    @media (max-width: 576px) {
+      .quiz-results h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+      
+      .result-explanation h4 {
+        font-size: 1.1rem;
+      }
+      
+      .result-explanation p {
+        font-size: 0.95rem;
+      }
+    }
+    
     .result-container {
       display: none;
       max-width: 900px;
@@ -111,6 +160,32 @@
       flex-wrap: nowrap;
       gap: 30px;
       text-align: left;
+    }
+    
+    /* Responsive styles for mobile and tablet */
+    @media (max-width: 768px) {
+      .result-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      
+      .rtl .result-container {
+        flex-direction: column;
+      }
+      
+      .result-explanation {
+        max-width: 100%;
+        order: 2;
+      }
+      
+      .result-product-image-container {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+        order: 1;
+      }
     }
     
     .rtl .result-container {
@@ -228,8 +303,16 @@
     
     .container {
       max-width: 1200px;
+      width: 100%;
       margin: 0 auto;
       padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 15px 10px;
+      }
     }
     
     /* Language Switcher */
