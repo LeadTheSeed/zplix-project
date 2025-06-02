@@ -358,29 +358,6 @@
     .usage-image-container {
       flex: 1;
       min-width: 300px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-    
-    .usage-main-image {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-      max-height: 350px;
-      object-fit: cover;
-    }
-    
-    .usage-main-image:hover {
-      transform: scale(1.03);
-    }
-    
-    .usage-steps {
-      flex: 1;
-      min-width: 300px;
     }
     
     .step {
@@ -795,8 +772,7 @@
     .result-container {
       display: none;
       text-align: center;
-      padding: 20px;
-      max-width: 400px;
+      max-width: 600px;
       margin: 0 auto;
       animation: fadeIn 0.5s ease;
     }
@@ -816,6 +792,38 @@
     .result-container img.result-product-image:hover {
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .result-explanation {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.7s ease 0.3s forwards;
+      opacity: 0;
+    }
+    
+    .result-explanation h4 {
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .result-explanation p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+    
+    .rtl .result-explanation p.ar {
+      text-align: right;
+    }
+    
+    .ltr .result-explanation p.en {
+      text-align: left;
     }
     
     @keyframes fadeIn {
@@ -1120,15 +1128,47 @@
         </h3>
         <div class="result-container" id="result-yellow">
           <img src="images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم الترطيب اليومي لأنه يوفر توازنًا مثاليًا بين الترطيب والحماية. هذا المنتج مثالي للبشرة المختلطة والعادية، مما يجعله خيارًا مناسبًا للاستخدام اليومي مع الحفاظ على نضارة البشرة دون إثقالها.</p>
+            <p class="en">Based on your quiz answers, we recommend the Daily Moisture Sun Cream because it provides the perfect balance of hydration and protection. This product is ideal for combination and normal skin, making it a suitable choice for everyday use while keeping your skin fresh without feeling heavy.</p>
+          </div>
         </div>
         <div class="result-container" id="result-white">
           <img src="images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بدون زيوت لأنه مصمم خصيصًا للبشرة الدهنية أو المختلطة المائلة للدهنية. هذا المنتج يتحكم في إفراز الزيوت الزائدة مع توفير حماية مثالية من الشمس، ويساعد على تفتيح لون البشرة دون ترك أي لمعان غير مرغوب فيه.</p>
+            <p class="en">Based on your quiz answers, we recommend the No-sebum Tone Up Sun Cream because it's specifically designed for oily or combination-oily skin. This product controls excess oil production while providing optimal sun protection, and helps brighten your skin tone without leaving any unwanted shine.</p>
+          </div>
         </div>
         <div class="result-container" id="result-green">
           <img src="images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم سوبر أكوا لأنه يوفر ترطيبًا مكثفًا مثاليًا للبشرة الجافة أو الحساسة. يحتوي على مستخلصات طبيعية مهدئة تعمل على تخفيف التهيج والاحمرار، مع توفير حماية فعالة من أشعة الشمس الضارة دون أي شعور بالثقل.</p>
+            <p class="en">Based on your quiz answers, we recommend the Super Aqua Sun Cream because it provides intensive hydration perfect for dry or sensitive skin. It contains natural soothing extracts that work to reduce irritation and redness, while providing effective protection from harmful sun rays without any heavy feeling.</p>
+          </div>
         </div>
         <div class="result-container" id="result-pink">
           <img src="images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بينك تون أب لأنه مثالي لمن يبحثون عن واقي شمس خفيف لا يترك آثارًا بيضاء ولا يشعر بالثقل على البشرة. يتميز بتركيبته الخفيفة التي تمنح البشرة إشراقة فورية، ويعمل كقاعدة مثالية للمكياج مع توفير حماية عالية من الأشعة فوق البنفسجية.</p>
+            <p class="en">Based on your quiz answers, we recommend the Pink Tone Up Sun Cream because it's perfect for those looking for a lightweight sunscreen that doesn't leave white cast or feel heavy on the skin. It features a lightweight formula that gives your skin an instant radiance, and works as a perfect makeup base while providing high UV protection.</p>
+          </div>
         </div>
       </div>
       
