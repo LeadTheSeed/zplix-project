@@ -121,6 +121,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s, box-shadow 0.3s;
       text-align: center;
+      padding-bottom: 20px;
     }
     
     .product-card:hover {
@@ -128,14 +129,352 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     }
     
-    .product-header {
+    .product-image {
       height: 200px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .yellow-product {
+      border-top: 5px solid var(--yellow-cream);
+    }
+    
+    .white-product {
+      border-top: 5px solid var(--pink-cream);
+    }
+    
+    .green-product {
+      border-top: 5px solid var(--aqua-cream);
+    }
+    
+    .pink-product {
+      border-top: 5px solid var(--tone-up-pink);
+    }
+    
+    .product-features {
+      padding: 0 15px;
+    }
+    
+    .feature {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .feature .icon {
+      font-size: 1.5em;
+      margin-bottom: 5px;
+    }
+    
+    /* Testimonials section */
+    .testimonials-section {
+      background: linear-gradient(135deg, #eaf6ff 0%, #f5f5f5 100%);
+      padding: 60px 20px;
+      text-align: center;
+      margin: 50px 0;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-gap: 30px;
+      margin-top: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .testimonial-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    
+    .testimonial-card:before {
+      content: '\201C';
+      font-size: 5em;
+      color: rgba(74, 144, 226, 0.1);
+      position: absolute;
+      top: -15px;
+      left: 10px;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .testimonial-author {
       font-weight: bold;
-      font-size: 1.8em;
+      color: var(--primary-color);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+    }
+    
+    .faq-question {
+      font-weight: 700;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-question:after {
+      content: '+';
+      font-size: 1.5em;
+      transition: transform 0.3s;
+    }
+    
+    .faq-question.active:after {
+      content: '-';
+    }
+    
+    .faq-answer {
+      display: none;
+      padding: 10px 0;
+      line-height: 1.6;
+    }
+    
+    .faq-answer.show {
+      display: block;
+    }
+    
+    /* FAQ Image Galleries */
+    .ingredient-images, .usage-images, .product-comparison {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    
+    .ingredient-image, .usage-image {
+      max-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .collection-image {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .ingredient-image:hover, .usage-image:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Usage Section Styles */
+    .usage-section {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #eaf6ff 100%);
+      margin: 50px 0;
+    }
+    
+    .usage-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 40px auto 0;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .usage-image-container {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .usage-main-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      max-height: 350px;
+      object-fit: cover;
+    }
+    
+    .usage-main-image:hover {
+      transform: scale(1.03);
+    }
+    
+    .usage-steps {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .step {
+      display: flex;
+      margin-bottom: 25px;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      background: var(--primary-color);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    .step-content p {
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    /* RTL adjustments for usage steps */
+    .rtl .step {
+      flex-direction: row-reverse;
+    }
+    
+    .rtl .step-number {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+    
+    /* Ingredients Section Styles */
+    .ingredients-section {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #f5f5f5 0%, #fffae8 100%);
+      margin: 50px 0;
+    }
+    
+    .ingredients-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 40px auto 0;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    
+    .ingredients-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .ingredient-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .ingredient-item h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    .ingredients-images {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .ingredient-main-image {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    
+    .ingredient-main-image:hover {
+      transform: scale(1.03);
+    }
+    
+    .ingredients-benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 50px auto 0;
+      justify-content: center;
+    }
+    
+    .benefit-item {
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      text-align: center;
+      padding: 25px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .benefit-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .benefit-icon {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+    
+    .benefit-item h4 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    .benefit-item p {
+      margin: 0;
+      line-height: 1.5;
     }
     
     .daily-moisture {
@@ -188,25 +527,81 @@
       margin: 20px 0;
     }
     
-    .language-switch {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      background: #fff;
-      border-radius: 50px;
-      padding: 8px 15px;
+    /* Navigation Menu */
+    .main-nav {
+      background-color: rgba(255, 255, 255, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
+      padding: 10px 0;
+      margin-bottom: 20px;
     }
     
-    .language-switch:hover {
+    .main-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+    
+    .main-nav li {
+      margin: 0 10px;
+    }
+    
+    .main-nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: all 0.3s;
+      display: block;
+    }
+    
+    .main-nav a:hover {
+      background-color: rgba(74, 144, 226, 0.1);
+      color: var(--primary-color);
+    }
+    
+    .main-nav a.order-button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 8px 20px;
+    }
+    
+    .main-nav a.order-button:hover {
+      background-color: #3a7bc8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Responsive navigation */
+    @media (max-width: 768px) {
+      .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .main-nav li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+      }
+      
+      .main-nav a {
+        padding: 10px;
+      }
+    }
+    
+    .language-toggle:hover {
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    body.rtl .language-switch {
+    body.rtl .language-toggle {
       right: 20px;
       left: auto;
     }
@@ -239,10 +634,39 @@
   </style>
 </head>
 <body class="rtl">
-  <div class="language-switch" onclick="toggleLanguage()">
+  <div class="language-toggle" onclick="toggleLanguage()">
     <span class="ar">English</span>
-    <span class="en">العربية</span>
+    <span class="en">عربي</span>
   </div>
+  
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#products">
+        <span class="ar">المنتجات</span>
+        <span class="en">Products</span>
+      </a></li>
+      <li><a href="#usage">
+        <span class="ar">طريقة الاستخدام</span>
+        <span class="en">How To Use</span>
+      </a></li>
+      <li><a href="#ingredients">
+        <span class="ar">المكونات</span>
+        <span class="en">Ingredients</span>
+      </a></li>
+      <li><a href="#testimonials">
+        <span class="ar">آراء العملاء</span>
+        <span class="en">Testimonials</span>
+      </a></li>
+      <li><a href="#faq">
+        <span class="ar">الأسئلة الشائعة</span>
+        <span class="en">FAQ</span>
+      </a></li>
+      <li><a href="#order" class="order-button">
+        <span class="ar">اطلب الآن</span>
+        <span class="en">Order Now</span>
+      </a></li>
+    </ul>
+  </nav>
 
   <header>
     <h1>
@@ -268,93 +692,356 @@
     </a>
   </section>
 
-  <div class="product-container">
+  <section class="products-section" id="products">
     <h2 style="text-align: center;">
-      <span class="ar">مجموعة واقي الشمس بريتي سكن</span>
-      <span class="en">PRETTYSKIN Sunscreen Collection</span>
+      <span class="ar">منتجاتنا</span>
+      <span class="en">Our Products</span>
     </h2>
     <div class="product-grid">
-      <div class="product-card">
-        <div class="product-header daily-moisture">
-          <span class="ar">الترطيب اليومي</span>
-          <span class="en">Daily Moisture</span>
+      <div class="product-card yellow-product">
+        <div class="product-image">
+          <img src="images/prettyskin/daily-moisture-2.jpeg" alt="Daily Moisture Sun Cream" />
         </div>
-        <div class="product-body">
-          <h3 class="product-title">
-            <span class="ar">الترطيب اليومي</span>
-            <span class="en">Daily Moisture</span>
-          </h3>
-          <p class="product-description ar">كريم ترطيب يومي مع حماية من أشعة الشمس، مثالي للاستخدام اليومي، بعبوة صفراء جذابة.</p>
-          <p class="product-description en">Daily moisturizing cream with sun protection, perfect for daily use, in an attractive yellow package.</p>
-          <div class="product-features">
-            <p><strong>SPF 50+</strong></p>
-            <p class="ar">مناسب لجميع أنواع البشرة</p>
-            <p class="en">Suitable for all skin types</p>
+        <h3 class="product-title">
+          <span class="ar">سن كريم الترطيب اليومي</span>
+          <span class="en">Daily Moisture Sun Cream</span>
+        </h3>
+        <div class="product-features">
+          <div class="feature">
+            <span class="icon">☀️</span>
+            <span class="ar">حماية SPF 50+ PA++++</span>
+            <span class="en">SPF 50+ PA++++ Protection</span>
+          </div>
+          <div class="feature">
+            <span class="icon">💧</span>
+            <span class="ar">ترطيب عميق</span>
+            <span class="en">Deep Hydration</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🌱</span>
+            <span class="ar">مناسب للاستخدام اليومي</span>
+            <span class="en">Perfect for Daily Use</span>
           </div>
         </div>
       </div>
       
-      <div class="product-card">
-        <div class="product-header no-sebum">
-          <span class="ar">تون أب بدون دهون</span>
-          <span class="en">No-sebum Tone Up</span>
+      <div class="product-card white-product">
+        <div class="product-image">
+          <img src="images/prettyskin/no-sebum-1.jpeg" alt="No-sebum Tone Up Sun Cream" />
         </div>
-        <div class="product-body">
-          <h3 class="product-title">
-            <span class="ar">تون أب بدون دهون</span>
-            <span class="en">No-sebum Tone Up</span>
-          </h3>
-          <p class="product-description ar">مناسب للبشرة الدهنية، يساعد في التحكم في إفراز الزيوت ويمنح إشراقة طبيعية للبشرة، بعبوة بلون أبيض وردي.</p>
-          <p class="product-description en">Suitable for oily skin, helps control oil secretion and gives the skin a natural glow, in a white and pink package.</p>
-          <div class="product-features">
-            <p><strong>SPF 50+</strong></p>
-            <p class="ar">للبشرة الدهنية</p>
-            <p class="en">For oily skin</p>
+        <h3 class="product-title">
+          <span class="ar">سن كريم بدون زيوت</span>
+          <span class="en">No-sebum Tone Up Sun Cream</span>
+        </h3>
+        <div class="product-features">
+          <div class="feature">
+            <span class="icon">🌟</span>
+            <span class="ar">تحكم بالزيوت</span>
+            <span class="en">Oil Control</span>
+          </div>
+          <div class="feature">
+            <span class="icon">✨</span>
+            <span class="ar">تفتيح البشرة</span>
+            <span class="en">Brightening Effect</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🧴</span>
+            <span class="ar">مثالي للبشرة الدهنية</span>
+            <span class="en">Ideal for Oily Skin</span>
           </div>
         </div>
       </div>
       
-      <div class="product-card">
-        <div class="product-header super-aqua">
-          <span class="ar">سوبر أكوا</span>
-          <span class="en">Super Aqua</span>
+      <div class="product-card green-product">
+        <div class="product-image">
+          <img src="images/prettyskin/super-aqua-1.jpeg" alt="Super Aqua Sun Cream" />
         </div>
-        <div class="product-body">
-          <h3 class="product-title">
-            <span class="ar">سوبر أكوا</span>
-            <span class="en">Super Aqua</span>
-          </h3>
-          <p class="product-description ar">مخصص للترطيب المكثف، مناسب للبشرة الجافة أو الحساسة، بعبوة بلون أبيض وأخضر.</p>
-          <p class="product-description en">Specially formulated for intensive moisturizing, suitable for dry or sensitive skin, in a white and green package.</p>
-          <div class="product-features">
-            <p><strong>SPF 50+</strong></p>
-            <p class="ar">للبشرة الجافة والحساسة</p>
-            <p class="en">For dry and sensitive skin</p>
+        <h3 class="product-title">
+          <span class="ar">سن كريم سوبر أكوا</span>
+          <span class="en">Super Aqua Sun Cream</span>
+        </h3>
+        <div class="product-features">
+          <div class="feature">
+            <span class="icon">🌊</span>
+            <span class="ar">ترطيب مكثف</span>
+            <span class="en">Intensive Moisture</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🛡️</span>
+            <span class="ar">مهدئ للبشرة الحساسة</span>
+            <span class="en">Soothes Sensitive Skin</span>
+          </div>
+          <div class="feature">
+            <span class="icon">🌿</span>
+            <span class="ar">مستخلصات طبيعية</span>
+            <span class="en">Natural Extracts</span>
           </div>
         </div>
       </div>
       
-      <div class="product-card">
-        <div class="product-header pink-tone">
-          <span class="ar">تون أب وردي</span>
-          <span class="en">Pink Tone Up</span>
+      <div class="product-card pink-product">
+        <div class="product-image">
+          <img src="images/prettyskin/pink-tone-1.jpeg" alt="Pink Tone Up Sun Cream" />
         </div>
-        <div class="product-body">
-          <h3 class="product-title">
-            <span class="ar">تون أب وردي</span>
-            <span class="en">Pink Tone Up</span>
-          </h3>
-          <p class="product-description ar">يعطي البشرة إشراقة وردية ويعمل على تفتيح اللون مع الحماية من الشمس، بعبوة وردية بالكامل.</p>
-          <p class="product-description en">Gives the skin a pink glow and works to lighten the color with protection from the sun, in a fully pink package.</p>
-          <div class="product-features">
-            <p><strong>SPF 50+</strong></p>
-            <p class="ar">لإشراقة وردية</p>
-            <p class="en">For a pink glow</p>
+        <h3 class="product-title">
+          <span class="ar">سن كريم بينك تون أب</span>
+          <span class="en">Pink Tone Up Sun Cream</span>
+        </h3>
+        <div class="product-features">
+          <div class="feature">
+            <span class="icon">🌸</span>
+            <span class="ar">إشراقة وردية</span>
+            <span class="en">Pink Radiance</span>
+          </div>
+          <div class="feature">
+            <span class="icon">✨</span>
+            <span class="ar">تفتيح فوري</span>
+            <span class="en">Instant Brightening</span>
+          </div>
+          <div class="feature">
+            <span class="icon">💄</span>
+            <span class="ar">مثالي كأساس للمكياج</span>
+            <span class="en">Perfect Makeup Base</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section class="usage-section" id="usage">
+    <h2>
+      <span class="ar">طريقة الاستخدام</span>
+      <span class="en">How To Use</span>
+    </h2>
+    
+    <div class="usage-container">
+      <div class="usage-image-container">
+        <img src="images/prettyskin/usage-demo-1.jpeg" alt="Application Method" class="usage-main-image">
+        <img src="images/prettyskin/usage-demo-2.jpeg" alt="Application Result" class="usage-main-image">
+      </div>
+      
+      <div class="usage-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>
+              <span class="ar">نظف بشرتك</span>
+              <span class="en">Clean Your Skin</span>
+            </h3>
+            <p class="ar">تأكد من أن بشرتك نظيفة وجافة قبل وضع واقي الشمس.</p>
+            <p class="en">Ensure your skin is clean and dry before applying sunscreen.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>
+              <span class="ar">ضع كمية مناسبة</span>
+              <span class="en">Apply Proper Amount</span>
+            </h3>
+            <p class="ar">ضع كمية كافية من الكريم بحجم حبة البازلاء للوجه والرقبة.</p>
+            <p class="en">Use a pea-sized amount for face and neck coverage.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>
+              <span class="ar">وزع بالتساوي</span>
+              <span class="en">Distribute Evenly</span>
+            </h3>
+            <p class="ar">وزع الكريم بالتساوي على الوجه والرقبة والمناطق المعرضة للشمس.</p>
+            <p class="en">Spread the cream evenly across your face, neck, and sun-exposed areas.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>
+              <span class="ar">أعد وضعه بانتظام</span>
+              <span class="en">Reapply Regularly</span>
+            </h3>
+            <p class="ar">أعد وضع واقي الشمس كل ساعتين إلى ثلاث ساعات أو بعد السباحة أو التعرق.</p>
+            <p class="en">Reapply sunscreen every 2-3 hours or after swimming or sweating.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ingredients-section" id="ingredients">
+    <h2>
+      <span class="ar">مكونات منتجاتنا</span>
+      <span class="en">Our Ingredients</span>
+    </h2>
+    
+    <div class="ingredients-container">
+      <div class="ingredients-info">
+        <div class="ingredient-item">
+          <h3>
+            <span class="ar">حمض الهيالورونيك</span>
+            <span class="en">Hyaluronic Acid</span>
+          </h3>
+          <p class="ar">يساعد على ترطيب البشرة بعمق ويحتفظ بالماء في البشرة، مما يجعلها تبدو أكثر امتلاءً ونعومة.</p>
+          <p class="en">Helps deeply hydrate the skin and retain water, making it appear plumper and smoother.</p>
+        </div>
+        
+        <div class="ingredient-item">
+          <h3>
+            <span class="ar">النياسيناميد</span>
+            <span class="en">Niacinamide</span>
+          </h3>
+          <p class="ar">يساعد على تقليل المسامات وتحسين لون البشرة وتقليل الالتهابات.</p>
+          <p class="en">Helps reduce pore size, improve skin tone, and reduce inflammation.</p>
+        </div>
+        
+        <div class="ingredient-item">
+          <h3>
+            <span class="ar">مستخلص الشاي الأخضر</span>
+            <span class="en">Green Tea Extract</span>
+          </h3>
+          <p class="ar">غني بمضادات الأكسدة التي تحمي البشرة من الأضرار البيئية وتهدئ البشرة الحساسة.</p>
+          <p class="en">Rich in antioxidants that protect the skin from environmental damage and soothe sensitive skin.</p>
+        </div>
+      </div>
+      
+      <div class="ingredients-images">
+        <img src="images/prettyskin/ingredients-1.jpeg" alt="Ingredients List" class="ingredient-main-image">
+        <img src="images/prettyskin/ingredients-3.jpeg" alt="Ingredients Details" class="ingredient-main-image">
+      </div>
+    </div>
+    
+    <div class="ingredients-benefits">
+      <div class="benefit-item">
+        <div class="benefit-icon">☀️</div>
+        <h4>
+          <span class="ar">حماية من الأشعة فوق البنفسجية</span>
+          <span class="en">UV Protection</span>
+        </h4>
+        <p class="ar">تحمي البشرة من أشعة UVA و UVB الضارة.</p>
+        <p class="en">Protects skin from harmful UVA and UVB rays.</p>
+      </div>
+      
+      <div class="benefit-item">
+        <div class="benefit-icon">🌱</div>
+        <h4>
+          <span class="ar">مكونات طبيعية</span>
+          <span class="en">Natural Ingredients</span>
+        </h4>
+        <p class="ar">تركيبة متوازنة من المكونات الطبيعية والعلمية.</p>
+        <p class="en">Balanced formula of natural and scientific ingredients.</p>
+      </div>
+      
+      <div class="benefit-item">
+        <div class="benefit-icon">🧬</div>
+        <h4>
+          <span class="ar">مناسب لجميع أنواع البشرة</span>
+          <span class="en">Suitable for All Skin Types</span>
+        </h4>
+        <p class="ar">منتجات مخصصة لكل نوع من أنواع البشرة.</p>
+        <p class="en">Specialized products for each skin type.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section" id="testimonials">
+    <h2>
+      <span class="ar">ما يقوله عملاؤنا</span>
+      <span class="en">What Our Customers Say</span>
+    </h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text ar">أحب كريم الترطيب اليومي! إنه خفيف على بشرتي ويمنحني حماية ممتازة من الشمس. لا يترك أي بياض ويمتص بسرعة.</p>
+        <p class="testimonial-text en">I love the Daily Moisture Sun Cream! It's light on my skin and gives me excellent sun protection. It doesn't leave any white cast and absorbs quickly.</p>
+        <p class="testimonial-author">
+          <span class="ar">سارة - عمان</span>
+          <span class="en">Sarah - Amman</span>
+        </p>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text ar">كريم بدون زيوت هو الأفضل لبشرتي الدهنية. يسيطر على اللمعان طوال اليوم ويجعل بشرتي تبدو أكثر نضارة.</p>
+        <p class="testimonial-text en">The No-sebum Sun Cream is the best for my oily skin. It controls shine all day and makes my skin look more refreshed.</p>
+        <p class="testimonial-author">
+          <span class="ar">محمد - إربد</span>
+          <span class="en">Mohammed - Irbid</span>
+        </p>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text ar">كريم بينك تون أب رائع! يمنحني إشراقة فورية ويعمل بشكل ممتاز كأساس للمكياج. أنا معجبة جداً!</p>
+        <p class="testimonial-text en">Pink Tone Up Sun Cream is amazing! It gives me an instant glow and works excellently as a makeup base. I'm so impressed!</p>
+        <p class="testimonial-author">
+          <span class="ar">لينا - العقبة</span>
+          <span class="en">Lina - Aqaba</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <h2>
+      <span class="ar">الأسئلة الشائعة</span>
+      <span class="en">Frequently Asked Questions</span>
+    </h2>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="ar">ما هي المكونات الرئيسية في منتجات بريتي سكن؟</span>
+        <span class="en">What are the main ingredients in PRETTYSKIN products?</span>
+      </div>
+      <div class="faq-answer">
+        <p class="ar">تحتوي منتجات بريتي سكن على مكونات طبيعية ومرطبة مثل الهيالورونيك أسيد، النياسيناميد، مستخلص الشاي الأخضر، وفيتامين إي. تم تصميمها لتوفير حماية من الشمس مع فوائد إضافية للبشرة.</p>
+        <p class="en">PRETTYSKIN products contain natural and moisturizing ingredients such as Hyaluronic Acid, Niacinamide, Green Tea Extract, and Vitamin E. They are designed to provide sun protection with additional skin benefits.</p>
+        <div class="ingredient-images">
+          <img src="images/prettyskin/ingredients-1.jpeg" alt="Ingredients List" class="ingredient-image">
+          <img src="images/prettyskin/ingredients-2.jpeg" alt="Ingredients Details" class="ingredient-image">
+        </div>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="ar">كيف يجب استخدام واقي الشمس؟</span>
+        <span class="en">How should I apply the sunscreen?</span>
+      </div>
+      <div class="faq-answer">
+        <p class="ar">ضع كمية كافية من الكريم على بشرة نظيفة وجافة قبل 20 دقيقة من التعرض للشمس. أعد وضعه كل ساعتين إلى ثلاث ساعات أو بعد السباحة أو التعرق الشديد.</p>
+        <p class="en">Apply a generous amount to clean, dry skin 20 minutes before sun exposure. Reapply every 2-3 hours or after swimming or excessive sweating.</p>
+        <div class="usage-images">
+          <img src="images/prettyskin/usage-demo-1.jpeg" alt="Application Demonstration" class="usage-image">
+        </div>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="ar">ما الفرق بين الأنواع المختلفة من واقيات الشمس؟</span>
+        <span class="en">What's the difference between the different sunscreen types?</span>
+      </div>
+      <div class="faq-answer">
+        <p class="ar">كريم الترطيب اليومي مثالي للاستخدام اليومي. كريم بدون زيوت مثالي للبشرة الدهنية. سوبر أكوا مثالي للبشرة الجافة والحساسة. بينك تون أب يعطي إشراقة وردية ويعمل كأساس للمكياج.</p>
+        <p class="en">Daily Moisture is ideal for everyday use. No-sebum is perfect for oily skin. Super Aqua is best for dry and sensitive skin. Pink Tone Up provides a pink glow and works as a makeup base.</p>
+        <div class="product-comparison">
+          <img src="images/prettyskin/product-collection.jpeg" alt="Product Collection" class="collection-image">
+        </div>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="ar">هل منتجات بريتي سكن مناسبة لجميع أنواع البشرة؟</span>
+        <span class="en">Are PRETTYSKIN products suitable for all skin types?</span>
+      </div>
+      <div class="faq-answer">
+        <p class="ar">نعم، لدينا منتجات مخصصة لجميع أنواع البشرة. نوصي باستخدام كريم بدون زيوت للبشرة الدهنية، وسوبر أكوا للبشرة الجافة والحساسة، وكريم الترطيب اليومي للبشرة العادية.</p>
+        <p class="en">Yes, we have products specialized for all skin types. We recommend No-sebum for oily skin, Super Aqua for dry and sensitive skin, and Daily Moisture for normal skin.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="order-section" id="order">
     <h2>
@@ -425,7 +1112,32 @@
     // Initialize WhatsApp link on page load
     document.addEventListener('DOMContentLoaded', function() {
       updateWhatsAppLink();
+      initFaqAccordion();
     });
+    
+    // FAQ Accordion functionality
+    function initFaqAccordion() {
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          // Toggle active class on the question
+          question.classList.toggle('active');
+          
+          // Get the answer panel
+          const answer = question.nextElementSibling;
+          
+          // Toggle show class on the answer
+          answer.classList.toggle('show');
+        });
+      });
+      
+      // Open the first FAQ item by default
+      if (faqQuestions.length > 0) {
+        faqQuestions[0].classList.add('active');
+        faqQuestions[0].nextElementSibling.classList.add('show');
+      }
+    }
   </script>
 </body>
 </html>
