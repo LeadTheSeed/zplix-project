@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRETTYSKIN واقي الشمس | منتجات كورية للعناية بالبشرة</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234a90e2'/><text x='50' y='60' font-size='50' fill='white' text-anchor='middle' font-family='Arial'>Z</text></svg>">
+  <meta name="description" content="واقي شمس بريتي سكين الكوري بدرجة حماية +SPF 50. منتجات عالية الجودة للعناية بالبشرة متوفرة الآن في الأردن" />
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --accent-color: #FF9E80;
+      --yellow-cream: #FFE082;
+      --pink-cream: #F8BBD0;
+      --aqua-cream: #80DEEA;
+      --tone-up-pink: #F48FB1;
+      --text-color: #333;
+      --light-bg: #f5f5f5;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf6ff 0%, #f5f5f5 100%);
+      color: var(--text-color);
+    }
+    
+    /* Language direction controls */
+    body.ltr {
+      direction: ltr;
+    }
+    
+    body.rtl {
+      direction: rtl;
+    }
+    
+    .en {
+      display: none;
+    }
+    
+    body.ltr .en {
+      display: inline-block;
+    }
+    
+    body.ltr .ar {
+      display: none;
+    }
+    
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 36px 0 24px 0;
+      text-align: center;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 2.7em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('https://images.unsplash.com/photo-1564760055775-d63b17a55c44?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 80px 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .hero h2 {
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.25em;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 15px 35px;
+      background: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.2em;
+      transition: all 0.3s;
+      margin: 10px;
+    }
+    
+    .cta-button:hover {
+      background: #3a80d2;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .product-card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+    
+    .product-header {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.8em;
+    }
+    
+    .daily-moisture {
+      background: var(--yellow-cream);
+      color: #333;
+    }
+    
+    .no-sebum {
+      background: var(--pink-cream);
+      color: #333;
+    }
+    
+    .super-aqua {
+      background: var(--aqua-cream);
+      color: #333;
+    }
+    
+    .pink-tone {
+      background: var(--tone-up-pink);
+      color: #333;
+    }
+    
+    .product-body {
+      padding: 25px;
+    }
+    
+    .product-title {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .product-description {
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    
+    .order-section {
+      background: linear-gradient(135deg, #f5f5f5 0%, #eaf6ff 100%);
+      padding: 60px 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    .price-tag {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 20px 0;
+    }
+    
+    .language-switch {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: #fff;
+      border-radius: 50px;
+      padding: 8px 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .language-switch:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    body.rtl .language-switch {
+      right: 20px;
+      left: auto;
+    }
+    
+    footer {
+      background: #333;
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      
+      .hero {
+        padding: 50px 20px;
+      }
+      
+      .hero h2 {
+        font-size: 1.8em;
+      }
+      
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="rtl">
+  <div class="language-switch" onclick="toggleLanguage()">
+    <span class="ar">English</span>
+    <span class="en">العربية</span>
+  </div>
+
+  <header>
+    <h1>
+      <span class="ar">بريتي سكن</span>
+      <span class="en">PRETTYSKIN</span>
+    </h1>
+    <p>
+      <span class="ar">واقي الشمس الكوري الأصلي +SPF 50</span>
+      <span class="en">Korean Sun Protection SPF 50+</span>
+    </p>
+  </header>
+
+  <section class="hero">
+    <h2>
+      <span class="ar">الحماية المثالية لبشرتك من أشعة الشمس</span>
+      <span class="en">Perfect Protection for Your Skin</span>
+    </h2>
+    <p class="ar">استمتع ببشرة صحية ومحمية مع منتجات بريتي سكن الكورية عالية الجودة. مجموعة من أربعة منتجات مختلفة لتناسب احتياجات بشرتك.</p>
+    <p class="en">Enjoy healthy, protected skin with high-quality Korean PRETTYSKIN products. A collection of four different products to suit your skin's needs.</p>
+    <a href="#order" class="cta-button">
+      <span class="ar">اطلب الآن</span>
+      <span class="en">Order Now</span>
+    </a>
+  </section>
+
+  <div class="product-container">
+    <h2 style="text-align: center;">
+      <span class="ar">مجموعة واقي الشمس بريتي سكن</span>
+      <span class="en">PRETTYSKIN Sunscreen Collection</span>
+    </h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-header daily-moisture">
+          <span class="ar">الترطيب اليومي</span>
+          <span class="en">Daily Moisture</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">
+            <span class="ar">الترطيب اليومي</span>
+            <span class="en">Daily Moisture</span>
+          </h3>
+          <p class="product-description ar">كريم ترطيب يومي مع حماية من أشعة الشمس، مثالي للاستخدام اليومي، بعبوة صفراء جذابة.</p>
+          <p class="product-description en">Daily moisturizing cream with sun protection, perfect for daily use, in an attractive yellow package.</p>
+          <div class="product-features">
+            <p><strong>SPF 50+</strong></p>
+            <p class="ar">مناسب لجميع أنواع البشرة</p>
+            <p class="en">Suitable for all skin types</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-header no-sebum">
+          <span class="ar">تون أب بدون دهون</span>
+          <span class="en">No-sebum Tone Up</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">
+            <span class="ar">تون أب بدون دهون</span>
+            <span class="en">No-sebum Tone Up</span>
+          </h3>
+          <p class="product-description ar">مناسب للبشرة الدهنية، يساعد في التحكم في إفراز الزيوت ويمنح إشراقة طبيعية للبشرة، بعبوة بلون أبيض وردي.</p>
+          <p class="product-description en">Suitable for oily skin, helps control oil secretion and gives the skin a natural glow, in a white and pink package.</p>
+          <div class="product-features">
+            <p><strong>SPF 50+</strong></p>
+            <p class="ar">للبشرة الدهنية</p>
+            <p class="en">For oily skin</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-header super-aqua">
+          <span class="ar">سوبر أكوا</span>
+          <span class="en">Super Aqua</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">
+            <span class="ar">سوبر أكوا</span>
+            <span class="en">Super Aqua</span>
+          </h3>
+          <p class="product-description ar">مخصص للترطيب المكثف، مناسب للبشرة الجافة أو الحساسة، بعبوة بلون أبيض وأخضر.</p>
+          <p class="product-description en">Specially formulated for intensive moisturizing, suitable for dry or sensitive skin, in a white and green package.</p>
+          <div class="product-features">
+            <p><strong>SPF 50+</strong></p>
+            <p class="ar">للبشرة الجافة والحساسة</p>
+            <p class="en">For dry and sensitive skin</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-header pink-tone">
+          <span class="ar">تون أب وردي</span>
+          <span class="en">Pink Tone Up</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-title">
+            <span class="ar">تون أب وردي</span>
+            <span class="en">Pink Tone Up</span>
+          </h3>
+          <p class="product-description ar">يعطي البشرة إشراقة وردية ويعمل على تفتيح اللون مع الحماية من الشمس، بعبوة وردية بالكامل.</p>
+          <p class="product-description en">Gives the skin a pink glow and works to lighten the color with protection from the sun, in a fully pink package.</p>
+          <div class="product-features">
+            <p><strong>SPF 50+</strong></p>
+            <p class="ar">لإشراقة وردية</p>
+            <p class="en">For a pink glow</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="order-section" id="order">
+    <h2>
+      <span class="ar">اطلب الآن</span>
+      <span class="en">Order Now</span>
+    </h2>
+    <div class="price-tag">
+      <span class="ar">١٠ دنانير</span>
+      <span class="en">10 JOD</span>
+    </div>
+    <p class="ar">السعر يشمل التوصيل لجميع مناطق الأردن</p>
+    <p class="en">Price includes delivery to all areas in Jordan</p>
+    <a href="https://wa.me/+962XXXXXXXX" class="cta-button">
+      <span class="ar">تواصل معنا للطلب</span>
+      <span class="en">Contact Us to Order</span>
+    </a>
+  </section>
+
+  <footer>
+    <p>
+      <span class="ar">© 2025 بريتي سكن - جميع الحقوق محفوظة</span>
+      <span class="en">© 2025 PRETTYSKIN - All Rights Reserved</span>
+    </p>
+    <p>
+      <a href="https://www.zplix.com/">
+        <span class="ar">العودة إلى الصفحة الرئيسية</span>
+        <span class="en">Back to Homepage</span>
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleLanguage() {
+      const body = document.body;
+      if (body.classList.contains('rtl')) {
+        body.classList.remove('rtl');
+        body.classList.add('ltr');
+        body.setAttribute('lang', 'en');
+      } else {
+        body.classList.remove('ltr');
+        body.classList.add('rtl');
+        body.setAttribute('lang', 'ar');
+      }
+    }
+  </script>
+</body>
+</html>
