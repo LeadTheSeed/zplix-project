@@ -107,9 +107,9 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 30px;
       text-align: left;
     }
     
@@ -120,6 +120,7 @@
     
     .result-product-image-container {
       flex: 0 0 280px;
+      align-self: flex-start;
     }
     
     .result-container img.result-product-image {
@@ -148,6 +149,8 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       animation: fadeIn 0.7s ease 0.3s forwards;
       opacity: 0;
+      max-width: 60%;
+      align-self: center;
     }
     
     .result-explanation h4 {
@@ -187,7 +190,40 @@
       line-height: 1.6;
       color: #333;
       background-color: #f9f5f2;
-      transition: background-color 0.3s;
+      transition: all 0.5s ease;
+    }
+    
+    /* Product Theme Colors */
+    body.theme-pink {
+      background-color: #fff0f5;
+    }
+    
+    body.theme-green {
+      background-color: #f0fff0;
+    }
+    
+    body.theme-yellow {
+      background-color: #fffaf0;
+    }
+    
+    body.theme-white {
+      background-color: #f8f9fa;
+    }
+    
+    .theme-pink .quiz-btn {
+      background-color: #ff80ab;
+    }
+    
+    .theme-green .quiz-btn {
+      background-color: #66bb6a;
+    }
+    
+    .theme-yellow .quiz-btn {
+      background-color: #ffd54f;
+    }
+    
+    .theme-white .quiz-btn {
+      background-color: #90a4ae;
     }
     
     .container {
@@ -277,7 +313,7 @@
 
   <div class="container">
     <header>
-      <img src="main/images/prettyskin/logo.png" alt="PRETTYSKIN Logo" class="logo" style="max-width: 120px; margin: 10px auto;">
+      <img src="/main/images/prettyskin/logo.png" alt="PRETTYSKIN Logo" class="logo" style="max-width: 120px; margin: 10px auto;">
       <h2 style="margin-bottom: 10px;">
         <span class="ar">اختبار نوع البشرة المثالي</span>
         <span class="en">Perfect Skin Type Quiz</span>
@@ -369,7 +405,7 @@
         </h3>
         <div class="result-container" id="result-yellow">
           <div class="result-product-image-container">
-            <img src="main/images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+            <img src="/main/images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
           </div>
           <div class="result-explanation">
             <h4>
@@ -382,7 +418,7 @@
         </div>
         <div class="result-container" id="result-white">
           <div class="result-product-image-container">
-            <img src="main/images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+            <img src="/main/images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
           </div>
           <div class="result-explanation">
             <h4>
@@ -395,7 +431,7 @@
         </div>
         <div class="result-container" id="result-green">
           <div class="result-product-image-container">
-            <img src="main/images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+            <img src="/main/images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
           </div>
           <div class="result-explanation">
             <h4>
@@ -408,7 +444,7 @@
         </div>
         <div class="result-container" id="result-pink">
           <div class="result-product-image-container">
-            <img src="main/images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+            <img src="/main/images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
           </div>
           <div class="result-explanation">
             <h4>
@@ -583,7 +619,12 @@
         }
         
         // Show the selected result
-        document.getElementById('result-' + resultToShow).style.display = 'block';
+        document.getElementById('result-' + resultToShow).style.display = 'flex';
+        
+        // Change theme color based on product
+        const body = document.body;
+        body.classList.remove('theme-pink', 'theme-green', 'theme-yellow', 'theme-white');
+        body.classList.add('theme-' + resultToShow);
         
         // Update navigation buttons
         quizPrev.style.display = 'inline-block';
