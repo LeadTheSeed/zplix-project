@@ -411,16 +411,15 @@
     function updateWhatsAppLink() {
       const whatsappLink = document.getElementById('whatsapp-link');
       const isArabic = document.body.classList.contains('rtl');
-      const phone = '962790468328'; // Removed the + sign as it's handled in the URL format
-      let message = '';
       
+      // Direct WhatsApp links for each language
       if (isArabic) {
-        message = encodeURIComponent('مرحباً، أود الاستفسار عن منتجات بريتي سكن واقي الشمس. هل يمكنكم تزويدي بمزيد من المعلومات؟');
+        // Arabic message - hardcoded complete URL to avoid encoding issues
+        whatsappLink.href = 'https://wa.me/962790468328?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%20%D8%A8%D8%B1%D9%8A%D8%AA%D9%8A%20%D8%B3%D9%83%D9%86%20%D9%88%D8%A7%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D9%85%D8%B3.%20%D9%87%D9%84%20%D9%8A%D9%85%D9%83%D9%86%D9%83%D9%85%20%D8%AA%D8%B2%D9%88%D9%8A%D8%AF%D9%8A%20%D8%A8%D9%85%D8%B2%D9%8A%D8%AF%20%D9%85%D9%86%20%D8%A7%D9%84%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA%D8%9F';
       } else {
-        message = encodeURIComponent('Hello, I would like to inquire about PRETTYSKIN sunscreen products. Can you provide me with more information?');
+        // English message - hardcoded complete URL to avoid encoding issues
+        whatsappLink.href = 'https://wa.me/962790468328?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20PRETTYSKIN%20sunscreen%20products.%20Can%20you%20provide%20me%20with%20more%20information%3F';
       }
-      
-      whatsappLink.href = `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
     }
     
     // Initialize WhatsApp link on page load
