@@ -69,7 +69,24 @@
       width: 100% !important;
     }
     
-    /* Portrait mode - always 2x2 grid */
+    /* Portrait mode - always 2x2 grid and prevent overflow */
+    @media screen and (max-width: 600px) and (orientation: portrait) {
+      .quiz-options {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+      }
+      .quiz-option {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 10px 5px !important;
+      }
+    }
+    /* Fallback for portrait mode if needed */
     @media screen and (orientation: portrait) {
       .quiz-options {
         grid-template-columns: repeat(2, 1fr) !important;
