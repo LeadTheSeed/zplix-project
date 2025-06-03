@@ -60,36 +60,73 @@
     /* تنسيق خيارات الاختبار بشكل متجاوب */
     .quiz-options {
       display: grid !important;
+      /* Default to 2 columns, will be overridden by landscape/desktop */
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 15px !important;
       padding: 10px !important;
-      max-width: 600px !important;
+      /* Removed max-width: 600px !important; */
       margin: 0 auto !important;
       overflow-x: hidden !important;
       width: 100% !important;
+      max-width: 100% !important; /* Ensure it doesn't exceed parent */
     }
     
-    /* Portrait mode - always 2x2 grid and prevent overflow */
-    @media screen and (max-width: 600px) and (orientation: portrait) {
-      .quiz-options {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
+    /* === AGGRESSIVE PORTRAIT MODE OVERRIDES === */
+    @media screen and (orientation: portrait) {
+      html, body {
+        overflow-x: hidden !important; /* Prevent scrolling on the highest level */
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 100vw !important;
+      }
+      .container { /* Assuming a main page container */
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        box-sizing: border-box !important;
         overflow-x: hidden !important;
       }
-      .quiz-option {
-        min-width: 0 !important;
+      .quiz-container { /* The main box for the quiz */
+        width: 100% !important;
+        max-width: 100% !important; /* Take full width of its parent (.container) */
+        padding: 10px !important; /* Minimal padding inside the quiz box */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .quiz-options { /* The grid for skin type options */
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* Strictly 2 columns */
+        gap: 8px !important; /* Small gap between options */
+        padding: 0 !important; /* No padding on the grid container itself */
+        width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
-        padding: 10px 5px !important;
+        overflow-x: hidden !important; /* Should not be needed if children fit */
       }
-    }
-    /* Fallback for portrait mode if needed */
-    @media screen and (orientation: portrait) {
-      .quiz-options {
-        grid-template-columns: repeat(2, 1fr) !important;
+      .quiz-option { /* Each individual skin type option */
+        display: flex !important; /* Using flex for internal alignment */
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important; /* Take full width of its grid cell */
+        min-width: 0 !important; /* CRITICAL: Allows item to shrink */
+        max-width: 100% !important;
+        padding: 10px 5px !important; /* Padding inside the option button */
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        border: 1px solid #eee !important; /* Optional: to see boundaries */
+        word-break: break-word; /* Handle long text */
+        overflow: hidden; /* Hide internal overflow if any */
+      }
+      .quiz-option h4 {
+        font-size: 0.9rem !important; /* Adjust text size if needed */
+        margin-bottom: 5px !important;
+      }
+      .option-icon {
+          font-size: 1.6rem !important; /* Adjust icon size */
+          margin-bottom: 5px !important;
       }
     }
     
@@ -104,7 +141,7 @@
       .quiz-option {
         padding: 10px 5px !important;
         min-width: auto !important;
-        width: 100% !important;
+        /* width: 100% !important; <-- Removed to avoid conflict, portrait rule will handle width */
         flex: none !important;
       }
       
