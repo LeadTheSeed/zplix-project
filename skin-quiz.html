@@ -106,19 +106,28 @@
         overflow-x: hidden !important; /* Should not be needed if children fit */
       }
       .quiz-option { /* Each individual skin type option */
-        display: flex !important; /* Using flex for internal alignment */
+        display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         width: 100% !important; /* Take full width of its grid cell */
         min-width: 0 !important; /* CRITICAL: Allows item to shrink */
         max-width: 100% !important;
-        padding: 10px 5px !important; /* Padding inside the option button */
+        padding: 8px 4px !important; /* Slightly reduced padding for portrait */
         margin: 0 !important;
         box-sizing: border-box !important;
-        border: 1px solid #eee !important; /* Optional: to see boundaries */
-        word-break: break-word; /* Handle long text */
-        overflow: hidden; /* Hide internal overflow if any */
+        word-break: break-word !important; /* Force word breaking */
+        overflow: hidden !important; /* Hide internal overflow if any */
+        background-color: #f9f9f9 !important;
+        border-radius: 15px !important;
+        cursor: pointer !important;
+        border: 3px solid transparent !important; /* Base border for selection effect */
+      }
+      .quiz-option img, /* Target any image directly inside */
+      .quiz-option .option-icon img { /* Or if icon is an image within .option-icon */
+        max-width: 100% !important; /* Make images responsive */
+        height: auto !important;
+        display: inline-block !important; /* Adjust as needed, inline-block or block */
       }
       .quiz-option h4 {
         font-size: 0.9rem !important; /* Adjust text size if needed */
@@ -173,21 +182,18 @@
     }
     
     .quiz-option {
-      width: 100% !important;
-      min-width: auto !important;
-      max-width: 100% !important;
-      padding: 15px 10px !important;
-      background-color: #f9f9f9 !important;
-      border-radius: 15px !important;
-      text-align: center !important;
-      cursor: pointer !important;
-      transition: all 0.3s ease !important;
-      border: 3px solid transparent !important;
-      display: flex !important;
+      min-width: 0 !important; /* Absolutely crucial for allowing shrinking */
+      max-width: 100% !important; /* Max width relative to its grid cell (1fr) */
+      box-sizing: border-box !important;
+      padding: 12px 8px !important; /* Padding for small screens (might be landscape if not overridden) */
+      margin: 0 !important; /* Ensure no extra margins */
+      word-break: break-word; /* Helps break long words if text is an issue */
+      display: flex !important; 
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      flex: none !important;
+      /* Base visual styles (background, border, etc.) are now expected from the portrait/general rule */
+      /* flex: none !important; -- Removed as it's likely conflicting or unneeded */
     }
     
     .quiz-option:hover {
@@ -572,28 +578,28 @@
           <span class="en">Step 1: What is your skin type?</span>
         </h3>
         <div class="quiz-options">
-          <div class="quiz-option" data-skin-type="dry" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-skin-type="dry">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">✨</div>
             <h4>
               <span class="ar">بشرة جافة</span>
               <span class="en">Dry Skin</span>
             </h4>
           </div>
-          <div class="quiz-option" data-skin-type="oily" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-skin-type="oily">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">💧</div>
             <h4>
               <span class="ar">بشرة دهنية</span>
               <span class="en">Oily Skin</span>
             </h4>
           </div>
-          <div class="quiz-option" data-skin-type="combination" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-skin-type="combination">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">↔️</div>
             <h4>
               <span class="ar">بشرة مختلطة</span>
               <span class="en">Combination Skin</span>
             </h4>
           </div>
-          <div class="quiz-option" data-skin-type="sensitive" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-skin-type="sensitive">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">✨</div>
             <h4>
               <span class="ar">بشرة حساسة</span>
@@ -610,28 +616,28 @@
           <span class="en">Step 2: What's your main concern with sunscreen?</span>
         </h3>
         <div class="quiz-options">
-          <div class="quiz-option" data-concern="whiteCast" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-concern="whiteCast">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">⚪</div>
             <h4>
               <span class="ar">البقع البيضاء</span>
               <span class="en">White Cast</span>
             </h4>
           </div>
-          <div class="quiz-option" data-concern="heavyFeeling" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-concern="heavyFeeling">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">⚓</div>
             <h4>
               <span class="ar">الإحساس الثقيل</span>
               <span class="en">Heavy Feeling</span>
             </h4>
           </div>
-          <div class="quiz-option" data-concern="oiliness" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-concern="oiliness">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">💦</div>
             <h4>
               <span class="ar">زيادة الدهون</span>
               <span class="en">Added Oiliness</span>
             </h4>
           </div>
-          <div class="quiz-option" data-concern="irritation" style="width: 100%; padding: 15px; background-color: #f9f9f9; border-radius: 15px; text-align: center; cursor: pointer; border: 3px solid transparent;">
+          <div class="quiz-option" data-concern="irritation">
             <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">🔥</div>
             <h4>
               <span class="ar">التهيج</span>
