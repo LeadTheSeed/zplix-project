@@ -131,37 +131,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // =============================================
 
     function approvePayment(ticketNumber, card) {
-        const activationCode = 'AC' + Math.random().toString(36).substr(2, 8).toUpperCase();
-        
-        // Update localStorage: move ticket from pending to completed
+        // Update localStorage: move ticket from pending to verified payments
         let pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
-        const ticketToComplete = pendingTickets.find(t => t.ticketNumber === ticketNumber);
-        if (!ticketToComplete) return;
+        const ticketToVerify = pendingTickets.find(t => t.ticketNumber === ticketNumber);
+        if (!ticketToVerify) return;
 
+        // Remove from pending tickets
         pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
         localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
-        // Update timestamp to trigger storage events
         localStorage.setItem('pendingTicketsTimestamp', Date.now());
 
-        let completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
-        ticketToComplete.status = 'approved';
-        ticketToComplete.activationCode = activationCode;
-        ticketToComplete.approvedAt = new Date().toISOString();
-        completedTransactions.push(ticketToComplete);
-        localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
-        // Update timestamp for completed transactions
-        localStorage.setItem('completedTransactionsTimestamp', Date.now());
+        // Add to verified payments (not completed yet - waiting for admin approval)
+        let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
+        ticketToVerify.status = 'verified';
+        ticketToVerify.verifiedAt = new Date().toISOString();
+        ticketToVerify.verifiedBy = 'payment_gateway';
+        verifiedPayments.push(ticketToVerify);
+        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
+        localStorage.setItem('verifiedPaymentsTimestamp', Date.now());
 
         // Update UI
         const statusBadge = card.querySelector('.status-badge');
-        statusBadge.textContent = 'تم التأكيد';
+        statusBadge.textContent = 'تم التحقق';
         statusBadge.classList.remove('new');
-        statusBadge.classList.add('completed');
+        statusBadge.classList.add('verified');
 
         const actionsDiv = card.querySelector('.payment-actions');
-        actionsDiv.innerHTML = `<div class="activation-code-section"><span>كود التفعيل:</span><span class="activation-code">${activationCode}</span></div>`;
+        actionsDiv.innerHTML = `
+            <div class="verification-message">
+                <p>تم التحقق من الدفع بنجاح</p>
+                <p>بانتظار موافقة الإدارة وإصدار كود التفعيل</p>
+            </div>
+        `;
         
-        showToast('تم تأكيد الدفع وإرسال الكود بنجاح');
+        showToast('تم التحقق من الدفع بنجاح وإرساله للإدارة');
     }
 
     function rejectPayment(ticketNumber, card) {
