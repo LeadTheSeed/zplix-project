@@ -1,11 +1,22 @@
-# Redirect old zplix.com URLs to the backup directory
+# Enable rewrite engine
 RewriteEngine On
 
-# Exclude the main index.html and niqati directory from redirection
+# Ensure the main page and niqati directory are accessible
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /index.html [L]
+
+# Allow direct access to niqati directory
+RewriteCond %{REQUEST_URI} ^/niqati/
+RewriteRule ^(.*)$ $1 [L]
+
+# Allow access to well-known directory (for SSL certificates)
+RewriteCond %{REQUEST_URI} ^/.well-known/
+RewriteRule ^(.*)$ $1 [L]
+
+# Only redirect old paths if backup directory exists
 RewriteCond %{REQUEST_URI} !^/index\.html
 RewriteCond %{REQUEST_URI} !^/niqati/
 RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteCond %{REQUEST_URI} !^/favicon\.ico
-
-# Redirect all other requests to the backup directory
+RewriteCond %{DOCUMENT_ROOT}/backup -d
 RewriteRule ^(.*)$ /backup/$1 [L]
