@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zplix Tools</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234a90e2'/><text x='50' y='60' font-size='50' fill='white' text-anchor='middle' font-family='Arial'>Z</text></svg>">
+  <meta name="description" content="Zplix Tools – Explore, use, and submit mini web apps in one click. Calculator, clock, quote generator, and more!"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf6ff 0%, #f5f5f5 100%);
+      color: #222;
+    }
+    header {
+      background: #4a90e2;
+      color: #fff;
+      padding: 36px 0 24px 0;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.7em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .hero {
+      text-align: center;
+      margin: 36px auto 30px auto;
+      max-width: 650px;
+    }
+    .hero p {
+      font-size: 1.25em;
+      color: #3c3c3c;
+      margin: 18px 0 0 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(76,144,226,0.09);
+      padding: 30px 18px 24px 18px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 200px;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(76,144,226,0.16);
+      transform: translateY(-4px) scale(1.025);
+    }
+    .card .icon {
+      font-size: 3.2em;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.18em;
+      font-weight: 700;
+      color: #2563a6;
+    }
+    .card p {
+      color: #555;
+      font-size: 1em;
+      margin: 0 0 18px 0;
+      min-height: 40px;
+    }
+    .card a {
+      display: inline-block;
+      margin-top: auto;
+      padding: 9px 22px;
+      background: linear-gradient(90deg,#4a90e2 60%,#50e3c2 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 1.05em;
+      transition: background 0.15s;
+    }
+    .card a:hover {
+      background: linear-gradient(90deg,#50e3c2 60%,#4a90e2 100%);
+    }
+    .footer {
+      margin-top: 60px;
+      padding: 20px 0;
+      text-align: center;
+      color: #888;
+      font-size: 0.98em;
+      background: linear-gradient(90deg,#f5f5f5 60%,#eaf6ff 100%);
+    }
+    .footer a { color: #4a90e2; text-decoration: none; }
+    @media (max-width: 700px) {
+      html { font-size: 16px; }
+      .hero {padding: 0 8px; margin: 24px auto 18px auto;}
+      .grid {
+        gap: 14px;
+        grid-template-columns: 1fr;
+        padding: 0 4px;
+      }
+      .card {
+        padding: 16px 6px 14px 6px;
+        min-height: 140px;
+        border-radius: 10px;
+      }
+      .card .icon { font-size: 2.2em; }
+      .card h3 { font-size: 1em; }
+      .card p { font-size: 0.98em; min-height: 30px; }
+      .card a, .card button {
+        padding: 13px 0;
+        width: 100%;
+        font-size: 1.09em;
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+      header { padding: 22px 0 14px 0; font-size: 1.1em; }
+      .footer {
+        padding: 16px 0 12px 0;
+        font-size: 1em;
+        position: sticky;
+        bottom: 0;
+        background: #f5f5f5;
+        z-index: 10;
+      }
+      .modal-content {
+        min-width: unset !important;
+        max-width: 96vw !important;
+        padding: 10px 6px 18px 6px;
+      }
+      input, select, textarea, button {
+        font-size: 1em;
+        border-radius: 7px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Zplix Tools</h1></header>
+  <main>
+    <section class="hero">
+      <h2 style="font-size:1.45em; font-weight:600; color:#2563a6; margin-bottom:0;">A growing collection of simple, useful web tools</h2>
+      <p>Explore the tools below. Each is a self-contained app—no ads, no clutter, just utility. More coming soon!</p>
+    </section>
+    <section class="grid">
+      <div class="card">
+        <span class="icon">🧮</span>
+        <h3>Calculator</h3>
+        <p>Basic calculator for quick math operations.</p>
+        <a href="./calculator/index.html" target="_blank">Open Tool</a>
+      </div>
+      <div class="card">
+        <span class="icon">⏰</span>
+        <h3>Digital Clock</h3>
+        <p>See the current time in a clean digital format.</p>
+        <a href="./app1/index.html" target="_blank">Open Tool</a>
+      </div>
+      <div class="card">
+        <span class="icon">💬</span>
+        <h3>Quote Generator</h3>
+        <p>Get a random inspirational quote with one click.</p>
+        <a href="./app2/index.html" target="_blank">Open Tool</a>
+      </div>
+      <div class="card">
+        <span class="icon">🚀</span>
+        <h3>Cosmic Math Blaster</h3>
+        <p>Game: Math, Educational, Arcade</p>
+        <a href="./cosmic-math-blaster.html" target="_blank" style="margin-bottom:6px;">Open Full Page</a>
+        <button onclick="openUserApp('cosmic-math-blaster')" style="margin-top:6px;">Preview in Modal</button>
+      </div>
+      <div class="card">
+        <span class="icon">💧</span>
+        <h3>Multiplication Raindrops</h3>
+        <p>Game: Math, Arcade, Educational</p>
+        <a href="./multiplication-raindrops.html" target="_blank" style="margin-bottom:6px;">Open Full Page</a>
+        <button onclick="openUserApp('multiplication-raindrops')" style="margin-top:6px;">Preview in Modal</button>
+      </div>
+      <div class="card">
+        <span class="icon">☀️</span>
+        <h3>PRETTYSKIN Sun Cream</h3>
+        <p>Korean SPF 50+ Sunscreen Collection</p>
+        <a href="./prettyskin.html" target="_blank">Open Page</a>
+      </div>
+    </section>
+  </main>
+  <script>
+window.ZPLIX_APPS = window.ZPLIX_APPS || [];
+window.ZPLIX_APPS.push({
+  id: 'cosmic-math-blaster',
+  name: 'Cosmic Math Blaster',
+  category: 'Game',
+  keywords: 'math, educational, arcade',
+  code: `<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"Cosmic Math Blaster - An educational math game set in space\"><title>Cosmic Math Blaster</title><style>:root {--primary-color: #4ECDC4;--secondary-color: #FF6B6B;--background-color: #000033;--text-color: #FFFFFF;--shadow-color: rgba(0, 0, 0, 0.5);--font-family: 'Arial', sans-serif;--shape-size: 80px;--button-transition: background-color 0.3s, transform 0.1s;}*{box-sizing:border-box;margin:0;padding:0;}body{font-family:var(--font-family);background-color:var(--background-color);color:var(--text-color);touch-action:manipulation;overflow:hidden;}#game-container{position:relative;width:100vw;height:100vh;height:calc(var(--vh, 1vh) * 100);overflow:hidden;background:linear-gradient(to bottom,var(--background-color),#000066);}.shape{position:absolute;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:bold;color:var(--text-color);text-shadow:1px 1px 2px var(--shadow-color);box-shadow:0 0 15px rgba(255,255,255,0.7);cursor:pointer;transition:box-shadow 0.3s ease,transform 0.3s ease;user-select:none;width:var(--shape-size);height:var(--shape-size);}.shape:hover{transform:scale(1.05);}.shape.active{animation:pulse 1s infinite alternate;}@keyframes pulse{0%{box-shadow:0 0 15px rgba(255,255,255,0.7);}100%{box-shadow:0 0 30px rgba(255,255,255,1),0 0 50px rgba(255,255,255,0.5);}}.circle{border-radius:50%;}.square{border-radius:10%;}.triangle{width:0 !important;height:0 !important;background-color:transparent !important;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:80px solid;display:flex;justify-content:center;align-items:flex-end;padding-bottom:10px;}#answer-area{position:absolute;bottom:20px;left:0;right:0;display:flex;justify-content:center;align-items:center;height:60px;}.answer-btn{font-size:1.5rem;padding:10px 20px;margin:0 10px;background-color:rgba(76,175,80,0.8);color:var(--text-color);border:none;border-radius:5px;cursor:pointer;transition:var(--button-transition);}.answer-btn:hover{background-color:rgba(76,175,80,1);}.answer-btn:active{transform:scale(0.95);}#score,#lives,#level,#best-score{position:absolute;top:10px;font-size:1.5rem;text-shadow:2px 2px 4px var(--shadow-color);}#score{left:10px;}#lives{right:10px;}#level{left:50%;transform:translateX(-50%);}#best-score{left:10px;top:40px;}#feedback{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;opacity:0;transition:opacity 0.3s;}#start-screen,#game-over-screen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:rgba(0,0,0,0.8);z-index:10;}#start-screen h1,#game-over-screen h1{font-size:3rem;margin-bottom:20px;}#start-button,#restart-button{font-size:1.5rem;padding:10px 20px;background-color:var(--primary-color);color:var(--text-color);border:none;border-radius:5px;cursor:pointer;transition:background-color 0.3s;}#start-button:hover,#restart-button:hover{background-color:var(--secondary-color);}@media (max-width:600px){.shape{font-size:1rem;}#score,#lives,#level,#best-score{font-size:1.2rem;}.answer-btn{font-size:1.2rem;padding:8px 16px;}#start-screen h1,#game-over-screen h1{font-size:2rem;}}</style></head><body><div id=\"game-container\"><div id=\"score\">Score: 0</div><div id=\"best-score\">Best: 0</div><div id=\"level\">Novice Stargazer</div><div id=\"lives\">Lives: ❤️❤️❤️</div><div id=\"feedback\"></div><div id=\"answer-area\"></div><div id=\"start-screen\"><h1>Cosmic Math Blaster</h1><button id=\"start-button\">Start Game</button></div><div id=\"game-over-screen\" style=\"display: none;\"><h1>Game Over</h1><p id=\"final-score\"></p><p id=\"best-score-display\"></p><button id=\"restart-button\">Play Again</button></div></div><script>const gameContainer=document.getElementById('game-container');const answerArea=document.getElementById('answer-area');const scoreElement=document.getElementById('score');const bestScoreElement=document.getElementById('best-score');const livesElement=document.getElementById('lives');const levelElement=document.getElementById('level');const feedbackElement=document.getElementById('feedback');const startScreen=document.getElementById('start-screen');const gameOverScreen=document.getElementById('game-over-screen');const startButton=document.getElementById('start-button');const restartButton=document.getElementById('restart-button');const finalScoreElement=document.getElementById('final-score');const bestScoreDisplayElement=document.getElementById('best-score-display');let score=0;let bestScore=0;let lives=3;let level=1;let currentShape=null;let gameSpeed=5;let gameInterval;let isGameRunning=false;let correctAnswersInARow=0;let incorrectAnswersInARow=0;const colors=['#FF6B6B','#4ECDC4','#45B7D1','#FFA07A','#98D8C8'];const emojis=['🎉','👍','😊','🌟','💯'];const shapeTypes=['circle','square','triangle'];const levelNames=['Novice Stargazer','Cosmic Calculator','Galactic Genius','Nebula Navigator','Quantum Quizzer'];let audioCtx;function initAudioContext(){if(!audioCtx){audioCtx=new(window.AudioContext||window.webkitAudioContext)();}}function createShape(){if(currentShape||!isGameRunning)return;const shape=document.createElement('div');const shapeType=shapeTypes[Math.floor(Math.random()*shapeTypes.length)];shape.className=`shape ${shapeType} active`;const[num1,num2]=generateNumbers();const answer=num1*num2;shape.textContent=`${num1} × ${num2}`;const color=colors[Math.floor(Math.random()*colors.length)];if(shapeType==='triangle'){shape.style.borderBottomColor=color;}else{shape.style.backgroundColor=color;}shape.style.left=`${Math.random()*(gameContainer.clientWidth-80)}px`;shape.style.top='-80px';shape.dataset.answer=answer;gameContainer.appendChild(shape);currentShape=shape;updateAnswerButtons();animateShape(shape);}function generateNumbers(){const maxNumber=10+(level-1)*2;return[Math.floor(Math.random()*maxNumber)+1,Math.floor(Math.random()*maxNumber)+1];}function animateShape(shape){const duration=(7-gameSpeed*0.5)*1000;const startTime=Date.now();const startPosition=-80;const endPosition=gameContainer.clientHeight;function step(){if(!isGameRunning)return;const elapsedTime=Date.now()-startTime;const progress=Math.min(elapsedTime/duration,1);const currentPosition=startPosition+(endPosition-startPosition)*progress;shape.style.top=`${currentPosition}px`;if(progress<1&&currentShape===shape){requestAnimationFrame(step);}else{if(gameContainer.contains(shape)){gameContainer.removeChild(shape);decreaseLives();}currentShape=null;updateAnswerButtons();}}requestAnimationFrame(step);}function updateAnswerButtons(){answerArea.innerHTML='';if(currentShape){const correctAnswer=parseInt(currentShape.dataset.answer);const wrongAnswer1=correctAnswer+Math.floor(Math.random()*10)+1;const wrongAnswer2=correctAnswer-Math.floor(Math.random()*10)-1;const answers=[correctAnswer,wrongAnswer1,wrongAnswer2].sort(()=>Math.random()-0.5);answers.forEach(answer=>{const button=document.createElement('button');button.className='answer-btn';button.textContent=answer;button.addEventListener('click',()=>checkAnswer(answer));answerArea.appendChild(button);});}}function playSound(frequency,duration,type='sine',volume=0.2){initAudioContext();const oscillator=audioCtx.createOscillator();const gainNode=audioCtx.createGain();oscillator.type=type;oscillator.frequency.setValueAtTime(frequency,audioCtx.currentTime);gainNode.gain.setValueAtTime(volume,audioCtx.currentTime);oscillator.connect(gainNode);gainNode.connect(audioCtx.destination);oscillator.start(audioCtx.currentTime);gainNode.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+duration);oscillator.stop(audioCtx.currentTime+duration);}function checkAnswer(userAnswer){if(currentShape){const correctAnswer=parseInt(currentShape.dataset.answer);if(userAnswer===correctAnswer){gameContainer.removeChild(currentShape);increaseScore();showFeedback(true);playSound(440,0.5,'sine',0.5);correctAnswersInARow++;incorrectAnswersInARow=0;if(correctAnswersInARow>=5&&gameSpeed<10){gameSpeed++;updateGameSpeed();correctAnswersInARow=0;}}else{decreaseLives();showFeedback(false);playSound(220,0.5,'square');incorrectAnswersInARow++;correctAnswersInARow=0;if(incorrectAnswersInARow>=3&&gameSpeed>1){gameSpeed--;updateGameSpeed();incorrectAnswersInARow=0;}}currentShape=null;updateAnswerButtons();}}function increaseScore(){score++;scoreElement.textContent=`Score: ${score}`;if(score>bestScore){bestScore=score;bestScoreElement.textContent=`Best: ${bestScore}`;}if(score%10===0){increaseLevel();}}function decreaseLives(){lives--;livesElement.textContent=`Lives: ${'❤️'.repeat(lives)}`;if(lives===0){endGame();}}function increaseLevel(){level=Math.min(level+1,levelNames.length);levelElement.textContent=levelNames[level-1];playSound(880,0.8,'triangle');gameSpeed=Math.min(5+Math.floor((level-1)/2),10);updateGameSpeed();}function showFeedback(correct){feedbackElement.textContent=correct?emojis[Math.floor(Math.random()*emojis.length)]:'❌';feedbackElement.style.opacity=1;setTimeout(()=>{feedbackElement.style.opacity=0;},500);}function endGame(){isGameRunning=false;clearInterval(gameInterval);finalScoreElement.textContent=`Your score: ${score}`;bestScoreDisplayElement.textContent=`Best score: ${bestScore}`;gameOverScreen.style.display='flex';playSound(110,1,'sawtooth');}function updateGameSpeed(){if(isGameRunning){clearInterval(gameInterval);gameInterval=setInterval(createShape,2000-gameSpeed*150);}}function startGame(){initAudioContext();score=0;lives=3;level=1;isGameRunning=true;scoreElement.textContent='Score: 0';bestScoreElement.textContent=`Best: ${bestScore}`;livesElement.textContent='Lives: ❤️❤️❤️';levelElement.textContent=levelNames[0];startScreen.style.display='none';gameOverScreen.style.display='none';correctAnswersInARow=0;incorrectAnswersInARow=0;gameSpeed=5;updateGameSpeed();}startButton.addEventListener('click',startGame);restartButton.addEventListener('click',startGame);function handleResize(){const vh=window.innerHeight*0.01;document.documentElement.style.setProperty('--vh',`${vh}px`);}window.addEventListener('resize',handleResize);handleResize();updateAnswerButtons();</script>
+
+  <footer class="footer">
+    &copy; 2025 Zplix Tools &mdash; <a href="https://github.com/LeadTheSeed/zplix-project" target="_blank">GitHub</a>
+  </footer>
+
+
+  <!-- Admin Login Modal -->
+  <div class="modal" id="adminLoginModal" style="display:none;">
+    <div class="modal-content">
+      <h2>Admin Login</h2>
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password" />
+      <div style="text-align:right; margin-top:10px;">
+        <button id="adminLoginBtn">Login</button>
+        <button id="closeAdminModal" style="background:#ccc; color:#333; margin-left:10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <!-- Pending Apps Modal (Admin) -->
+  <div class="modal" id="pendingAppsModal" style="display:none;">
+    <div class="modal-content" style="min-width:320px; max-width:480px;">
+      <h2>Pending App Submissions</h2>
+      <div id="pendingAppsList">
+        <!-- Pending apps will be listed here -->
+      </div>
+      <div style="text-align:right; margin-top:10px;">
+        <button id="closePendingModal" style="background:#ccc; color:#333;">Close</button>
+      </div>
+    </div>
+  </div>
+  
+<script>
+// Only keep admin login and app preview logic for manual app management.
+// Remove all user submission and pending app logic.
+
+const grid = document.querySelector('.grid');
+const adminLoginModal = document.getElementById('adminLoginModal');
+const adminLoginBtn = document.getElementById('adminLoginBtn');
+const closeAdminModalBtn = document.getElementById('closeAdminModal');
+const adminPasswordInput = document.getElementById('adminPassword');
+
+function showModal(modal) { modal.style.display = 'flex'; }
+function hideModal(modal) { modal.style.display = 'none'; }
+function showToast(msg) {
+  let t = document.createElement('div');
+  t.textContent = msg;
+  t.style.position = 'fixed'; t.style.bottom = '36px'; t.style.left = '50%'; t.style.transform = 'translateX(-50%)';
+  t.style.background = '#4a90e2'; t.style.color = '#fff'; t.style.padding = '12px 32px'; t.style.borderRadius = '8px'; t.style.zIndex = 9999;
+  t.style.fontWeight = '600'; t.style.fontSize = '1.1em'; t.style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 1900);
+}
+
+// --- Admin Login Logic ---
+document.addEventListener('keydown', function(e) {
+  if(e.ctrlKey && e.key.toLowerCase() === 'a') {
+    showModal(adminLoginModal); adminPasswordInput.value = '';
+    setTimeout(()=>adminPasswordInput.focus(), 100);
+  }
+});
+adminLoginBtn.onclick = function() {
+  if(adminPasswordInput.value === 'Admin') {
+    hideModal(adminLoginModal);
+    showToast('Admin logged in!');
+    // You can now add/remove apps manually in the HTML or extend this logic
+  } else {
+    showToast('Wrong password!');
+  }
+};
+closeAdminModalBtn.onclick = () => { hideModal(adminLoginModal); };
+
+// --- App Preview Logic (for static/manual apps) ---
+window.openUserApp = function(id) {
+  // For static apps, look up by id attribute or data attribute
+  const appData = window.ZPLIX_APPS && window.ZPLIX_APPS.find(a=>a.id===id);
+  if(!appData) return alert('App not found!');
+  let modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.style.display = 'flex';
+  modal.innerHTML = `<div class="modal-content" style="max-width:650px; min-width:320px;">
+    <h2 style="margin-bottom:8px;">${escapeHTML(appData.name)}</h2>
+    <div style="font-size:0.97em; color:#4a90e2; margin-bottom:8px;">${escapeHTML(appData.category)} | <span style="color:#888;">${escapeHTML(appData.keywords)}</span></div>
+    <iframe srcdoc="${escapeHTMLAttr(appData.code)}" style="width:100%; min-height:350px; border:1px solid #eee; border-radius:7px; background:#fff;"></iframe>
+    <div style="text-align:right; margin-top:12px;"><button onclick="this.closest('.modal').remove()" style="background:#ccc; color:#333; border:none; border-radius:5px; padding:6px 18px;">Close</button></div>
+  </div>`;
+  document.body.appendChild(modal);
+};
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, function(m) {
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+  });
+}
+function escapeHTMLAttr(str) {
+  return str.replace(/[&"]/g, function(m) {
+    return ({'&':'&amp;','"':'&quot;'})[m];
+  }).replace(/'/g,"&#39;");
+}
+</script>
+  <footer class="zplix-footer" style="position:fixed;left:0;right:0;bottom:0;height:44px;background:#0288d1;color:#fff;display:flex;align-items:center;justify-content:center;z-index:99;font-size:1.1rem;box-shadow:0 -2px 8px rgba(0,0,0,0.07);">
+    <span style="margin-right:18px;">👥 Online: <span class="zplix-online-users">1</span></span>
+    <button onclick="toggleZplixFullscreen()" style="background:#039be5;border:none;color:#fff;padding:7px 18px;border-radius:22px;cursor:pointer;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.09);margin-left:8px;">Toggle Fullscreen</button>
+  </footer>
+  <script src="./online-users.js"></script>
+  <script src="./fullscreen.js"></script>
+</body>
+</html>

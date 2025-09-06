@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo Options</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .logo-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .logo-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .logo-preview {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-description {
+            font-size: 14px;
+            color: #666;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .select-btn {
+            background-color: #5abc84;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .select-btn:hover {
+            background-color: #4da977;
+        }
+        
+        /* Logo 1 Styles */
+        .logo1-text {
+            font-weight: bold;
+            font-size: 28px;
+            letter-spacing: 2px;
+            color: #ff85a2;
+            position: relative;
+        }
+        .logo1-text::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff85a2, #ff9eb5);
+            border-radius: 50%;
+            top: -5px;
+            right: -10px;
+            opacity: 0.7;
+        }
+        .logo1-tagline {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        
+        /* Logo 2 Styles */
+        .logo2-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo2-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .logo2-icon::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+            top: 7.5px;
+            left: 7.5px;
+        }
+        .logo2-text {
+            font-weight: bold;
+            font-size: 22px;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        .logo2-text span {
+            color: #66bb6a;
+        }
+        .logo2-tagline {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+        
+        /* Logo 3 Styles */
+        .logo3 {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        .logo3-text {
+            font-weight: 300;
+            font-size: 24px;
+            color: #555;
+            letter-spacing: 3px;
+        }
+        .logo3-text span {
+            font-weight: 700;
+            color: #ff80ab;
+        }
+        .logo3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #ff80ab, #ff9eb5, #ff80ab);
+            border-radius: 3px;
+        }
+        .logo3-tagline {
+            color: #888;
+            font-size: 12px;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+        
+        /* Logo 4 Styles */
+        .logo4-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo4-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffb74d, #ff9800);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transform: rotate(45deg);
+        }
+        .logo4-icon::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        .logo4-text {
+            font-weight: 600;
+            font-size: 22px;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        .logo4-text span {
+            color: #ff9800;
+        }
+        .logo4-tagline {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        /* Logo 5 Styles */
+        .logo5-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo5-circles {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .logo5-circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin: 0 3px;
+        }
+        .logo5-circle1 {
+            background-color: #ff80ab;
+        }
+        .logo5-circle2 {
+            background-color: #66bb6a;
+        }
+        .logo5-circle3 {
+            background-color: #ffb74d;
+        }
+        .logo5-text {
+            font-weight: 700;
+            font-size: 22px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+        .logo5-tagline {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>اختيار شعار PRETTYSKIN</h1>
+        <p>فيما يلي مجموعة من الخيارات المقترحة لشعار PRETTYSKIN. يمكنك اختيار الشعار المناسب لصفحة اختبار البشرة.</p>
+    </div>
+    
+    <div class="logo-options">
+        <div class="logo-card">
+            <div class="logo-title">الخيار 1: الوردي البسيط</div>
+            <div class="logo-preview">
+                <div>
+                    <div class="logo1-text">PRETTYSKIN</div>
+                    <div class="logo1-tagline">Advanced Sun Protection</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار باللون الوردي الأنثوي مع دائرة وردية تمثل الوقاية من الشمس. التصميم بسيط وعصري ويعبر عن منتجات العناية بالبشرة.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 1')">اختيار هذا الشعار</button>
+        </div>
+        
+        <div class="logo-card">
+            <div class="logo-title">الخيار 2: حماية الطبيعة</div>
+            <div class="logo-preview">
+                <div class="logo2-container">
+                    <div class="logo2-icon"></div>
+                    <div>
+                        <div class="logo2-text">PRETTY<span>SKIN</span></div>
+                        <div class="logo2-tagline">Nature's Protection Formula</div>
+                    </div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار باللون الأخضر يرمز للطبيعة والمكونات العضوية. يتضمن أيقونة تشبه الشمس والنبات للتعبير عن حماية البشرة بمكونات طبيعية.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 2')">اختيار هذا الشعار</button>
+        </div>
+        
+        <div class="logo-card">
+            <div class="logo-title">الخيار 3: الحماية المشرقة</div>
+            <div class="logo-preview">
+                <div>
+                    <div class="logo3">
+                        <div class="logo3-text">PRETTY<span>SKIN</span></div>
+                    </div>
+                    <div class="logo3-tagline">Radiant Protection</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار أنيق وبسيط مع خط تحت الاسم بتدرج وردي. يجمع بين الأناقة والبساطة ويناسب منتجات واقي الشمس عالية الجودة.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 3')">اختيار هذا الشعار</button>
+        </div>
+        
+        <div class="logo-card">
+            <div class="logo-title">الخيار 4: حماية مشرقة</div>
+            <div class="logo-preview">
+                <div class="logo4-container">
+                    <div class="logo4-icon"></div>
+                    <div class="logo4-text">PRETTY<span>SKIN</span></div>
+                    <div class="logo4-tagline">Brilliant Sun Protection</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار بألوان دافئة يرمز لأشعة الشمس. تصميم حديث مع رمز مربع ملون يعبر عن الحماية من الأشعة فوق البنفسجية.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 4')">اختيار هذا الشعار</button>
+        </div>
+        
+        <div class="logo-card">
+            <div class="logo-title">الخيار 5: الألوان المتعددة</div>
+            <div class="logo-preview">
+                <div class="logo5-container">
+                    <div class="logo5-circles">
+                        <div class="logo5-circle logo5-circle1"></div>
+                        <div class="logo5-circle logo5-circle2"></div>
+                        <div class="logo5-circle logo5-circle3"></div>
+                    </div>
+                    <div class="logo5-text">PRETTYSKIN</div>
+                    <div class="logo5-tagline">Perfect Skin Protection</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار عصري مع ثلاث دوائر ملونة تمثل مجموعة منتجات مختلفة. يعبر عن التنوع في منتجات العناية بالبشرة المناسبة لجميع أنواع البشرة.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 5')">اختيار هذا الشعار</button>
+        </div>
+    </div>
+    
+    <script>
+        // كود إضافي للتفاعل إذا لزم الأمر
+    </script>
+</body>
+</html>

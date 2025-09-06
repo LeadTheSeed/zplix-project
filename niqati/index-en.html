@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - Digital Points Purchase Platform</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Niqati <span>نقاطي</span></h1>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index-en.html" class="active">Home</a></li>
+                        <li><a href="redeem-en.html">Verify Coupon</a></li>
+                        <li><a href="#" id="langSwitcher">العربية</a></li>
+                        <li><a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span></a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Buy Digital Points Safely and Easily</h2>
+                <p>Niqati platform provides you with the service of purchasing digital points for games and applications at the best prices and in a secure way</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Choose Your Points</h2>
+            
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="gaming">Gaming</button>
+                <button class="filter-btn" data-filter="social">Social Media</button>
+                <button class="filter-btn" data-filter="shopping">Shopping</button>
+            </div>
+            
+            <div class="products-grid">
+                <!-- PUBG Points -->
+                <div class="product-card" data-category="gaming">
+                    <div class="product-image">
+                        <img src="img/pubg.svg" alt="PUBG Points">
+                    </div>
+                    <div class="product-info">
+                        <h3>PUBG Points</h3>
+                        <p>Buy UC points for PUBG Mobile</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.02 / point</span>
+                        </div>
+                        <button class="expand-card">Select Amount</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="100" max="5000" step="100" value="500" class="points-slider">
+                                <input type="number" min="100" max="5000" value="500" class="points-input">
+                                <span class="total-price">$10.00</span>
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="collapse-card">Close</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TikTok Coins -->
+                <div class="product-card" data-category="social">
+                    <div class="product-image">
+                        <img src="img/tiktok.svg" alt="TikTok Coins">
+                    </div>
+                    <div class="product-info">
+                        <h3>TikTok Coins</h3>
+                        <p>Buy coins for TikTok</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.015 / coin</span>
+                        </div>
+                        <button class="expand-card">Select Amount</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="100" max="10000" step="100" value="1000" class="points-slider">
+                                <input type="number" min="100" max="10000" value="1000" class="points-input">
+                                <span class="total-price">$15.00</span>
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="collapse-card">Close</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Amazon Gift Cards -->
+                <div class="product-card" data-category="shopping">
+                    <div class="product-image">
+                        <img src="img/amazon.svg" alt="Amazon Gift Cards">
+                    </div>
+                    <div class="product-info">
+                        <h3>Amazon Gift Cards</h3>
+                        <p>Gift cards for shopping on Amazon</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$1.05 / dollar</span>
+                        </div>
+                        <button class="expand-card">Select Amount</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="5" max="100" step="5" value="25" class="points-slider">
+                                <input type="number" min="5" max="100" value="25" class="points-input">
+                                <span class="total-price">$26.25</span>
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="collapse-card">Close</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Robux -->
+                <div class="product-card" data-category="gaming">
+                    <div class="product-image">
+                        <img src="img/robux.svg" alt="Robux">
+                    </div>
+                    <div class="product-info">
+                        <h3>Robux</h3>
+                        <p>Buy Robux for Roblox</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.012 / robux</span>
+                        </div>
+                        <button class="expand-card">Select Amount</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="400" max="10000" step="100" value="800" class="points-slider">
+                                <input type="number" min="400" max="10000" value="800" class="points-input">
+                                <span class="total-price">$9.60</span>
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                            <button class="collapse-card">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Shopping Cart</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be added dynamically -->
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span id="cartTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="clearCart">Clear Cart</button>
+                <button class="btn-primary" id="checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Checkout</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-summary">
+                    <h4>Order Summary</h4>
+                    <div id="checkoutItems">
+                        <!-- Checkout items will be added dynamically -->
+                    </div>
+                    <div class="checkout-total">
+                        <div class="subtotal">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="fee">
+                            <span>Payment Gateway Fee (1%):</span>
+                            <span id="paymentFee">$0.00</span>
+                        </div>
+                        <div class="total">
+                            <span>Final Total:</span>
+                            <span id="finalTotal">$0.00</span>
+                        </div>
+                        <div class="jod-total">
+                            <span>Total in Jordanian Dinar:</span>
+                            <span id="jordanianTotal">0.00 JOD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-info">
+                    <h4>Ticket Information</h4>
+                    <div class="ticket-number">
+                        <p>Your Ticket Number:</p>
+                        <p id="ticketNumber" class="highlight-text"></p>
+                        <p class="note">Please keep this number to follow up with the payment gateway</p>
+                    </div>
+                    <div class="payment-instructions">
+                        <h4>Payment Instructions</h4>
+                        <p>Please follow these steps to complete your payment:</p>
+                        <ol>
+                            <li>Send the ticket number with proof of payment via <a href="#" target="_blank">WhatsApp</a> or <a href="#" target="_blank">Telegram</a>.</li>
+                            <li>You will receive an activation code confirming your payment success.</li>
+                            <li>Use the activation code in the verification page to get your coupon.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Niqati <span>نقاطي</span></h2>
+                    <p>Your trusted platform for buying digital points</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index-en.html">Home</a></li>
+                        <li><a href="redeem-en.html">Verify Coupon</a></li>
+                        <li><a href="payment-gateway-en.html">Payment Gateway</a></li>
+                        <li><a href="admin-en.html">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@niqati.com</p>
+                    <p><i class="fas fa-phone"></i> +971 X XXX XXXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Niqati. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

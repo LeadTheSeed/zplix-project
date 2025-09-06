@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRETTYSKIN - اختبار نوع البشرة</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap">
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Cairo', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f5f2;
+      transition: background-color 0.3s;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Language Switcher */
+    .language-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: white;
+      padding: 10px;
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .language-switcher button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      font-weight: bold;
+      color: #888;
+      transition: color 0.3s;
+    }
+    
+    .language-switcher button.active {
+      color: #ff6b6b;
+    }
+    
+    /* RTL Support */
+    .rtl {
+      direction: rtl;
+      text-align: right;
+    }
+    
+    .ltr {
+      direction: ltr;
+      text-align: left;
+    }
+    
+    .en {
+      display: none;
+    }
+    
+    .rtl .en {
+      display: none;
+    }
+    
+    .rtl .ar {
+      display: block;
+    }
+    
+    .ltr .ar {
+      display: none;
+    }
+    
+    .ltr .en {
+      display: block;
+    }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 15px 0;
+    }
+    
+    .logo {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    /* Skin Quiz Styles */
+    .quiz-container {
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 800px;
+    }
+    
+    .quiz-step {
+      margin-bottom: 15px;
+    }
+    
+    .quiz-step h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #333;
+      text-align: center;
+    }
+    
+    .quiz-options {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+      justify-content: center;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    
+    .quiz-option {
+      min-width: 120px;
+      flex: 1;
+      padding: 15px 10px;
+      background-color: #f9f9f9;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+    }
+    
+    .quiz-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .quiz-option.selected {
+      border-color: #ff6b6b;
+      background-color: #fff9f9;
+    }
+    
+    .option-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .quiz-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 15px;
+    }
+    
+    .quiz-btn {
+      padding: 12px 25px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .quiz-btn:hover {
+      background-color: #ff5252;
+      transform: translateY(-3px);
+    }
+    
+    /* Quiz Results */
+    .quiz-results {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .quiz-results h3 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .result-container {
+      display: none;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .result-container img.result-product-image {
+      width: 280px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      margin: 20px auto;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+    }
+    
+    .result-container img.result-product-image:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .result-explanation {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.7s ease 0.3s forwards;
+      opacity: 0;
+    }
+    
+    .result-explanation h4 {
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .result-explanation p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+    
+    .rtl .result-explanation p.ar {
+      text-align: right;
+    }
+    
+    .ltr .result-explanation p.en {
+      text-align: left;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      margin-top: 40px;
+      border-top: 1px solid #eee;
+    }
+    
+    .home-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #f5f5f5;
+      color: #666;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .home-link:hover {
+      background-color: #eee;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="rtl">
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button id="ar-btn" class="active">العربية</button>
+    <button id="en-btn">English</button>
+  </div>
+
+  <div class="container">
+    <header>
+      <img src="images/prettyskin/logo.png" alt="PRETTYSKIN Logo" class="logo" style="max-width: 120px; margin: 10px auto;">
+      <h2 style="margin-bottom: 10px;">
+        <span class="ar">اختبار نوع البشرة المثالي</span>
+        <span class="en">Perfect Skin Type Quiz</span>
+      </h2>
+    </header>
+
+    <div class="quiz-container">
+      <!-- Quiz Step 1 -->
+      <div class="quiz-step" id="quiz-step-1">
+        <h3>
+          <span class="ar">الخطوة 1: ما هو نوع بشرتك؟</span>
+          <span class="en">Step 1: What is your skin type?</span>
+        </h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-type="dry">
+            <div class="option-icon">🌵</div>
+            <h4>
+              <span class="ar">بشرة جافة</span>
+              <span class="en">Dry Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-type="oily">
+            <div class="option-icon">💧</div>
+            <h4>
+              <span class="ar">بشرة دهنية</span>
+              <span class="en">Oily Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-type="combination">
+            <div class="option-icon">🔄</div>
+            <h4>
+              <span class="ar">بشرة مختلطة</span>
+              <span class="en">Combination Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-type="sensitive">
+            <div class="option-icon">✨</div>
+            <h4>
+              <span class="ar">بشرة حساسة</span>
+              <span class="en">Sensitive Skin</span>
+            </h4>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Step 2 -->
+      <div class="quiz-step" id="quiz-step-2" style="display: none;">
+        <h3>
+          <span class="ar">الخطوة 2: ما هي مشكلتك الرئيسية مع واقي الشمس؟</span>
+          <span class="en">Step 2: What's your main concern with sunscreen?</span>
+        </h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-concern="whiteCast">
+            <div class="option-icon">👻</div>
+            <h4>
+              <span class="ar">البقع البيضاء</span>
+              <span class="en">White Cast</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="heavyFeeling">
+            <div class="option-icon">🏋️</div>
+            <h4>
+              <span class="ar">الإحساس الثقيل</span>
+              <span class="en">Heavy Feeling</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="oiliness">
+            <div class="option-icon">💦</div>
+            <h4>
+              <span class="ar">زيادة الدهون</span>
+              <span class="en">Added Oiliness</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="irritation">
+            <div class="option-icon">🔥</div>
+            <h4>
+              <span class="ar">التهيج</span>
+              <span class="en">Irritation</span>
+            </h4>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Results -->
+      <div class="quiz-results" id="quiz-results" style="display: none;">
+        <h3>
+          <span class="ar">النتيجة: واقي الشمس المثالي لك</span>
+          <span class="en">Result: Your Perfect Sunscreen</span>
+        </h3>
+        <div class="result-container" id="result-yellow">
+          <img src="images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم الترطيب اليومي لأنه يوفر توازنًا مثاليًا بين الترطيب والحماية. هذا المنتج مثالي للبشرة المختلطة والعادية، مما يجعله خيارًا مناسبًا للاستخدام اليومي مع الحفاظ على نضارة البشرة دون إثقالها.</p>
+            <p class="en">Based on your quiz answers, we recommend the Daily Moisture Sun Cream because it provides the perfect balance of hydration and protection. This product is ideal for combination and normal skin, making it a suitable choice for everyday use while keeping your skin fresh without feeling heavy.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-white">
+          <img src="images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بدون زيوت لأنه مصمم خصيصًا للبشرة الدهنية أو المختلطة المائلة للدهنية. هذا المنتج يتحكم في إفراز الزيوت الزائدة مع توفير حماية مثالية من الشمس، ويساعد على تفتيح لون البشرة دون ترك أي لمعان غير مرغوب فيه.</p>
+            <p class="en">Based on your quiz answers, we recommend the No-sebum Tone Up Sun Cream because it's specifically designed for oily or combination-oily skin. This product controls excess oil production while providing optimal sun protection, and helps brighten your skin tone without leaving any unwanted shine.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-green">
+          <img src="images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم سوبر أكوا لأنه يوفر ترطيبًا مكثفًا مثاليًا للبشرة الجافة أو الحساسة. يحتوي على مستخلصات طبيعية مهدئة تعمل على تخفيف التهيج والاحمرار، مع توفير حماية فعالة من أشعة الشمس الضارة دون أي شعور بالثقل.</p>
+            <p class="en">Based on your quiz answers, we recommend the Super Aqua Sun Cream because it provides intensive hydration perfect for dry or sensitive skin. It contains natural soothing extracts that work to reduce irritation and redness, while providing effective protection from harmful sun rays without any heavy feeling.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-pink">
+          <img src="images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بينك تون أب لأنه مثالي لمن يبحثون عن واقي شمس خفيف لا يترك آثارًا بيضاء ولا يشعر بالثقل على البشرة. يتميز بتركيبته الخفيفة التي تمنح البشرة إشراقة فورية، ويعمل كقاعدة مثالية للمكياج مع توفير حماية عالية من الأشعة فوق البنفسجية.</p>
+            <p class="en">Based on your quiz answers, we recommend the Pink Tone Up Sun Cream because it's perfect for those looking for a lightweight sunscreen that doesn't leave white cast or feel heavy on the skin. It features a lightweight formula that gives your skin an instant radiance, and works as a perfect makeup base while providing high UV protection.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Nav -->
+      <div class="quiz-nav">
+        <button id="quiz-prev" class="quiz-btn" style="display: none;">
+          <span class="ar">السابق</span>
+          <span class="en">Previous</span>
+        </button>
+        <button id="quiz-next" class="quiz-btn">
+          <span class="ar">التالي</span>
+          <span class="en">Next</span>
+        </button>
+        <button id="quiz-restart" class="quiz-btn" style="display: none;">
+          <span class="ar">إعادة الاختبار</span>
+          <span class="en">Restart Quiz</span>
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        <span class="ar">© 2025 PRETTYSKIN - جميع الحقوق محفوظة</span>
+        <span class="en">© 2025 PRETTYSKIN - All Rights Reserved</span>
+      </p>
+      <a href="prettyskin.html" class="home-link">
+        <span class="ar">العودة إلى الصفحة الرئيسية</span>
+        <span class="en">Back to Homepage</span>
+      </a>
+    </footer>
+  </div>
+
+  <script>
+    // Language switcher
+    document.getElementById('ar-btn').addEventListener('click', function() {
+      document.body.classList.add('rtl');
+      document.body.classList.remove('ltr');
+      document.getElementById('ar-btn').classList.add('active');
+      document.getElementById('en-btn').classList.remove('active');
+    });
+
+    document.getElementById('en-btn').addEventListener('click', function() {
+      document.body.classList.add('ltr');
+      document.body.classList.remove('rtl');
+      document.getElementById('en-btn').classList.add('active');
+      document.getElementById('ar-btn').classList.remove('active');
+    });
+
+    // Skin Type Quiz functionality
+    function initSkinTypeQuiz() {
+      const quizOptions = document.querySelectorAll('.quiz-option');
+      const nextBtn = document.getElementById('quiz-next');
+      const prevBtn = document.getElementById('quiz-prev');
+      const restartBtn = document.getElementById('quiz-restart');
+      
+      let currentStep = 1;
+      let selectedSkinType = '';
+      let selectedConcern = '';
+      
+      // Add click event to options - automatically move to next step when option is clicked
+      quizOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove selected class from siblings
+          const parentDiv = this.parentNode;
+          parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // Add selected class to clicked option
+          this.classList.add('selected');
+          
+          // Store the selection and move to next step
+          if (currentStep === 1) {
+            selectedSkinType = this.getAttribute('data-type');
+            // Move to step 2 after a short delay to show selection
+            setTimeout(() => {
+              document.getElementById('quiz-step-1').style.display = 'none';
+              document.getElementById('quiz-step-2').style.display = 'block';
+              prevBtn.style.display = 'inline-block';
+              currentStep = 2;
+            }, 400); // Short delay to see the selection
+          } else if (currentStep === 2) {
+            selectedConcern = this.getAttribute('data-concern');
+            // Move to results after a short delay to show selection
+            setTimeout(() => {
+              document.getElementById('quiz-step-2').style.display = 'none';
+              document.getElementById('quiz-results').style.display = 'block';
+              restartBtn.style.display = 'inline-block';
+              showRecommendation(selectedSkinType, selectedConcern);
+              currentStep = 3;
+            }, 400); // Short delay to see the selection
+          }
+        });
+      });
+      
+      // We've removed the Next button, so we handle the step transition directly when an option is clicked
+      
+      // Previous button handler
+      prevBtn.addEventListener('click', function() {
+        if (currentStep === 2) {
+          // Back to step 1
+          document.getElementById('quiz-step-2').style.display = 'none';
+          document.getElementById('quiz-step-1').style.display = 'block';
+          prevBtn.style.display = 'none';
+          currentStep = 1;
+        } else if (currentStep === 3) {
+          // Back to step 2
+          document.getElementById('quiz-results').style.display = 'none';
+          document.getElementById('quiz-step-2').style.display = 'block';
+          nextBtn.style.display = 'inline-block';
+          restartBtn.style.display = 'none';
+          currentStep = 2;
+        }
+      });
+      
+      // Restart button handler
+      restartBtn.addEventListener('click', function() {
+        // Reset everything
+        document.getElementById('quiz-results').style.display = 'none';
+        document.getElementById('quiz-step-1').style.display = 'block';
+        nextBtn.style.display = 'inline-block';
+        restartBtn.style.display = 'none';
+        prevBtn.style.display = 'none';
+        currentStep = 1;
+        
+        // Clear selections
+        quizOptions.forEach(opt => opt.classList.remove('selected'));
+        selectedSkinType = '';
+        selectedConcern = '';
+        
+        // Hide all result containers
+        document.querySelectorAll('.result-container').forEach(container => {
+          container.style.display = 'none';
+        });
+      });
+      
+      // Function to show the appropriate recommendation
+      function showRecommendation(skinType, concern) {
+        let recommendedProduct = '';
+        
+        // Logic to determine the best product based on selections
+        if (skinType === 'dry' || (skinType === 'sensitive' && concern === 'irritation')) {
+          recommendedProduct = 'green'; // Super Aqua
+        } else if (skinType === 'oily' || concern === 'oiliness') {
+          recommendedProduct = 'white'; // No-sebum
+        } else if (concern === 'whiteCast' || concern === 'heavyFeeling') {
+          recommendedProduct = 'pink'; // Pink Tone Up
+        } else {
+          recommendedProduct = 'yellow'; // Daily Moisture (default and for combination skin)
+        }
+        
+        // Show the recommended product
+        document.getElementById(`result-${recommendedProduct}`).style.display = 'block';
+        
+        // Add animation to make it more engaging
+        setTimeout(() => {
+          document.getElementById(`result-${recommendedProduct}`).style.animation = 'fadeIn 0.5s ease';
+        }, 100);
+      }
+    }
+
+    // Initialize quiz on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      initSkinTypeQuiz();
+    });
+  </script>
+</body>
+</html>

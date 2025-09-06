@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo 1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff;
+        }
+        .logo-container {
+            text-align: center;
+            width: 300px;
+        }
+        .logo {
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff85a2;
+            font-weight: bold;
+            font-size: 2rem;
+            display: inline-block;
+            position: relative;
+        }
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff85a2, #ff9eb5);
+            border-radius: 50%;
+            top: -10px;
+            right: -15px;
+            opacity: 0.7;
+        }
+        .tagline {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+        .export-btn {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #ff85a2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo">PRETTYSKIN</div>
+        <div class="tagline">Advanced Sun Protection</div>
+        
+        <button class="export-btn" onclick="exportLogo()">Export as PNG</button>
+    </div>
+
+    <script>
+        function exportLogo() {
+            // في بيئة حقيقية، سيكون هنا كود لتصدير الشعار كصورة PNG
+            alert("في تطبيق حقيقي، سيتم تصدير الشعار كصورة PNG");
+        }
+    </script>
+</body>
+</html>

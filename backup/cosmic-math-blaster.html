@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cosmic Math Blaster - An educational math game set in space">
+    <title>Cosmic Math Blaster</title>
+    <style>
+        :root {
+            --primary-color: #4ECDC4;
+            --secondary-color: #FF6B6B;
+            --background-color: #000033;
+            --text-color: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --font-family: 'Arial', sans-serif;
+            --shape-size: 80px;
+            --button-transition: background-color 0.3s, transform 0.1s;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            touch-action: manipulation;
+            overflow: hidden;
+        }
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--background-color), #000066);
+        }
+        .shape {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px var(--shadow-color);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            user-select: none;
+            width: var(--shape-size);
+            height: var(--shape-size);
+        }
+        .shape:hover { transform: scale(1.05); }
+        .shape.active { animation: pulse 1s infinite alternate; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); }
+            100% { box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 0.5); }
+        }
+        .circle { border-radius: 50%; }
+        .square { border-radius: 10%; }
+        .triangle {
+            width: 0 !important;
+            height: 0 !important;
+            background-color: transparent !important;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 80px solid;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 10px;
+        }
+        #answer-area {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+        .answer-btn {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--button-transition);
+        }
+        .answer-btn:hover { background-color: rgba(76, 175, 80, 1); }
+        .answer-btn:active { transform: scale(0.95); }
+        #score, #lives, #level, #best-score {
+            position: absolute;
+            top: 10px;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px var(--shadow-color);
+        }
+        #score { left: 10px; }
+        #lives { right: 10px; }
+        #level { left: 50%; transform: translateX(-50%); }
+        #best-score { left: 10px; top: 40px; }
+        #feedback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #start-screen, #game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+        }
+        #start-screen h1, #game-over-screen h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        #start-button, #restart-button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #start-button:hover, #restart-button:hover { background-color: var(--secondary-color); }
+        @media (max-width: 600px) {
+            .shape { font-size: 1rem; }
+            #score, #lives, #level, #best-score { font-size: 1.2rem; }
+            .answer-btn { font-size: 1.2rem; padding: 8px 16px; }
+            #start-screen h1, #game-over-screen h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="score">Score: 0</div>
+        <div id="best-score">Best: 0</div>
+        <div id="level">Novice Stargazer</div>
+        <div id="lives">Lives: ❤️❤️❤️</div>
+        <div id="feedback"></div>
+        <div id="answer-area"></div>
+        <div id="start-screen">
+            <h1>Cosmic Math Blaster</h1>
+            <button id="start-button">Start Game</button>
+        </div>
+        <div id="game-over-screen" style="display: none;">
+            <h1>Game Over</h1>
+            <p id="final-score"></p>
+            <p id="best-score-display"></p>
+            <button id="restart-button">Play Again</button>
+        </div>
+    </div>
+    <script>
+        const gameContainer = document.getElementById('game-container');
+        const answerArea = document.getElementById('answer-area');
+        const scoreElement = document.getElementById('score');
+        const bestScoreElement = document.getElementById('best-score');
+        const livesElement = document.getElementById('lives');
+        const levelElement = document.getElementById('level');
+        const feedbackElement = document.getElementById('feedback');
+        const startScreen = document.getElementById('start-screen');
+        const gameOverScreen = document.getElementById('game-over-screen');
+        const startButton = document.getElementById('start-button');
+        const restartButton = document.getElementById('restart-button');
+        const finalScoreElement = document.getElementById('final-score');
+        const bestScoreDisplayElement = document.getElementById('best-score-display');
+        let score = 0;
+        let bestScore = 0;
+        let lives = 3;
+        let level = 1;
+        let currentShape = null;
+        let gameSpeed = 5;
+        let gameInterval;
+        let isGameRunning = false;
+        let correctAnswersInARow = 0;
+        let incorrectAnswersInARow = 0;
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
+        const emojis = ['🎉', '👍', '😊', '🌟', '💯'];
+        const shapeTypes = ['circle', 'square', 'triangle'];
+        const levelNames = [
+            'Novice Stargazer',
+            'Cosmic Calculator',
+            'Galactic Genius',
+            'Nebula Navigator',
+            'Quantum Quizzer'
+        ];
+        // Initialize AudioContext only after user interaction
+        let audioCtx;
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        function createShape() {
+            if (currentShape || !isGameRunning) return;
+            const shape = document.createElement('div');
+            const shapeType = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+            shape.className = `shape ${shapeType} active`;
+            const [num1, num2] = generateNumbers();
+            const answer = num1 * num2;
+            shape.textContent = `${num1} × ${num2}`;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            if (shapeType === 'triangle') {
+                shape.style.borderBottomColor = color;
+            } else {
+                shape.style.backgroundColor = color;
+            }
+            shape.style.left = `${Math.random() * (gameContainer.clientWidth - 80)}px`;
+            shape.style.top = '-80px';
+            shape.dataset.answer = answer;
+            gameContainer.appendChild(shape);
+            currentShape = shape;
+            updateAnswerButtons();
+            animateShape(shape);
+        }
+        function generateNumbers() {
+            const maxNumber = 10 + (level - 1) * 2;
+            return [
+                Math.floor(Math.random() * maxNumber) + 1,
+                Math.floor(Math.random() * maxNumber) + 1
+            ];
+        }
+        function animateShape(shape) {
+            const duration = (7 - gameSpeed * 0.5) * 1000;
+            const startTime = Date.now();
+            const startPosition = -80;
+            const endPosition = gameContainer.clientHeight;
+            function step() {
+                if (!isGameRunning) return;
+                const elapsedTime = Date.now() - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const currentPosition = startPosition + (endPosition - startPosition) * progress;
+                shape.style.top = `${currentPosition}px`;
+                if (progress < 1 && currentShape === shape) {
+                    requestAnimationFrame(step);
+                } else {
+                    if (gameContainer.contains(shape)) {
+                        gameContainer.removeChild(shape);
+                        decreaseLives();
+                    }
+                    currentShape = null;
+                    updateAnswerButtons();
+                }
+            }
+            requestAnimationFrame(step);
+        }
+        function updateAnswerButtons() {
+            answerArea.innerHTML = '';
+            if (currentShape) {
+                const correctAnswer = parseInt(currentShape.dataset.answer);
+                const wrongAnswer1 = correctAnswer + Math.floor(Math.random() * 10) + 1;
+                const wrongAnswer2 = correctAnswer - Math.floor(Math.random() * 10) - 1;
+                const answers = [correctAnswer, wrongAnswer1, wrongAnswer2].sort(() => Math.random() - 0.5);
+                answers.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.className = 'answer-btn';
+                    button.textContent = answer;
+                    button.addEventListener('click', () => checkAnswer(answer));
+                    answerArea.appendChild(button);
+                });
+            }
+        }
+        function playSound(frequency, duration, type = 'sine', volume = 0.2) {
+            initAudioContext(); // Initialize AudioContext if not already done
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime); // Adjust volume here
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start(audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+        function checkAnswer(userAnswer) {
+            if (currentShape) {
+                const correctAnswer = parseInt(currentShape.dataset.answer);
+                if (userAnswer === correctAnswer) {
+                    gameContainer.removeChild(currentShape);
+                    increaseScore();
+                    showFeedback(true);
+                    playSound(440, 0.5, 'sine', 0.5); // Louder correct answer sound
+                    correctAnswersInARow++;
+                    incorrectAnswersInARow = 0;
+                    if (correctAnswersInARow >= 5 && gameSpeed < 10) {
+                        gameSpeed++;
+                        updateGameSpeed();
+                        correctAnswersInARow = 0;
+                    }
+                } else {
+                    decreaseLives();
+                    showFeedback(false);
+                    playSound(220, 0.5, 'square'); // Incorrect answer sound
+                    incorrectAnswersInARow++;
+                    correctAnswersInARow = 0;
+                    if (incorrectAnswersInARow >= 3 && gameSpeed > 1) {
+                        gameSpeed--;
+                        updateGameSpeed();
+                        incorrectAnswersInARow = 0;
+                    }
+                }
+                currentShape = null;
+                updateAnswerButtons();
+            }
+        }
+        function increaseScore() {
+            score++;
+            scoreElement.textContent = `Score: ${score}`;
+            if (score > bestScore) {
+                bestScore = score;
+                bestScoreElement.textContent = `Best: ${bestScore}`;
+            }
+            if (score % 10 === 0) {
+                increaseLevel();
+            }
+        }
+        function decreaseLives() {
+            lives--;
+            livesElement.textContent = `Lives: ${'❤️'.repeat(lives)}`;
+            if (lives === 0) {
+                endGame();
+            }
+        }
+        function increaseLevel() {
+            level = Math.min(level + 1, levelNames.length);
+            levelElement.textContent = levelNames[level - 1];
+            playSound(880, 0.8, 'triangle'); // Level up sound (A5 triangle wave)
+            // Adjust game speed based on the new level
+            gameSpeed = Math.min(5 + Math.floor((level - 1) / 2), 10); // Increase speed gradually with levels, max 10
+            updateGameSpeed(); 
+        }
+        function showFeedback(correct) {
+            feedbackElement.textContent = correct ? emojis[Math.floor(Math.random() * emojis.length)] : '❌';
+            feedbackElement.style.opacity = 1;
+            setTimeout(() => {
+                feedbackElement.style.opacity = 0;
+            }, 500);
+        }
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            finalScoreElement.textContent = `Your score: ${score}`;
+            bestScoreDisplayElement.textContent = `Best score: ${bestScore}`;
+            gameOverScreen.style.display = 'flex';
+            playSound(110, 1, 'sawtooth'); // Game over sound (A2 sawtooth wave)
+        }
+        function updateGameSpeed() {
+            if (isGameRunning) {
+                clearInterval(gameInterval);
+                gameInterval = setInterval(createShape, 2000 - gameSpeed * 150);
+            }
+        }
+        function startGame() {
+            initAudioContext(); // Initialize AudioContext when game starts
+            score = 0;
+            lives = 3;
+            level = 1;
+            isGameRunning = true;
+            scoreElement.textContent = 'Score: 0';
+            bestScoreElement.textContent = `Best: ${bestScore}`;
+            livesElement.textContent = 'Lives: ❤️❤️❤️';
+            levelElement.textContent = levelNames[0];
+            startScreen.style.display = 'none';
+            gameOverScreen.style.display = 'none';
+            correctAnswersInARow = 0;
+            incorrectAnswersInARow = 0;
+            gameSpeed = 5; // Start at a medium speed
+            updateGameSpeed();
+        }
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', startGame);
+        function handleResize() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        updateAnswerButtons();
+    </script>
+  <footer class="zplix-footer" style="position:fixed;left:0;right:0;bottom:0;height:44px;background:#0288d1;color:#fff;display:flex;align-items:center;justify-content:center;z-index:99;font-size:1.1rem;box-shadow:0 -2px 8px rgba(0,0,0,0.07);">
+    <span style="margin-right:18px;">👥 Online: <span class="zplix-online-users">1</span></span>
+    <button onclick="toggleZplixFullscreen()" style="background:#039be5;border:none;color:#fff;padding:7px 18px;border-radius:22px;cursor:pointer;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.09);margin-left:8px;">Toggle Fullscreen</button>
+  </footer>
+  <script src="./online-users.js"></script>
+  <script src="./fullscreen.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحقق من الكوبون | نقاطي Niqati</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>نقاطي <span>Niqati</span></h1>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="redeem.html" class="active">تحقق من الكوبون</a></li>
+                        <li><a href="#" id="langSwitcher">English</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Redeem Section -->
+    <section class="redeem-section">
+        <div class="container">
+            <div class="redeem-content">
+                <h2 class="section-title">تحقق من الكوبون</h2>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="check">تحقق من الكوبون</button>
+                    <button class="tab-btn" data-tab="activate">تفعيل الكوبون</button>
+                    <button class="tab-btn" data-tab="redeem">استرداد النقاط</button>
+                </div>
+                
+                <div class="tab-content active" id="check-tab">
+                    <div class="form-container">
+                        <h3>تحقق من محتوى الكوبون</h3>
+                        <p>أدخل رمز الكوبون للتحقق من محتواه قبل الاسترداد</p>
+                        
+                        <form id="check-coupon-form">
+                            <div class="form-group">
+                                <label for="coupon-code">رمز الكوبون</label>
+                                <input type="text" id="coupon-code" placeholder="أدخل رمز الكوبون المكون من 24 حرفاً" required>
+                            </div>
+                            <button type="submit" class="btn-primary">تحقق</button>
+                        </form>
+                        
+                        <div class="coupon-result" style="display: none;">
+                            <h4>معلومات الكوبون</h4>
+                            <div class="coupon-details">
+                                <div class="coupon-info">
+                                    <span>نوع النقاط:</span>
+                                    <span id="coupon-type"></span>
+                                </div>
+                                <div class="coupon-info">
+                                    <span>عدد النقاط:</span>
+                                    <span id="coupon-points"></span>
+                                </div>
+                                <div class="coupon-info">
+                                    <span>حالة الكوبون:</span>
+                                    <span id="coupon-status"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="activate-tab">
+                    <div class="form-container">
+                        <h3>تفعيل الكوبون</h3>
+                        <p>أدخل رقم التذكرة وكود التفعيل للحصول على الكوبون الخاص بك</p>
+                        
+                        <form id="activate-coupon-form">
+                            <div class="form-group">
+                                <label for="ticket-number">رقم التذكرة</label>
+                                <input type="text" id="ticket-number" placeholder="أدخل رقم التذكرة" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="activation-code">كود التفعيل</label>
+                                <input type="text" id="activation-code" placeholder="أدخل كود التفعيل المستلم بعد الدفع" required>
+                            </div>
+                            <button type="submit" class="btn-primary">تفعيل</button>
+                        </form>
+                        
+                        <div class="activation-result" style="display: none;">
+                            <h4>معلومات الكوبون المفعّل</h4>
+                            <div class="coupon-code-container">
+                                <p>الكوبون الخاص بك:</p>
+                                <div class="coupon-code-display">
+                                    <span id="generated-coupon-code"></span>
+                                    <button id="copy-coupon" class="btn-icon"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <p class="coupon-note">يمكنك إرسال هذا الكوبون إلى المستلم لاسترداد النقاط</p>
+                            </div>
+                            <div class="coupon-details">
+                                <div class="coupon-info">
+                                    <span>نوع النقاط:</span>
+                                    <span id="activated-coupon-type"></span>
+                                </div>
+                                <div class="coupon-info">
+                                    <span>عدد النقاط:</span>
+                                    <span id="activated-coupon-points"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="redeem-tab">
+                    <div class="form-container">
+                        <h3>استرداد النقاط</h3>
+                        <p>أدخل رمز الكوبون لاسترداد النقاط الخاصة بك</p>
+                        
+                        <form id="redeem-form">
+                            <div class="form-group">
+                                <label for="redeem-code">رمز الكوبون</label>
+                                <input type="text" id="redeem-code" placeholder="أدخل رمز الكوبون المكون من 24 حرفاً" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usdt-wallet">عنوان محفظة USDT (اختياري)</label>
+                                <input type="text" id="usdt-wallet" placeholder="أدخل عنوان محفظة USDT الخاص بك">
+                                <small class="form-note">* مطلوب فقط لاسترداد USDT</small>
+                            </div>
+                            <button type="submit" class="btn-primary">استرداد</button>
+                        </form>
+                        
+                        <div class="redemption-result" style="display: none;">
+                            <div class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <h4>تمت عملية الاسترداد بنجاح!</h4>
+                                <p>ستصلك النقاط قريباً</p>
+                            </div>
+                            <div class="redemption-details">
+                                <div class="redemption-info">
+                                    <span>رقم المرجع:</span>
+                                    <span id="redemption-ref"></span>
+                                </div>
+                                <div class="redemption-info">
+                                    <span>تاريخ الاسترداد:</span>
+                                    <span id="redemption-date"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>نقاطي <span>Niqati</span></h2>
+                    <p>منصتك الموثوقة لشراء النقاط الرقمية</p>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="redeem.html">تحقق من الكوبون</a></li>
+                        <li><a href="payment-gateway.html">بوابة الدفع</a></li>
+                        <li><a href="admin.html">لوحة الإدارة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-envelope"></i> info@niqati.com</p>
+                    <p><i class="fas fa-phone"></i> +971 X XXX XXXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 نقاطي Niqati. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="300" height="120" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .logo-text {
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 36px;
+      letter-spacing: 1px;
+      fill: #333;
+    }
+    .logo-text-accent {
+      fill: #66bb6a;
+    }
+    .tagline {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      fill: #888;
+      letter-spacing: 1px;
+    }
+  </style>
+  
+  <circle cx="65" cy="40" r="20" fill="url(#gradient)" />
+  <circle cx="65" cy="40" r="10" fill="#fff" />
+  <text x="95" y="50" class="logo-text">PRETTY<tspan class="logo-text-accent">SKIN</tspan></text>
+  <text x="70" y="75" class="tagline">Nature's Protection Formula</text>
+  
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66bb6a"/>
+      <stop offset="100%" stop-color="#43a047"/>
+    </linearGradient>
+  </defs>
+</svg>

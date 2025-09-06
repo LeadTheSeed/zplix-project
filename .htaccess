@@ -1,0 +1,11 @@
+# Redirect old zplix.com URLs to the backup directory
+RewriteEngine On
+
+# Exclude the main index.html and niqati directory from redirection
+RewriteCond %{REQUEST_URI} !^/index\.html
+RewriteCond %{REQUEST_URI} !^/niqati/
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{REQUEST_URI} !^/favicon\.ico
+
+# Redirect all other requests to the backup directory
+RewriteRule ^(.*)$ /backup/$1 [L]

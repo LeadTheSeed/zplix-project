@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180">
+  <rect width="300" height="180" fill="#232f3e"/>
+  <text x="50%" y="40%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">Amazon</text>
+  <text x="50%" y="60%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="16" fill="#ff9900">Gift Cards</text>
+  <path d="M130,80 L170,80 L170,100 L150,110 L130,100 Z" fill="#ff9900" opacity="0.8"/>
+  <path d="M140,90 L160,90 L160,95 L150,100 L140,95 Z" fill="#ffffff"/>
+</svg>

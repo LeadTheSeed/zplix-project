@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zplix - Protected Area</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234a90e2'/><text x='50' y='60' font-size='50' fill='white' text-anchor='middle' font-family='Arial'>Z</text></svg>">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2563a6;
+            --accent-color: #50e3c2;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --box-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #eaf6ff 0%, #f5f5f5 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow-md);
+            padding: var(--spacing-xl);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .logo {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .logo p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+        
+        .login-form {
+            margin-top: var(--spacing-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-md);
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            transform: translateY(-2px);
+        }
+        
+        .error-message {
+            color: #fd397a;
+            margin-top: var(--spacing-md);
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: var(--spacing-lg);
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Zplix</h1>
+            <p>منطقة محمية</p>
+        </div>
+        
+        <div class="login-form">
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور للوصول">
+            </div>
+            
+            <button class="submit-btn" id="loginBtn">دخول</button>
+            
+            <div class="error-message" id="errorMessage">
+                كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Always require password - no automatic authentication
+            localStorage.removeItem('zplix_auth');
+            passwordInput.focus();
+            
+            loginBtn.addEventListener('click', function() {
+                const password = passwordInput.value.trim();
+                
+                if (password === 'jabbanX') {
+                    // Correct password
+                    localStorage.setItem('zplix_auth', 'true');
+                    window.location.href = 'niqati/index.html';
+                } else {
+                    // Wrong password
+                    errorMessage.style.display = 'block';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Shake animation
+                    loginBtn.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        loginBtn.style.animation = '';
+                    }, 500);
+                }
+            });
+            
+            // Allow Enter key to submit
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+        });
+        
+        // Add shake animation
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            </style>
+        `);
+    </script>
+</body>
+</html>

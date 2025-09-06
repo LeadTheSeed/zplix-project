@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<!-- آخر تحديث: 2025-06-02 -->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <title>PRETTYSKIN - اختبار نوع البشرة</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap">
+  <style>
+    /* Global Styles to Fix Horizontal Scrolling */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      max-width: 100vw;
+    }
+    
+    * {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+    
+    /* Quiz Styles */
+    .quiz-container {
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 800px;
+      width: 100%;
+    }
+    
+    @media (max-width: 576px) {
+      .quiz-container {
+        padding: 15px;
+        border-radius: 15px;
+      }
+      
+      .quiz-step h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+    }
+    
+    .quiz-step {
+      margin-bottom: 15px;
+    }
+    
+    .quiz-step h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #333;
+      text-align: center;
+    }
+    
+    /* تنسيق خيارات الاختبار بشكل متجاوب */
+    .quiz-options {
+      display: grid !important;
+      /* Default to 2 columns, will be overridden by landscape/desktop */
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 15px !important;
+      padding: 10px !important;
+      /* Removed max-width: 600px !important; */
+      margin: 0 auto !important;
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100% !important; /* Ensure it doesn't exceed parent */
+    }
+    
+    /* === AGGRESSIVE PORTRAIT MODE OVERRIDES === */
+    @media screen and (orientation: portrait) {
+      html, body {
+        overflow-x: hidden !important; /* Prevent scrolling on the highest level */
+        width: 100% !important;
+        max-width: 100vw !important;
+      }
+      .container { /* Assuming a main page container */
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .quiz-container { /* The main box for the quiz */
+        width: 100% !important;
+        max-width: 100% !important; /* Take full width of its parent (.container) */
+        padding: 10px !important; /* Minimal padding inside the quiz box */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+      }
+      .quiz-options { /* The grid for skin type options */
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* Strictly 2 columns */
+        gap: 8px !important; /* Small gap between options */
+        padding: 0 !important; /* No padding on the grid container itself */
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important; /* Should not be needed if children fit */
+      }
+      .quiz-option { /* Each individual skin type option */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important; /* Take full width of its grid cell */
+        min-width: 0 !important; /* CRITICAL: Allows item to shrink */
+        max-width: 100% !important;
+        padding: 8px 4px !important; /* Slightly reduced padding for portrait */
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        word-break: break-word !important; /* Force word breaking */
+        overflow: hidden !important; /* Hide internal overflow if any */
+        background-color: #f9f9f9 !important;
+        border-radius: 15px !important;
+        cursor: pointer !important;
+        border: 3px solid transparent !important; /* Base border for selection effect */
+      }
+      .quiz-option img, /* Target any image directly inside */
+      .quiz-option .option-icon img { /* Or if icon is an image within .option-icon */
+        max-width: 100% !important; /* Make images responsive */
+        height: auto !important;
+        display: inline-block !important; /* Adjust as needed, inline-block or block */
+      }
+      .quiz-option h4 {
+        font-size: 0.9rem !important; /* Adjust text size if needed */
+        margin-bottom: 5px !important;
+      }
+      .option-icon {
+          font-size: 1.6rem !important; /* Adjust icon size */
+          margin-bottom: 5px !important;
+      }
+    }
+    
+    /* Desktop view - 4 columns */
+    @media (min-width: 768px) and (orientation: landscape) {
+      .quiz-options {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .quiz-option {
+        padding: 10px 5px !important;
+        min-width: auto !important;
+        /* width: 100% !important; <-- Removed to avoid conflict, portrait rule will handle width */
+        flex: none !important;
+      }
+      
+      .quiz-container {
+        padding: 15px 10px !important;
+      }
+      
+      .option-icon {
+        font-size: 1.8rem !important;
+      }
+      
+      .quiz-step h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 15px !important;
+      }
+      
+      .quiz-option h4 {
+        font-size: 0.9rem !important;
+      }
+      
+      .quiz-options {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        overflow-x: hidden !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        padding: 5px !important;
+      }
+    }
+    
+    .quiz-option {
+      min-width: 0 !important; /* Absolutely crucial for allowing shrinking */
+      max-width: 100% !important; /* Max width relative to its grid cell (1fr) */
+      box-sizing: border-box !important;
+      padding: 12px 8px !important; /* Padding for small screens (might be landscape if not overridden) */
+      margin: 0 !important; /* Ensure no extra margins */
+      word-break: break-word; /* Helps break long words if text is an issue */
+      display: flex !important; 
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      /* Base visual styles (background, border, etc.) are now expected from the portrait/general rule */
+      /* flex: none !important; -- Removed as it's likely conflicting or unneeded */
+    }
+    
+    .quiz-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .quiz-option.selected {
+      border-color: #ff6b6b;
+      background-color: #fff9f9;
+    }
+    
+    .option-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .quiz-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 15px;
+    }
+    
+    .quiz-btn {
+      padding: 12px 25px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .quiz-btn:hover {
+      background-color: #ff5252;
+      transform: translateY(-3px);
+    }
+    
+    /* Quiz Results */
+    .quiz-results {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .quiz-results h3 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    @media (max-width: 576px) {
+      .quiz-results h3 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+      
+      .result-explanation h4 {
+        font-size: 1.1rem;
+      }
+      
+      .result-explanation p {
+        font-size: 0.95rem;
+      }
+    }
+    
+    .result-container {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 30px;
+      text-align: left;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    /* Responsive styles for mobile and tablet */
+    @media (max-width: 768px) {
+      .result-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      
+      .rtl .result-container {
+        flex-direction: column;
+      }
+      
+      .result-explanation {
+        max-width: 100%;
+        order: 2;
+      }
+      
+      .result-product-image-container {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+        order: 1;
+      }
+    }
+    
+    .rtl .result-container {
+      text-align: right;
+      flex-direction: row-reverse;
+    }
+    
+    .result-product-image-container {
+      flex: 0 0 280px;
+      align-self: flex-start;
+    }
+    
+    .result-container img.result-product-image {
+      width: 100%;
+      height: auto;
+      max-width: 280px;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+    }
+    
+    .result-container img.result-product-image:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .result-explanation {
+      flex: 1;
+      min-width: 280px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.7s ease 0.3s forwards;
+      opacity: 0;
+      max-width: 60%;
+      align-self: center;
+    }
+    
+    .result-explanation h4 {
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .result-explanation p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    .rtl .result-explanation p.ar {
+      text-align: right;
+    }
+    
+    .ltr .result-explanation p.en {
+      text-align: left;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Cairo', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f5f2;
+      transition: all 0.5s ease;
+    }
+    
+    /* Product Theme Colors */
+    body.theme-pink {
+      background-color: #fff0f5;
+    }
+    
+    body.theme-green {
+      background-color: #f0fff0;
+    }
+    
+    body.theme-yellow {
+      background-color: #fffaf0;
+    }
+    
+    body.theme-white {
+      background-color: #f8f9fa;
+    }
+    
+    .theme-pink .quiz-btn {
+      background-color: #ff80ab;
+    }
+    
+    .theme-green .quiz-btn {
+      background-color: #66bb6a;
+    }
+    
+    .theme-yellow .quiz-btn {
+      background-color: #ffd54f;
+    }
+    
+    .theme-white .quiz-btn {
+      background-color: #90a4ae;
+    }
+    
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px;
+        width: 100%;
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+    }
+    
+    /* Landscape orientation fixes */
+    @media screen and (orientation: landscape) {
+      html, body, .container {
+        overflow-x: hidden;
+        max-width: 100vw;
+        width: 100%;
+      }
+      
+      .quiz-container {
+        max-width: 90vw;
+        padding: 15px;
+      }
+      
+      .quiz-options {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 10px !important;
+        max-width: 100% !important;
+      }
+      
+      .quiz-option {
+        padding: 10px 5px !important;
+      }
+    }
+    
+    /* Specific landscape fixes for smaller screens */
+    @media screen and (orientation: landscape) and (max-height: 500px) {
+      .quiz-container {
+        margin: 5px auto;
+        padding: 10px;
+      }
+      
+      .quiz-option {
+        padding: 8px 4px !important;
+      }
+      
+      .option-icon {
+        font-size: 1.5rem !important;
+        margin-bottom: 5px !important;
+      }
+      
+      .quiz-option h4 {
+        font-size: 0.8rem !important;
+        margin: 5px 0 !important;
+      }
+    }
+    
+    /* Language Switcher */
+    .language-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: white;
+      padding: 10px;
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .language-switcher button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      font-weight: bold;
+      color: #888;
+      transition: color 0.3s;
+    }
+    
+    .language-switcher button.active {
+      color: #ff6b6b;
+    }
+    
+    /* RTL Support */
+    .rtl {
+      direction: rtl;
+      text-align: right;
+    }
+    
+    .ltr {
+      direction: ltr;
+      text-align: left;
+    }
+    
+    .en {
+      display: none;
+    }
+    
+    .rtl .en {
+      display: none;
+    }
+    
+    .rtl .ar {
+      display: block;
+    }
+    
+    .ltr .ar {
+      display: none;
+    }
+    
+    .ltr .en {
+      display: block;
+    }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 15px 0;
+    }
+    
+    .logo {
+      max-width: 120px;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body class="rtl">
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button id="ar-btn" class="active">العربية</button>
+    <button id="en-btn">English</button>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="logo-container" style="text-align: center; margin: 20px auto;">
+        <img src="/main/images/prettyskin/logo.png" alt="PRETTYSKIN Logo" style="width: 100%; height: auto; max-width: 600px;">
+      </div>
+      <h2 style="margin-bottom: 10px;">
+        <span class="ar">اختبار نوع البشرة المثالي</span>
+        <span class="en">Perfect Skin Type Quiz</span>
+      </h2>
+    </header>
+    
+    <div class="quiz-container">
+      <!-- Quiz Step 1 -->
+      <div class="quiz-step" id="quiz-step-1">
+        <h3>
+          <span class="ar">الخطوة 1: ما هو نوع بشرتك؟</span>
+          <span class="en">Step 1: What is your skin type?</span>
+        </h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-skin-type="dry">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">✨</div>
+            <h4>
+              <span class="ar">بشرة جافة</span>
+              <span class="en">Dry Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-skin-type="oily">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">💧</div>
+            <h4>
+              <span class="ar">بشرة دهنية</span>
+              <span class="en">Oily Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-skin-type="combination">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">↔️</div>
+            <h4>
+              <span class="ar">بشرة مختلطة</span>
+              <span class="en">Combination Skin</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-skin-type="sensitive">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">✨</div>
+            <h4>
+              <span class="ar">بشرة حساسة</span>
+              <span class="en">Sensitive Skin</span>
+            </h4>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Step 2 -->
+      <div class="quiz-step" id="quiz-step-2" style="display: none;">
+        <h3>
+          <span class="ar">الخطوة 2: ما هي مشكلتك الرئيسية مع واقي الشمس؟</span>
+          <span class="en">Step 2: What's your main concern with sunscreen?</span>
+        </h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-concern="whiteCast">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">⚪</div>
+            <h4>
+              <span class="ar">البقع البيضاء</span>
+              <span class="en">White Cast</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="heavyFeeling">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">⚓</div>
+            <h4>
+              <span class="ar">الإحساس الثقيل</span>
+              <span class="en">Heavy Feeling</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="oiliness">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">💦</div>
+            <h4>
+              <span class="ar">زيادة الدهون</span>
+              <span class="en">Added Oiliness</span>
+            </h4>
+          </div>
+          <div class="quiz-option" data-concern="irritation">
+            <div class="option-icon" style="font-size: 2rem; margin-bottom: 10px;">🔥</div>
+            <h4>
+              <span class="ar">التهيج</span>
+              <span class="en">Irritation</span>
+            </h4>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Results -->
+      <div class="quiz-results" id="quiz-results" style="display: none;">
+        <h3>
+          <span class="ar">النتيجة: واقي الشمس المثالي لك</span>
+          <span class="en">Result: Your Perfect Sunscreen</span>
+        </h3>
+        <div class="result-container" id="result-yellow">
+          <div class="result-product-image-container">
+            <img src="/main/images/prettyskin/usage-demo-2.jpeg" alt="Daily Moisture Sun Cream" class="result-product-image" />
+          </div>
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم الترطيب اليومي لأنه يوفر توازنًا مثاليًا بين الترطيب والحماية. هذا المنتج مثالي للبشرة المختلطة والعادية، مما يجعله خيارًا مناسبًا للاستخدام اليومي مع الحفاظ على نضارة البشرة دون إثقالها.</p>
+            <p class="en">Based on your quiz answers, we recommend the Daily Moisture Sun Cream because it provides the perfect balance of hydration and protection. This product is ideal for combination and normal skin, making it a suitable choice for everyday use while keeping your skin fresh without feeling heavy.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-white">
+          <div class="result-product-image-container">
+            <img src="/main/images/prettyskin/ingredients-2.jpeg" alt="No-sebum Tone Up Sun Cream" class="result-product-image" />
+          </div>
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بدون زيوت لأنه مصمم خصيصًا للبشرة الدهنية أو المختلطة المائلة للدهنية. هذا المنتج يتحكم في إفراز الزيوت الزائدة مع توفير حماية مثالية من الشمس، ويساعد على تفتيح لون البشرة دون ترك أي لمعان غير مرغوب فيه.</p>
+            <p class="en">Based on your quiz answers, we recommend the No-sebum Tone Up Sun Cream because it's specifically designed for oily or combination-oily skin. This product controls excess oil production while providing optimal sun protection, and helps brighten your skin tone without leaving any unwanted shine.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-green">
+          <div class="result-product-image-container">
+            <img src="/main/images/prettyskin/ingredients-3.jpeg" alt="Super Aqua Sun Cream" class="result-product-image" />
+          </div>
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم سوبر أكوا لأنه يوفر ترطيبًا مكثفًا مثاليًا للبشرة الجافة أو الحساسة. يحتوي على مستخلصات طبيعية مهدئة تعمل على تخفيف التهيج والاحمرار، مع توفير حماية فعالة من أشعة الشمس الضارة دون أي شعور بالثقل.</p>
+            <p class="en">Based on your quiz answers, we recommend the Super Aqua Sun Cream because it provides intensive hydration perfect for dry or sensitive skin. It contains natural soothing extracts that work to reduce irritation and redness, while providing effective protection from harmful sun rays without any heavy feeling.</p>
+          </div>
+        </div>
+        <div class="result-container" id="result-pink">
+          <div class="result-product-image-container">
+            <img src="/main/images/prettyskin/ingredients-1.jpeg" alt="Pink Tone Up Sun Cream" class="result-product-image" />
+          </div>
+          <div class="result-explanation">
+            <h4>
+              <span class="ar">لماذا نوصي بهذا المنتج لك؟</span>
+              <span class="en">Why We Recommend This For You</span>
+            </h4>
+            <p class="ar">بناءً على إجاباتك في الاختبار، نوصي لك بسن كريم بينك تون أب لأنه مثالي لمن يبحثون عن واقي شمس خفيف لا يترك آثارًا بيضاء ولا يشعر بالثقل على البشرة. يتميز بتركيبته الخفيفة التي تمنح البشرة إشراقة فورية، ويعمل كقاعدة مثالية للمكياج مع توفير حماية عالية من الأشعة فوق البنفسجية.</p>
+            <p class="en">Based on your quiz answers, we recommend the Pink Tone Up Sun Cream because it's perfect for those looking for a lightweight sunscreen that doesn't leave white cast or feel heavy on the skin. It features a lightweight formula that gives your skin an instant radiance, and works as a perfect makeup base while providing high UV protection.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quiz Nav (only Previous and Restart buttons, no Next button) -->
+      <div class="quiz-nav">
+        <button id="quiz-prev" class="quiz-btn" style="display: none;">
+          <span class="ar">السابق</span>
+          <span class="en">Previous</span>
+        </button>
+        <button id="quiz-restart" class="quiz-btn" style="display: none;">
+          <span class="ar">إعادة الاختبار</span>
+          <span class="en">Restart Quiz</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initLanguageSwitcher();
+      initSkinTypeQuiz();
+    });
+
+    function initLanguageSwitcher() {
+      const arBtn = document.getElementById('ar-btn');
+      const enBtn = document.getElementById('en-btn');
+      const body = document.body;
+
+      arBtn.addEventListener('click', function() {
+        body.classList.remove('ltr');
+        body.classList.add('rtl');
+        arBtn.classList.add('active');
+        enBtn.classList.remove('active');
+      });
+
+      enBtn.addEventListener('click', function() {
+        body.classList.remove('rtl');
+        body.classList.add('ltr');
+        enBtn.classList.add('active');
+        arBtn.classList.remove('active');
+      });
+    }
+
+    function initSkinTypeQuiz() {
+      const quizStep1 = document.getElementById('quiz-step-1');
+      const quizStep2 = document.getElementById('quiz-step-2');
+      const quizResults = document.getElementById('quiz-results');
+      const quizPrev = document.getElementById('quiz-prev');
+      const quizRestart = document.getElementById('quiz-restart');
+      
+      const quizOptions = document.querySelectorAll('.quiz-option');
+      
+      let currentStep = 1;
+      let userAnswers = {
+        skinType: '',
+        concern: ''
+      };
+      
+      // Add click event to options - automatically move to next step when option is clicked
+      quizOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove selected class from siblings
+          const parentDiv = this.parentNode;
+          parentDiv.querySelectorAll('.quiz-option').forEach(sibling => {
+            sibling.classList.remove('selected');
+          });
+          
+          // Add selected class to clicked option
+          this.classList.add('selected');
+          
+          // Save answer
+          if (currentStep === 1) {
+            userAnswers.skinType = this.getAttribute('data-type');
+            
+            // Automatically move to next step after a brief delay
+            setTimeout(() => {
+              goToStep(2);
+            }, 300);
+          } else if (currentStep === 2) {
+            userAnswers.concern = this.getAttribute('data-concern');
+            
+            // Show results after a brief delay
+            setTimeout(() => {
+              showResults();
+            }, 300);
+          }
+        });
+      });
+      
+      // Previous button event
+      quizPrev.addEventListener('click', function() {
+        if (currentStep === 2) {
+          goToStep(1);
+        } else if (currentStep === 3) {
+          goToStep(2);
+        }
+      });
+      
+      // Restart button event
+      quizRestart.addEventListener('click', function() {
+        resetQuiz();
+      });
+      
+      function goToStep(step) {
+        // Hide all steps
+        quizStep1.style.display = 'none';
+        quizStep2.style.display = 'none';
+        quizResults.style.display = 'none';
+        
+        // Show target step
+        if (step === 1) {
+          quizStep1.style.display = 'block';
+          quizPrev.style.display = 'none';
+          quizRestart.style.display = 'none';
+        } else if (step === 2) {
+          quizStep2.style.display = 'block';
+          quizPrev.style.display = 'inline-block';
+          quizRestart.style.display = 'none';
+        }
+        
+        currentStep = step;
+      }
+      
+      function showResults() {
+        // Hide all steps
+        quizStep1.style.display = 'none';
+        quizStep2.style.display = 'none';
+        
+        // Show results
+        quizResults.style.display = 'block';
+        
+        // Hide all result containers first
+        document.querySelectorAll('.result-container').forEach(container => {
+          container.style.display = 'none';
+        });
+        
+        // Determine which product to show based on answers
+        let resultToShow = '';
+        
+        if (userAnswers.skinType === 'dry') {
+          resultToShow = 'green'; // Super Aqua
+        } else if (userAnswers.skinType === 'oily') {
+          resultToShow = 'white'; // No-sebum
+        } else if (userAnswers.skinType === 'combination') {
+          resultToShow = 'yellow'; // Daily Moisture
+        } else if (userAnswers.skinType === 'sensitive') {
+          if (userAnswers.concern === 'whiteCast' || userAnswers.concern === 'heavyFeeling') {
+            resultToShow = 'pink'; // Pink Tone Up
+          } else {
+            resultToShow = 'green'; // Super Aqua
+          }
+        }
+        
+        // Override based on concerns
+        if (userAnswers.concern === 'whiteCast') {
+          if (userAnswers.skinType !== 'oily') {
+            resultToShow = 'pink'; // Pink Tone Up
+          }
+        } else if (userAnswers.concern === 'oiliness') {
+          resultToShow = 'white'; // No-sebum
+        } else if (userAnswers.concern === 'irritation') {
+          resultToShow = 'green'; // Super Aqua
+        }
+        
+        // Show the selected result
+        document.getElementById('result-' + resultToShow).style.display = 'flex';
+        
+        // Change theme color based on product
+        const body = document.body;
+        body.classList.remove('theme-pink', 'theme-green', 'theme-yellow', 'theme-white');
+        body.classList.add('theme-' + resultToShow);
+        
+        // Update navigation buttons
+        quizPrev.style.display = 'inline-block';
+        quizRestart.style.display = 'inline-block';
+        
+        currentStep = 3;
+      }
+      
+      function resetQuiz() {
+        // Reset answers
+        userAnswers = {
+          skinType: '',
+          concern: ''
+        };
+        
+        // Remove selected classes
+        document.querySelectorAll('.quiz-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        
+        // Go back to step 1
+        goToStep(1);
+      }
+      
+      // Initialize quiz
+      resetQuiz();
+    }
+  </script>
+  
+  <footer style="text-align: center; margin-top: 40px; padding: 25px; border-top: 1px solid #eee; color: #333; font-size: 16px; font-weight: bold; background-color: #f5f5f5;">
+    <div class="developer-contact" style="margin: 10px 0;">
+      <span class="ar">تطوير Zplix للتطبيقات الذكية</span>
+      <span class="en">Developed by: Zplix Smart Applications Development</span>
+    </div>
+    <div class="phone-number" style="font-size: 18px; color: #25D366; /* WhatsApp Green */ margin-top: 5px; display: inline-block;">
+      <a href="https://wa.me/962799646029" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05s-1.253-.462-2.377-1.462c-.897-.79-1.48-1.761-1.653-2.059-.173-.297-.018-.462.08-.612.084-.133.197-.347.296-.52s.133-.197.197-.331c.065-.133.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943s-.08-.159-.197-.258z"/>
+        </svg>
+        <span class="ar">تواصل معنا</span>
+        <span class="en">Contact Us</span>
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

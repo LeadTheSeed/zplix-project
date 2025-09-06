@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff;
+        }
+        .logo-container {
+            text-align: center;
+            width: 300px;
+            padding: 20px;
+            background: white;
+        }
+        .logo-circles {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .logo-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .circle1 {
+            background-color: #ff80ab;
+        }
+        .circle2 {
+            background-color: #66bb6a;
+        }
+        .circle3 {
+            background-color: #ffb74d;
+        }
+        .logo-text {
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+        .tagline {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #5abc84;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo-circles">
+            <div class="logo-circle circle1"></div>
+            <div class="logo-circle circle2"></div>
+            <div class="logo-circle circle3"></div>
+        </div>
+        <div class="logo-text">PRETTYSKIN</div>
+        <div class="tagline">Perfect Skin Protection</div>
+        
+        <button onclick="downloadImage()">Download PNG</button>
+    </div>
+    
+    <script>
+        function downloadImage() {
+            // في بيئة حقيقية، هنا سيكون كود تصدير الشعار كصورة
+            alert("في تطبيق حقيقي، سيتم تصدير الشعار كصورة PNG");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة | نقاطي Niqati</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-panel">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container-fluid">
+            <div class="admin-header-content">
+                <div class="logo">
+                    <h1>نقاطي <span>Niqati</span></h1>
+                    <span class="admin-badge">لوحة الإدارة</span>
+                </div>
+                <div class="admin-controls">
+                    <div class="admin-user">
+                        <img src="img/admin-avatar.svg" alt="Admin" class="admin-avatar">
+                        <span class="admin-name">مدير النظام</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="admin-dropdown">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-user-cog"></i> الإعدادات</a></li>
+                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Content -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>لوحة التحكم</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="orders">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>الطلبات</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="coupons">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>الكوبونات</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="redemptions">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>عمليات الاسترداد</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="products">
+                            <i class="fas fa-gamepad"></i>
+                            <span>المنتجات</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>الإعدادات</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            <span>العودة للموقع</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section class="admin-section active" id="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> لوحة التحكم</h2>
+                    <div class="date-filter">
+                        <select id="date-range">
+                            <option value="today">اليوم</option>
+                            <option value="week" selected>هذا الأسبوع</option>
+                            <option value="month">هذا الشهر</option>
+                            <option value="custom">تخصيص</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon sales-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>إجمالي المبيعات</h3>
+                            <p class="stat-value">$12,584</p>
+                            <p class="stat-change positive"><i class="fas fa-arrow-up"></i> 12.5% منذ الأسبوع الماضي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon orders-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>الطلبات</h3>
+                            <p class="stat-value">254</p>
+                            <p class="stat-change positive"><i class="fas fa-arrow-up"></i> 8.3% منذ الأسبوع الماضي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon redemptions-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>عمليات الاسترداد</h3>
+                            <p class="stat-value">187</p>
+                            <p class="stat-change positive"><i class="fas fa-arrow-up"></i> 5.2% منذ الأسبوع الماضي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon users-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>المستخدمون الجدد</h3>
+                            <p class="stat-value">95</p>
+                            <p class="stat-change negative"><i class="fas fa-arrow-down"></i> 2.4% منذ الأسبوع الماضي</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <div class="widget sales-chart-widget">
+                        <div class="widget-header">
+                            <h3>المبيعات عبر الوقت</h3>
+                            <div class="widget-actions">
+                                <button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <div class="sales-chart" id="sales-chart">
+                                <!-- Sales chart will be rendered here -->
+                                <div class="chart-placeholder">
+                                    <div class="placeholder-chart">
+                                        <div class="chart-bar" style="height: 30%"></div>
+                                        <div class="chart-bar" style="height: 50%"></div>
+                                        <div class="chart-bar" style="height: 70%"></div>
+                                        <div class="chart-bar" style="height: 40%"></div>
+                                        <div class="chart-bar" style="height: 60%"></div>
+                                        <div class="chart-bar" style="height: 80%"></div>
+                                        <div class="chart-bar" style="height: 45%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget recent-orders-widget">
+                        <div class="widget-header">
+                            <h3>أحدث الطلبات</h3>
+                            <div class="widget-actions">
+                                <a href="#" class="view-all" data-section="orders">عرض الكل</a>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>رقم التذكرة</th>
+                                        <th>المنتج</th>
+                                        <th>المبلغ</th>
+                                        <th>الحالة</th>
+                                        <th>التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#TK25789</td>
+                                        <td>نقاط ببجي</td>
+                                        <td>$45.00</td>
+                                        <td><span class="status completed">مكتمل</span></td>
+                                        <td>05-09-2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TK25788</td>
+                                        <td>روبوكس</td>
+                                        <td>$30.00</td>
+                                        <td><span class="status pending">بانتظار الدفع</span></td>
+                                        <td>05-09-2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TK25787</td>
+                                        <td>بطاقة أمازون</td>
+                                        <td>$100.00</td>
+                                        <td><span class="status completed">مكتمل</span></td>
+                                        <td>04-09-2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TK25786</td>
+                                        <td>عملات تيك توك</td>
+                                        <td>$25.00</td>
+                                        <td><span class="status processing">قيد المعالجة</span></td>
+                                        <td>04-09-2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#TK25785</td>
+                                        <td>نقاط ببجي</td>
+                                        <td>$20.00</td>
+                                        <td><span class="status completed">مكتمل</span></td>
+                                        <td>03-09-2025</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section class="admin-section" id="orders-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-shopping-cart"></i> الطلبات</h2>
+                    <div class="section-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="البحث عن طلب...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select>
+                                <option value="all">كل الحالات</option>
+                                <option value="completed">مكتمل</option>
+                                <option value="pending">بانتظار الدفع</option>
+                                <option value="processing">قيد المعالجة</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table orders-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="select-all"></th>
+                                <th>رقم التذكرة</th>
+                                <th>المنتج</th>
+                                <th>الكمية</th>
+                                <th>المبلغ</th>
+                                <th>الحالة</th>
+                                <th>التاريخ</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="select-item"></td>
+                                <td>#TK25789</td>
+                                <td>نقاط ببجي</td>
+                                <td>2,500 نقطة</td>
+                                <td>$45.00</td>
+                                <td><span class="status completed">مكتمل</span></td>
+                                <td>05-09-2025</td>
+                                <td>
+                                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit-btn" title="تعديل"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="select-item"></td>
+                                <td>#TK25788</td>
+                                <td>روبوكس</td>
+                                <td>3,000 روبوكس</td>
+                                <td>$30.00</td>
+                                <td><span class="status pending">بانتظار الدفع</span></td>
+                                <td>05-09-2025</td>
+                                <td>
+                                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit-btn" title="تعديل"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="select-item"></td>
+                                <td>#TK25787</td>
+                                <td>بطاقة أمازون</td>
+                                <td>$100 بطاقة</td>
+                                <td>$100.00</td>
+                                <td><span class="status completed">مكتمل</span></td>
+                                <td>04-09-2025</td>
+                                <td>
+                                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon edit-btn" title="تعديل"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button class="page-btn prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span class="ellipsis">...</span>
+                        <button class="page-btn">10</button>
+                        <button class="page-btn next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Redemptions Section -->
+            <section class="admin-section" id="redemptions-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-exchange-alt"></i> عمليات الاسترداد</h2>
+                    <div class="section-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="البحث عن عملية استرداد...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table redemptions-table">
+                        <thead>
+                            <tr>
+                                <th>رقم المرجع</th>
+                                <th>الكوبون</th>
+                                <th>المنتج</th>
+                                <th>الكمية</th>
+                                <th>عنوان المحفظة</th>
+                                <th>الحالة</th>
+                                <th>التاريخ</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#RD12345</td>
+                                <td>XXXX-XXXX-XXXX-1234</td>
+                                <td>نقاط ببجي</td>
+                                <td>2,500 نقطة</td>
+                                <td>-</td>
+                                <td><span class="status completed">مكتمل</span></td>
+                                <td>05-09-2025</td>
+                                <td>
+                                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#RD12344</td>
+                                <td>XXXX-XXXX-XXXX-1233</td>
+                                <td>USDT</td>
+                                <td>$50.00</td>
+                                <td>0x1234...5678</td>
+                                <td><span class="status processing">قيد المعالجة</span></td>
+                                <td>04-09-2025</td>
+                                <td>
+                                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon process-btn" title="معالجة"><i class="fas fa-check-circle"></i></button>
+                                </td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <button class="page-btn prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <span class="ellipsis">...</span>
+                        <button class="page-btn">10</button>
+                        <button class="page-btn next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Other sections can be added here -->
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

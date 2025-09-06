@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo Options</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+            direction: rtl;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .logo-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .logo-card:hover {
+            transform: translateY(-5px);
+        }
+        .logo-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .logo-preview {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-description {
+            font-size: 14px;
+            color: #666;
+            text-align: right;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .select-btn {
+            background-color: #5abc84;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        .select-btn:hover {
+            background-color: #4da977;
+        }
+        
+        /* Logo 1 - Modern Circles */
+        .logo1-container {
+            text-align: center;
+        }
+        .logo1-circles {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        .logo1-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .circle-pink { background-color: #ff80ab; }
+        .circle-green { background-color: #66bb6a; }
+        .circle-orange { background-color: #ffb74d; }
+        .logo1-text {
+            font-weight: 700;
+            font-size: 28px;
+            color: #333;
+            letter-spacing: 2px;
+        }
+        .logo1-tagline {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        /* Logo 2 - Elegant Gradient */
+        .logo2-text {
+            font-weight: 300;
+            font-size: 32px;
+            background: linear-gradient(45deg, #ff80ab, #ff9eb5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+        .logo2-text span {
+            font-weight: 700;
+        }
+        
+        /* Logo 3 - Minimalist Icon */
+        .logo3-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo3-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+        }
+        .logo3-icon::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+        
+        /* Logo 4 - Dynamic Split */
+        .logo4-text {
+            font-size: 30px;
+            font-weight: 300;
+        }
+        .logo4-text .pretty {
+            color: #333;
+        }
+        .logo4-text .skin {
+            color: #ff80ab;
+            font-weight: 700;
+        }
+        .logo4-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #ff80ab, #ff9eb5);
+            margin: 8px auto;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>خيارات شعار PRETTYSKIN</h1>
+        <p>اختر الشعار المناسب لصفحة اختبار البشرة</p>
+    </div>
+    
+    <div class="logo-options">
+        <!-- Logo 1 - Modern Circles -->
+        <div class="logo-card">
+            <div class="logo-title">الخيار 1: الدوائر العصرية</div>
+            <div class="logo-preview">
+                <div class="logo1-container">
+                    <div class="logo1-circles">
+                        <span class="logo1-circle circle-pink"></span>
+                        <span class="logo1-circle circle-green"></span>
+                        <span class="logo1-circle circle-orange"></span>
+                    </div>
+                    <div class="logo1-text">PRETTYSKIN</div>
+                    <div class="logo1-tagline">Perfect Skin Protection</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار عصري يجمع بين البساطة والحداثة. الدوائر الملونة تمثل تنوع منتجات العناية بالبشرة، مع تصميم نظيف يناسب جميع المنصات.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 1')">اختيار هذا الشعار</button>
+        </div>
+        
+        <!-- Logo 2 - Elegant Gradient -->
+        <div class="logo-card">
+            <div class="logo-title">الخيار 2: التدرج الأنيق</div>
+            <div class="logo-preview">
+                <div class="logo2-text">PRETTY<span>SKIN</span></div>
+            </div>
+            <div class="logo-description">
+                شعار أنيق بتدرج لوني جذاب. يجمع بين الخط الرفيع والسميك لإبراز هوية العلامة التجارية مع لمسة من الأناقة.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 2')">اختيار هذا الشعار</button>
+        </div>
+        
+        <!-- Logo 3 - Minimalist Icon -->
+        <div class="logo-card">
+            <div class="logo-title">الخيار 3: الأيقونة البسيطة</div>
+            <div class="logo-preview">
+                <div class="logo3-container">
+                    <div class="logo3-icon"></div>
+                    <div class="logo1-text">PRETTYSKIN</div>
+                </div>
+            </div>
+            <div class="logo-description">
+                تصميم بسيط مع أيقونة مميزة. يمثل الرمز الدائري حماية البشرة مع الحفاظ على نضارتها الطبيعية.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 3')">اختيار هذا الشعار</button>
+        </div>
+        
+        <!-- Logo 4 - Dynamic Split -->
+        <div class="logo-card">
+            <div class="logo-title">الخيار 4: التقسيم الديناميكي</div>
+            <div class="logo-preview">
+                <div>
+                    <div class="logo4-text">
+                        <span class="pretty">PRETTY</span><span class="skin">SKIN</span>
+                    </div>
+                    <div class="logo4-line"></div>
+                </div>
+            </div>
+            <div class="logo-description">
+                شعار ديناميكي يفصل بين الكلمتين بشكل مبتكر. التباين في سمك الخط والألوان يخلق هوية بصرية قوية.
+            </div>
+            <button class="select-btn" onclick="alert('تم اختيار الشعار 4')">اختيار هذا الشعار</button>
+        </div>
+    </div>
+    
+    <script>
+        // يمكن إضافة تفاعلات إضافية هنا
+    </script>
+</body>
+</html>

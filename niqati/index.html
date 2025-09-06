@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقاطي | Niqati - منصة شراء النقاط الرقمية</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>نقاطي <span>Niqati</span></h1>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active">الرئيسية</a></li>
+                        <li><a href="redeem.html">تحقق من الكوبون</a></li>
+                        <li><a href="#" id="langSwitcher">English</a></li>
+                        <li><a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span></a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>اشترِ نقاطك الرقمية بسهولة وأمان</h2>
+                <p>منصة نقاطي توفر لك خدمة شراء النقاط الرقمية للألعاب والتطبيقات بأفضل الأسعار وبطريقة آمنة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">اختر النقاط التي تريدها</h2>
+            
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="gaming">ألعاب</button>
+                <button class="filter-btn" data-filter="social">وسائل التواصل</button>
+                <button class="filter-btn" data-filter="shopping">تسوق</button>
+            </div>
+            
+            <div class="products-grid">
+                <!-- PUBG Points -->
+                <div class="product-card" data-category="gaming">
+                    <div class="product-image">
+                        <img src="img/pubg.svg" alt="PUBG Points">
+                    </div>
+                    <div class="product-info">
+                        <h3>نقاط ببجي</h3>
+                        <p>اشتر نقاط UC للعبة PUBG Mobile</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.02 / نقطة</span>
+                        </div>
+                        <button class="expand-card">اختر الكمية</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="100" max="5000" step="100" value="500" class="points-slider">
+                                <input type="number" min="100" max="5000" value="500" class="points-input">
+                                <span class="total-price">$10.00</span>
+                            </div>
+                            <button class="add-to-cart">أضف إلى السلة</button>
+                            <button class="collapse-card">إغلاق</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TikTok Coins -->
+                <div class="product-card" data-category="social">
+                    <div class="product-image">
+                        <img src="img/tiktok.svg" alt="TikTok Coins">
+                    </div>
+                    <div class="product-info">
+                        <h3>عملات تيك توك</h3>
+                        <p>اشتر عملات لتطبيق TikTok</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.015 / عملة</span>
+                        </div>
+                        <button class="expand-card">اختر الكمية</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="100" max="10000" step="100" value="1000" class="points-slider">
+                                <input type="number" min="100" max="10000" value="1000" class="points-input">
+                                <span class="total-price">$15.00</span>
+                            </div>
+                            <button class="add-to-cart">أضف إلى السلة</button>
+                            <button class="collapse-card">إغلاق</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Amazon Gift Cards -->
+                <div class="product-card" data-category="shopping">
+                    <div class="product-image">
+                        <img src="img/amazon.svg" alt="Amazon Gift Cards">
+                    </div>
+                    <div class="product-info">
+                        <h3>بطاقات أمازون</h3>
+                        <p>بطاقات هدايا للتسوق عبر Amazon</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$1.05 / دولار</span>
+                        </div>
+                        <button class="expand-card">اختر الكمية</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="5" max="100" step="5" value="25" class="points-slider">
+                                <input type="number" min="5" max="100" value="25" class="points-input">
+                                <span class="total-price">$26.25</span>
+                            </div>
+                            <button class="add-to-cart">أضف إلى السلة</button>
+                            <button class="collapse-card">إغلاق</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Robux -->
+                <div class="product-card" data-category="gaming">
+                    <div class="product-image">
+                        <img src="img/robux.svg" alt="Robux">
+                    </div>
+                    <div class="product-info">
+                        <h3>روبوكس</h3>
+                        <p>اشتر Robux للعبة Roblox</p>
+                        <div class="product-price">
+                            <span class="price-per-unit">$0.012 / روبوكس</span>
+                        </div>
+                        <button class="expand-card">اختر الكمية</button>
+                        <div class="product-controls" style="display: none;">
+                            <div class="quantity-control">
+                                <input type="range" min="400" max="10000" step="100" value="800" class="points-slider">
+                                <input type="number" min="400" max="10000" value="800" class="points-input">
+                                <span class="total-price">$9.60</span>
+                            </div>
+                            <button class="add-to-cart">أضف إلى السلة</button>
+                            <button class="collapse-card">إغلاق</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>سلة المشتريات</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be added dynamically -->
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>المجموع:</span>
+                        <span id="cartTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="clearCart">إفراغ السلة</button>
+                <button class="btn-primary" id="checkout">إتمام الشراء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إتمام الشراء</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-summary">
+                    <h4>ملخص الطلب</h4>
+                    <div id="checkoutItems">
+                        <!-- Checkout items will be added dynamically -->
+                    </div>
+                    <div class="checkout-total">
+                        <div class="subtotal">
+                            <span>المجموع الفرعي:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="fee">
+                            <span>عمولة بوابة الدفع (1%):</span>
+                            <span id="paymentFee">$0.00</span>
+                        </div>
+                        <div class="total">
+                            <span>المجموع النهائي:</span>
+                            <span id="finalTotal">$0.00</span>
+                        </div>
+                        <div class="jod-total">
+                            <span>المجموع بالدينار الأردني:</span>
+                            <span id="jordanianTotal">0.00 دينار</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-info">
+                    <h4>معلومات التذكرة</h4>
+                    <div class="ticket-number">
+                        <p>رقم التذكرة الخاص بك:</p>
+                        <p id="ticketNumber" class="highlight-text"></p>
+                        <p class="note">يرجى الاحتفاظ بهذا الرقم للمتابعة مع بوابة الدفع</p>
+                    </div>
+                    <div class="payment-instructions">
+                    <h4>تعليمات الدفع</h4>
+                    <p>يرجى اتباع الخطوات التالية لإتمام عملية الدفع:</p>
+                    <div class="payment-details">
+                        <div class="payment-method">
+                            <h5>بيانات التحويل البنكي:</h5>
+                            <div class="bank-details">
+                                <p><strong>اسم البنك:</strong> البنك الأردني</p>
+                                <p><strong>اسم الحساب:</strong> بوابة الدفع الأردنية</p>
+                                <p><strong>رقم الحساب:</strong> 1234-5678-9012-3456</p>
+                                <p><strong>IBAN:</strong> JO12 ABCD 1234 5678 9012 3456</p>
+                                <p><strong>المبلغ المطلوب:</strong> <span id="amountToPay">0.00</span> دينار أردني</p>
+                            </div>
+                        </div>
+                        <div class="payment-timer">
+                            <h5>الوقت المتبقي لإتمام الدفع:</h5>
+                            <div class="countdown-timer" id="paymentTimer">60:00</div>
+                            <p class="timer-note">سيتم إلغاء الطلب تلقائياً بعد انتهاء المدة</p>
+                        </div>
+                        <div class="payment-actions">
+                            <button id="confirmPayment" class="btn-primary">تأكيد الدفع</button>
+                            <button id="cancelPayment" class="btn-secondary">إلغاء الطلب</button>
+                        </div>
+                        <div class="payment-status" style="display: none;">
+                            <div class="status-message pending">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>جاري التحقق من الدفع...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>نقاطي <span>Niqati</span></h2>
+                    <p>منصتك الموثوقة لشراء النقاط الرقمية</p>
+                </div>
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="redeem.html">تحقق من الكوبون</a></li>
+                        <li><a href="payment-gateway.html">بوابة الدفع</a></li>
+                        <li><a href="admin.html">لوحة الإدارة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-envelope"></i> info@niqati.com</p>
+                    <p><i class="fas fa-phone"></i> +971 X XXX XXXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 نقاطي Niqati. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

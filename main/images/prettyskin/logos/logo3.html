@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo 3</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff;
+        }
+        .logo-container {
+            text-align: center;
+            width: 300px;
+        }
+        .logo {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        .logo-text {
+            font-family: 'Arial', sans-serif;
+            font-weight: 300;
+            font-size: 28px;
+            color: #555;
+            letter-spacing: 3px;
+        }
+        .logo-text span {
+            font-weight: 700;
+            color: #ff80ab;
+        }
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #ff80ab, #ff9eb5, #ff80ab);
+            border-radius: 3px;
+        }
+        .tagline {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+        .export-btn {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #ff80ab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo">
+            <div class="logo-text">PRETTY<span>SKIN</span></div>
+        </div>
+        <div class="tagline">Radiant Protection</div>
+        
+        <button class="export-btn" onclick="exportLogo()">Export as PNG</button>
+    </div>
+
+    <script>
+        function exportLogo() {
+            // في بيئة حقيقية، سيكون هنا كود لتصدير الشعار كصورة PNG
+            alert("في تطبيق حقيقي، سيتم تصدير الشعار كصورة PNG");
+        }
+    </script>
+</body>
+</html>

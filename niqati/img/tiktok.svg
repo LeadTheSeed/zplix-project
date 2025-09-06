@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180">
+  <rect width="300" height="180" fill="#010101"/>
+  <text x="50%" y="40%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">TikTok</text>
+  <text x="50%" y="60%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="16" fill="#fe2c55">Digital Coins</text>
+  <circle cx="150" cy="100" r="30" fill="#fe2c55" opacity="0.3"/>
+  <circle cx="130" cy="90" r="10" fill="#25F4EE" opacity="0.8"/>
+  <circle cx="170" cy="90" r="10" fill="#FE2C55" opacity="0.8"/>
+</svg>

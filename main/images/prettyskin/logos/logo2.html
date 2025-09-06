@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTYSKIN Logo 2</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff;
+        }
+        .logo-container {
+            text-align: center;
+            width: 300px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+        .logo-text {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 24px;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        .logo-text span {
+            color: #66bb6a;
+        }
+        .tagline {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+        .export-btn {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background-color: #66bb6a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text">PRETTY<span>SKIN</span></div>
+        </div>
+        <div class="tagline">Nature's Protection Formula</div>
+        
+        <button class="export-btn" onclick="exportLogo()">Export as PNG</button>
+    </div>
+
+    <script>
+        function exportLogo() {
+            // في بيئة حقيقية، سيكون هنا كود لتصدير الشعار كصورة PNG
+            alert("في تطبيق حقيقي، سيتم تصدير الشعار كصورة PNG");
+        }
+    </script>
+</body>
+</html>
