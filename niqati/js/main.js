@@ -351,8 +351,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show checkout modal
             checkoutModal.style.display = 'block';
             
-            // Start payment timer
-            initPaymentTimer();
+            // Start payment timer with current timestamp for synchronization
+            const currentOrderTimestamp = Date.now();
+            initPaymentTimer(currentOrderTimestamp);
+            
+            // Store timestamp for later use
+            sessionStorage.setItem('currentOrderTimestamp', currentOrderTimestamp);
         });
     }
 
@@ -364,19 +368,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${prefix}${timestamp}${random}`;
     }
 
-    // Initialize payment timer
-    function initPaymentTimer() {
-        let timeLeft = 60 * 60; // 60 minutes in seconds
+    // Initialize payment timer with synchronization
+    function initPaymentTimer(orderTimestamp) {
         const timerElement = document.getElementById('paymentTimer');
         const paymentStatus = document.querySelector('.payment-status');
         
         if (!timerElement) return;
         
+        // Use the provided timestamp or current time
+        const startTime = orderTimestamp || Date.now();
+        const totalDuration = 60 * 60 * 1000; // 60 minutes in milliseconds
+        const endTime = startTime + totalDuration;
+        
         const timerInterval = setInterval(() => {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            
-            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const now = Date.now();
+            const timeLeft = endTime - now;
             
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
@@ -384,16 +390,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 timerElement.style.color = '#fd397a';
                 
                 // Show expired message
-                paymentStatus.style.display = 'block';
-                paymentStatus.innerHTML = `
-                    <div class="status-message error">
-                        <i class="fas fa-times-circle"></i>
-                        <p>انتهت مدة الدفع. يرجى إعادة المحاولة.</p>
-                    </div>
-                `;
+                if (paymentStatus) {
+                    paymentStatus.style.display = 'block';
+                    paymentStatus.innerHTML = `
+                        <div class="status-message error">
+                            <i class="fas fa-times-circle"></i>
+                            <p>انتهت مدة الدفع. يرجى إعادة المحاولة.</p>
+                        </div>
+                    `;
+                }
+                return;
             }
             
-            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }, 1000);
         
         return timerInterval;
@@ -453,15 +464,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Simulate sending ticket to payment gateway
+    // Send ticket to payment gateway
     function simulateTicketSubmission(ticketNumber) {
-        // In a real application, this would make an API call to the payment gateway
-        console.log(`Ticket ${ticketNumber} submitted to payment gateway`);
+        // Use the stored timestamp for synchronization
+        const storedTimestamp = sessionStorage.getItem('currentOrderTimestamp');
+        const orderTimestamp = storedTimestamp ? parseInt(storedTimestamp) : Date.now();
         
-        // For demo purposes, we'll simulate the ticket appearing in the payment gateway
-        // This would normally happen through a database or API
-        localStorage.setItem('pendingTicket', ticketNumber);
-        localStorage.setItem('ticketTimestamp', new Date().toISOString());
+        // Get cart details for the order
+        const orderDetails = {
+            ticketNumber: ticketNumber,
+            timestamp: orderTimestamp, // Use synchronized timestamp
+            productName: cart.map(item => item.name).join(', '),
+            quantity: cart.reduce((sum, item) => sum + item.quantity, 0),
+            price: document.getElementById('cartSubtotal').textContent,
+            gatewayFee: document.getElementById('paymentFee').textContent,
+            totalAmount: document.getElementById('finalTotal').textContent,
+            currency: 'USD',
+            status: 'pending',
+            paymentMethod: document.querySelector('input[name="payment-method"]:checked')?.value || 'bank',
+            customerPhone: document.getElementById('customerPhone')?.value || '',
+            createdAt: new Date().toISOString()
+        };
+
+        // Store in pendingTickets array for payment gateway
+        let pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+        pendingTickets.push(orderDetails);
+        localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
+        
+        // Also store for quick access
+        localStorage.setItem('lastTicketNumber', ticketNumber);
+        
+        console.log('Ticket submitted to payment gateway:', orderDetails);
+        
+        // Trigger storage event for other tabs/windows
+        window.dispatchEvent(new StorageEvent('storage', {
+            key: 'pendingTickets',
+            newValue: JSON.stringify(pendingTickets),
+            url: window.location.href
+        }));
     }
     
     if (cancelPaymentBtn) {
@@ -543,10 +583,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Check if this is a pending ticket
-            const pendingTicket = localStorage.getItem('pendingTicket');
-            const storedActivationCode = localStorage.getItem(`activationCode_${ticketNumber}`);
-            
             // Show loading
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
@@ -557,45 +593,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
                 
-                // Check if ticket exists and activation code matches
-                if (ticketNumber === pendingTicket && storedActivationCode === activationCode) {
-                    // Show activation result
+                // Check in completed transactions
+                const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+                const transaction = completedTransactions.find(t => 
+                    t.ticketNumber === ticketNumber && 
+                    t.activationCode === activationCode
+                );
+                
+                // Check in pending tickets if not found in completed
+                const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+                const pendingTicket = pendingTickets.find(t => t.ticketNumber === ticketNumber);
+                
+                if (transaction && transaction.status === 'approved') {
+                    // Valid activation - show result
                     document.querySelector('.activation-result').style.display = 'block';
                     
                     // Generate coupon code
                     const couponCode = generateCouponCode();
                     document.getElementById('generated-coupon-code').textContent = couponCode;
                     
-                    // Populate with data based on ticket
-                    document.getElementById('activated-coupon-type').textContent = 'نقاط ببجي';
-                    document.getElementById('activated-coupon-points').textContent = '2,500 نقطة';
+                    // Populate with actual transaction data
+                    document.getElementById('activated-coupon-type').textContent = transaction.productName || 'منتج غير محدد';
+                    document.getElementById('activated-coupon-points').textContent = transaction.quantity + ' وحدة';
+                    
+                    // Mark as redeemed
+                    transaction.status = 'redeemed';
+                    transaction.redeemedAt = new Date().toISOString();
+                    transaction.couponCode = couponCode;
+                    localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
                     
                     // Scroll to result
                     document.querySelector('.activation-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     
                     // Copy button functionality
-                    document.getElementById('copy-coupon').addEventListener('click', function() {
-                        navigator.clipboard.writeText(couponCode).then(() => {
-                            showToast('تم نسخ الكوبون إلى الحافظة');
-                        });
-                    });
-                } else if (ticketNumber === pendingTicket && storedActivationCode === null) {
-                    // Ticket exists but no activation code yet
+                    const copyBtn = document.getElementById('copy-coupon');
+                    if (copyBtn) {
+                        copyBtn.onclick = function() {
+                            navigator.clipboard.writeText(couponCode).then(() => {
+                                showToast('تم نسخ الكوبون إلى الحافظة');
+                            });
+                        };
+                    }
+                } else if (pendingTicket) {
+                    // Ticket exists but not yet approved
                     alert('لم يتم تأكيد الدفع بعد. يرجى الانتظار حتى يتم التحقق من الدفع.');
-                } else if (storedActivationCode && storedActivationCode !== activationCode) {
-                    // Activation code doesn't match
-                    alert('كود التفعيل غير صحيح. يرجى التحقق والمحاولة مرة أخرى.');
+                } else if (transaction && transaction.status === 'redeemed') {
+                    // Already redeemed
+                    alert('تم استخدام هذا الكود مسبقاً.');
                 } else {
-                    // Ticket not found
-                    alert('رقم التذكرة غير موجود. يرجى التحقق والمحاولة مرة أخرى.');
+                    // Not found or wrong code
+                    alert('رقم التذكرة أو كود التفعيل غير صحيح. يرجى التحقق والمحاولة مرة أخرى.');
                 }
             }, 1500);
         });
         
-        // Check if there's a pending ticket and pre-fill the form
-        const pendingTicket = localStorage.getItem('pendingTicket');
-        if (pendingTicket) {
-            document.getElementById('ticket-number').value = pendingTicket;
+        // Check if there's a last ticket and pre-fill the form
+        const lastTicketNumber = localStorage.getItem('lastTicketNumber');
+        if (lastTicketNumber) {
+            document.getElementById('ticket-number').value = lastTicketNumber;
         }
     }
 

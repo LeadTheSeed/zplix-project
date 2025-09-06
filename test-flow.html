@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تدفق نظام نقاطي</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+        .step h2 {
+            margin-top: 0;
+            color: #ffd700;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 5px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 2px solid #ffd700;
+        }
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        .links-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 اختبار تدفق نظام نقاطي</h1>
+        
+        <div class="warning">
+            <strong>⚠️ تنبيه:</strong> تأكد من فتح كل صفحة في نافذة متصفح منفصلة للحصول على أفضل تجربة اختبار.
+        </div>
+
+        <div class="step">
+            <h2>📝 الخطوة 1: الدخول إلى النظام</h2>
+            <p>افتح الصفحة الرئيسية وأدخل كلمة المرور للوصول إلى النظام:</p>
+            <div class="code">كلمة المرور: jabbanX</div>
+            <div class="links-container">
+                <a href="/" class="btn" target="_blank">🔐 صفحة تسجيل الدخول</a>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>🛒 الخطوة 2: صفحة العميل - إنشاء طلب</h2>
+            <p>بعد تسجيل الدخول، قم بإنشاء طلب شراء جديد:</p>
+            <ol>
+                <li>اختر المنتج المطلوب</li>
+                <li>حدد الكمية</li>
+                <li>أضف إلى السلة</li>
+                <li>اذهب إلى الدفع</li>
+                <li>أكد الطلب</li>
+            </ol>
+            <div class="links-container">
+                <a href="/niqati/index.html" class="btn" target="_blank">🛍️ صفحة العميل</a>
+            </div>
+            <div class="status">
+                <strong>ملاحظة:</strong> احفظ رقم التذكرة الذي سيظهر لك بعد تأكيد الطلب
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>💳 الخطوة 3: بوابة الدفع - الموافقة على الطلب</h2>
+            <p>افتح بوابة الدفع في نافذة جديدة للموافقة على الطلب:</p>
+            <ol>
+                <li>ستجد الطلب الجديد في قائمة الطلبات المعلقة</li>
+                <li>لاحظ أن العداد متزامن مع صفحة العميل</li>
+                <li>اضغط على "تأكيد الدفع وإرسال الكود"</li>
+                <li>احفظ كود التفعيل الذي سيظهر</li>
+            </ol>
+            <div class="links-container">
+                <a href="/niqati/payment-gateway.html" class="btn" target="_blank">💰 بوابة الدفع</a>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>✅ الخطوة 4: استرداد الكود</h2>
+            <p>استخدم رقم التذكرة وكود التفعيل لاسترداد المنتج:</p>
+            <ol>
+                <li>افتح صفحة الاسترداد</li>
+                <li>أدخل رقم التذكرة</li>
+                <li>أدخل كود التفعيل</li>
+                <li>اضغط على "تفعيل"</li>
+                <li>ستحصل على كود الكوبون النهائي</li>
+            </ol>
+            <div class="links-container">
+                <a href="/niqati/redeem.html" class="btn" target="_blank">🎁 صفحة الاسترداد</a>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>📊 الخطوة 5: لوحة الإدارة</h2>
+            <p>تابع جميع المعاملات والإحصائيات من لوحة الإدارة:</p>
+            <ul>
+                <li>عرض إجمالي الطلبات</li>
+                <li>متابعة الطلبات المعلقة</li>
+                <li>عرض المعاملات المكتملة</li>
+                <li>مراجعة الإيرادات</li>
+            </ul>
+            <div class="links-container">
+                <a href="/niqati/admin.html" class="btn" target="_blank">👨‍💼 لوحة الإدارة</a>
+            </div>
+        </div>
+
+        <div class="success">
+            <h3>✨ ميزات النظام المحسنة:</h3>
+            <ul>
+                <li>✅ مزامنة كاملة للعدادات بين جميع الصفحات</li>
+                <li>✅ تحديث تلقائي للبيانات في الوقت الفعلي</li>
+                <li>✅ حفظ سجل كامل للمعاملات</li>
+                <li>✅ نظام تتبع متكامل للطلبات</li>
+                <li>✅ حماية بكلمة مرور موحدة</li>
+                <li>✅ إحصائيات شاملة في لوحة الإدارة</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>🧪 اختبار إضافي</h2>
+            <p>لاختبار التزامن بين النوافذ:</p>
+            <ol>
+                <li>افتح صفحة العميل وبوابة الدفع في نافذتين منفصلتين</li>
+                <li>أنشئ طلباً جديداً من صفحة العميل</li>
+                <li>لاحظ ظهور الطلب فوراً في بوابة الدفع</li>
+                <li>لاحظ تطابق العدادات في كلا الصفحتين</li>
+            </ol>
+            <div class="warning">
+                <strong>💡 نصيحة:</strong> استخدم وضع المطور (F12) لمراقبة localStorage والتأكد من حفظ البيانات بشكل صحيح.
+            </div>
+        </div>
+
+        <div class="links-container">
+            <button onclick="clearAllData()" class="btn" style="background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);">
+                🗑️ مسح جميع البيانات التجريبية
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function clearAllData() {
+            if (confirm('هل أنت متأكد من مسح جميع البيانات التجريبية؟\n\nسيتم حذف:\n- جميع الطلبات المعلقة\n- جميع المعاملات المكتملة\n- جميع البيانات المحفوظة')) {
+                localStorage.clear();
+                sessionStorage.clear();
+                alert('تم مسح جميع البيانات بنجاح! يمكنك البدء من جديد.');
+            }
+        }
+
+        // Show current status
+        window.addEventListener('load', function() {
+            const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+            const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+            
+            console.log('📊 حالة النظام الحالية:');
+            console.log(`- الطلبات المعلقة: ${pendingTickets.length}`);
+            console.log(`- المعاملات المكتملة: ${completedTransactions.length}`);
+            console.log('- البيانات المخزنة:', {
+                pendingTickets,
+                completedTransactions
+            });
+        });
+    </script>
+</body>
+</html>

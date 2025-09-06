@@ -10,6 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const adminUser = document.querySelector('.admin-user');
     const adminDropdown = document.querySelector('.admin-dropdown');
     
+    // Load dashboard data on page load
+    loadDashboardData();
+    
+    // Refresh data every 5 seconds
+    setInterval(() => {
+        if (currentSection === 'dashboard') {
+            loadDashboardData();
+        }
+    }, 5000);
+    
     // Sidebar navigation
     if (sidebarLinks.length > 0) {
         sidebarLinks.forEach(link => {
@@ -45,7 +55,138 @@ document.addEventListener('DOMContentLoaded', function() {
         if (targetSection) {
             targetSection.classList.add('active');
             currentSection = sectionId;
+            
+            // Load section-specific data
+            if (sectionId === 'dashboard') {
+                loadDashboardData();
+            } else if (sectionId === 'orders') {
+                loadOrdersData();
+            } else if (sectionId === 'redemptions') {
+                loadRedemptionsData();
+            }
         }
+    }
+    
+    // Load dashboard data from localStorage
+    function loadDashboardData() {
+        // Get data from localStorage
+        const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+        const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+        
+        // Calculate statistics
+        const totalOrders = pendingTickets.length + completedTransactions.length;
+        const pendingOrders = pendingTickets.length;
+        const completedOrders = completedTransactions.filter(t => t.status === 'approved').length;
+        const redeemedCoupons = completedTransactions.filter(t => t.status === 'redeemed').length;
+        
+        // Calculate revenue (sum of all completed transactions)
+        const totalRevenue = completedTransactions
+            .filter(t => t.status === 'approved' || t.status === 'redeemed')
+            .reduce((sum, t) => {
+                const amount = parseFloat(t.totalAmount?.replace(/[^0-9.-]+/g, '') || 0);
+                return sum + amount;
+            }, 0);
+        
+        // Update dashboard widgets
+        const totalOrdersEl = document.querySelector('.widget:nth-child(1) .widget-value');
+        const pendingOrdersEl = document.querySelector('.widget:nth-child(2) .widget-value');
+        const completedOrdersEl = document.querySelector('.widget:nth-child(3) .widget-value');
+        const totalRevenueEl = document.querySelector('.widget:nth-child(4) .widget-value');
+        
+        if (totalOrdersEl) totalOrdersEl.textContent = totalOrders;
+        if (pendingOrdersEl) pendingOrdersEl.textContent = pendingOrders;
+        if (completedOrdersEl) completedOrdersEl.textContent = completedOrders;
+        if (totalRevenueEl) totalRevenueEl.textContent = `$${totalRevenue.toFixed(2)}`;
+        
+        // Update recent orders table
+        updateRecentOrdersTable(pendingTickets, completedTransactions);
+        
+        // Update recent redemptions table
+        updateRecentRedemptionsTable(completedTransactions);
+    }
+    
+    // Update recent orders table
+    function updateRecentOrdersTable(pendingTickets, completedTransactions) {
+        const ordersTableBody = document.querySelector('.orders-table tbody');
+        if (!ordersTableBody) return;
+        
+        // Combine and sort all orders by date
+        const allOrders = [...pendingTickets, ...completedTransactions]
+            .sort((a, b) => new Date(b.createdAt || b.timestamp) - new Date(a.createdAt || a.timestamp))
+            .slice(0, 5); // Show only last 5 orders
+        
+        // Clear existing rows
+        ordersTableBody.innerHTML = '';
+        
+        // Add new rows
+        allOrders.forEach(order => {
+            const row = document.createElement('tr');
+            const status = order.status === 'pending' ? 'معلق' : 
+                          order.status === 'approved' ? 'مكتمل' : 
+                          order.status === 'redeemed' ? 'مستخدم' : 'غير معروف';
+            const statusClass = order.status === 'pending' ? 'pending' : 
+                               order.status === 'approved' ? 'completed' : 
+                               order.status === 'redeemed' ? 'redeemed' : '';
+            
+            row.innerHTML = `
+                <td>${order.ticketNumber}</td>
+                <td>${order.productName || 'منتج غير محدد'}</td>
+                <td>${order.totalAmount || '0.00'}</td>
+                <td><span class="status ${statusClass}">${status}</span></td>
+                <td>${new Date(order.createdAt || order.timestamp).toLocaleDateString('ar-SA')}</td>
+                <td>
+                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                    <button class="btn-icon edit-btn" title="تعديل"><i class="fas fa-edit"></i></button>
+                </td>
+            `;
+            ordersTableBody.appendChild(row);
+        });
+    }
+    
+    // Update recent redemptions table
+    function updateRecentRedemptionsTable(completedTransactions) {
+        const redemptionsTableBody = document.querySelector('.redemptions-table tbody');
+        if (!redemptionsTableBody) return;
+        
+        // Filter only redeemed transactions
+        const redemptions = completedTransactions
+            .filter(t => t.status === 'redeemed')
+            .sort((a, b) => new Date(b.redeemedAt || b.createdAt) - new Date(a.redeemedAt || a.createdAt))
+            .slice(0, 5); // Show only last 5 redemptions
+        
+        // Clear existing rows
+        redemptionsTableBody.innerHTML = '';
+        
+        // Add new rows
+        redemptions.forEach(redemption => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${redemption.ticketNumber}</td>
+                <td>${redemption.couponCode || 'N/A'}</td>
+                <td>${redemption.productName || 'منتج غير محدد'}</td>
+                <td><span class="status completed">مكتمل</span></td>
+                <td>${new Date(redemption.redeemedAt || redemption.createdAt).toLocaleDateString('ar-SA')}</td>
+                <td>
+                    <button class="btn-icon view-btn" title="عرض"><i class="fas fa-eye"></i></button>
+                    <button class="btn-icon process-btn" title="معالجة"><i class="fas fa-cog"></i></button>
+                </td>
+            `;
+            redemptionsTableBody.appendChild(row);
+        });
+    }
+    
+    // Load orders data
+    function loadOrdersData() {
+        // Similar to dashboard but for all orders
+        const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+        const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+        updateRecentOrdersTable(pendingTickets, completedTransactions);
+    }
+    
+    // Load redemptions data
+    function loadRedemptionsData() {
+        const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+        updateRecentRedemptionsTable(completedTransactions);
     }
     
     // Admin user dropdown
