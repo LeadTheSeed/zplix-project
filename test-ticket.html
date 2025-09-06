@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار التذكرة</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin: 5px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 2px solid #ffd700;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .ticket-display {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700;
+            border: 2px dashed #ffd700;
+        }
+        .links {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        .links a {
+            text-decoration: none;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        .links a:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎫 اختبار إنشاء تذكرة</h1>
+        
+        <div class="form-group">
+            <label for="ticketNumber">رقم التذكرة:</label>
+            <input type="text" id="ticketNumber" value="TK84605357" placeholder="أدخل رقم التذكرة">
+        </div>
+        
+        <div class="form-group">
+            <label for="productName">اسم المنتج:</label>
+            <input type="text" id="productName" value="نقاط ببجي" placeholder="أدخل اسم المنتج">
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">الكمية:</label>
+            <input type="number" id="quantity" value="2500" placeholder="أدخل الكمية">
+        </div>
+        
+        <div class="form-group">
+            <label for="totalAmount">المبلغ الإجمالي:</label>
+            <input type="text" id="totalAmount" value="58.68" placeholder="أدخل المبلغ الإجمالي">
+        </div>
+        
+        <div class="form-group">
+            <label for="currency">العملة:</label>
+            <select id="currency">
+                <option value="USD">دولار أمريكي</option>
+                <option value="JOD" selected>دينار أردني</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <button id="createTicket">إنشاء تذكرة</button>
+            <button id="clearData">مسح البيانات</button>
+        </div>
+        
+        <div class="status" id="status"></div>
+        
+        <div class="links">
+            <a href="/niqati/payment-gateway.html" target="_blank">فتح بوابة الدفع</a>
+            <a href="/niqati/admin.html" target="_blank">فتح لوحة الإدارة</a>
+            <a href="/niqati/redeem.html" target="_blank">فتح صفحة الاسترداد</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const createTicketBtn = document.getElementById('createTicket');
+            const clearDataBtn = document.getElementById('clearData');
+            const statusDiv = document.getElementById('status');
+            
+            // Generate random ticket number
+            function generateTicketNumber() {
+                return 'TK' + Math.floor(Math.random() * 100000000);
+            }
+            
+            // Set random ticket number
+            document.getElementById('ticketNumber').value = generateTicketNumber();
+            
+            // Create ticket
+            createTicketBtn.addEventListener('click', function() {
+                const ticketNumber = document.getElementById('ticketNumber').value;
+                const productName = document.getElementById('productName').value;
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const totalAmount = document.getElementById('totalAmount').value;
+                const currency = document.getElementById('currency').value;
+                
+                // Create ticket object
+                const ticket = {
+                    ticketNumber: ticketNumber,
+                    timestamp: Date.now(),
+                    productName: productName,
+                    quantity: quantity,
+                    price: (parseFloat(totalAmount) * 0.95).toFixed(2),
+                    gatewayFee: (parseFloat(totalAmount) * 0.05).toFixed(2),
+                    totalAmount: totalAmount,
+                    currency: currency,
+                    status: 'pending',
+                    paymentMethod: 'bank',
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Store in localStorage
+                let pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+                
+                // Remove any existing tickets with the same number
+                pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
+                
+                // Add new ticket
+                pendingTickets.push(ticket);
+                localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
+                
+                // Store for quick access
+                localStorage.setItem('lastTicketNumber', ticketNumber);
+                
+                // Update timestamp to trigger storage events
+                localStorage.setItem('pendingTicketsTimestamp', Date.now());
+                
+                // Show success message
+                statusDiv.innerHTML = `
+                    <p>تم إنشاء التذكرة بنجاح!</p>
+                    <div class="ticket-display">${ticketNumber}</div>
+                    <p>يرجى فتح بوابة الدفع للتحقق من ظهور التذكرة.</p>
+                `;
+                
+                console.log('Ticket created:', ticket);
+            });
+            
+            // Clear data
+            clearDataBtn.addEventListener('click', function() {
+                if (confirm('هل أنت متأكد من مسح جميع البيانات؟')) {
+                    localStorage.removeItem('pendingTickets');
+                    localStorage.removeItem('verifiedPayments');
+                    localStorage.removeItem('completedTransactions');
+                    localStorage.removeItem('rejectedTransactions');
+                    localStorage.removeItem('lastTicketNumber');
+                    
+                    // Update timestamps
+                    localStorage.setItem('pendingTicketsTimestamp', Date.now());
+                    localStorage.setItem('verifiedPaymentsTimestamp', Date.now());
+                    localStorage.setItem('completedTransactionsTimestamp', Date.now());
+                    localStorage.setItem('rejectedTransactionsTimestamp', Date.now());
+                    
+                    statusDiv.innerHTML = '<p>تم مسح جميع البيانات بنجاح!</p>';
+                    
+                    // Set new random ticket number
+                    document.getElementById('ticketNumber').value = generateTicketNumber();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
