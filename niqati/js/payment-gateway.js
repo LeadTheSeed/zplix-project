@@ -8,38 +8,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // INITIALIZATION
     // =============================================
     loadPendingTickets();
+    
+    // Make loadPendingTickets available globally for same-window communication
+    window.loadPendingTickets = loadPendingTickets;
+    window.paymentGatewayLoaded = true;
+    
+    // Listen for localStorage changes in other tabs/windows
     window.addEventListener('storage', (e) => {
-        if (e.key === 'pendingTickets') {
+        if (e.key === 'pendingTickets' || e.key === 'pendingTicketsTimestamp') {
             loadPendingTickets();
         }
     });
+    
+    // Check for new tickets every 5 seconds as a fallback
+    setInterval(loadPendingTickets, 5000);
 
     // =============================================
     // CORE FUNCTIONS
     // =============================================
 
     function loadPendingTickets() {
+        console.log('Loading pending tickets...');
         const tickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+        console.log('Found', tickets.length, 'pending tickets');
         
         // Clear previous timers to prevent memory leaks
-        Array.from(paymentRequestsContainer.children).forEach(card => {
-            const timerId = card.dataset.timerIntervalId;
-            if (timerId) {
-                clearInterval(parseInt(timerId));
+        if (paymentRequestsContainer) {
+            Array.from(paymentRequestsContainer.children).forEach(card => {
+                const timerId = card.dataset.timerIntervalId;
+                if (timerId) {
+                    clearInterval(parseInt(timerId));
+                }
+            });
+
+            paymentRequestsContainer.innerHTML = ''; // Clear the view
+
+            if (tickets.length === 0) {
+                paymentRequestsContainer.innerHTML = '<p class="no-requests">لا توجد طلبات دفع حالية.</p>';
+                return;
             }
-        });
 
-        paymentRequestsContainer.innerHTML = ''; // Clear the view
-
-        if (tickets.length === 0) {
-            paymentRequestsContainer.innerHTML = '<p class="no-requests">لا توجد طلبات دفع حالية.</p>';
-            return;
+            // Sort tickets by timestamp (newest first)
+            tickets.sort((a, b) => b.timestamp - a.timestamp);
+            
+            tickets.forEach(ticket => {
+                const newPaymentCard = createPaymentCard(ticket);
+                paymentRequestsContainer.appendChild(newPaymentCard);
+            });
+        } else {
+            console.error('Payment requests container not found!');
         }
-
-        tickets.forEach(ticket => {
-            const newPaymentCard = createPaymentCard(ticket);
-            paymentRequestsContainer.appendChild(newPaymentCard);
-        });
     }
 
     function createPaymentCard(ticket) {
@@ -122,12 +140,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
         localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
+        // Update timestamp to trigger storage events
+        localStorage.setItem('pendingTicketsTimestamp', Date.now());
 
         let completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
         ticketToComplete.status = 'approved';
         ticketToComplete.activationCode = activationCode;
+        ticketToComplete.approvedAt = new Date().toISOString();
         completedTransactions.push(ticketToComplete);
         localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
+        // Update timestamp for completed transactions
+        localStorage.setItem('completedTransactionsTimestamp', Date.now());
 
         // Update UI
         const statusBadge = card.querySelector('.status-badge');
@@ -146,8 +169,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update localStorage
         let pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
-        pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
-        localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
+        const ticketToReject = pendingTickets.find(t => t.ticketNumber === ticketNumber);
+        
+        if (ticketToReject) {
+            // Remove from pending tickets
+            pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
+            localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
+            localStorage.setItem('pendingTicketsTimestamp', Date.now());
+            
+            // Add to rejected transactions
+            let rejectedTransactions = JSON.parse(localStorage.getItem('rejectedTransactions')) || [];
+            ticketToReject.status = 'rejected';
+            ticketToReject.rejectedAt = new Date().toISOString();
+            rejectedTransactions.push(ticketToReject);
+            localStorage.setItem('rejectedTransactions', JSON.stringify(rejectedTransactions));
+            localStorage.setItem('rejectedTransactionsTimestamp', Date.now());
+        }
 
         // Update UI
         card.remove();

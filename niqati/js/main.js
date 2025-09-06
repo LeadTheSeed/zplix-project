@@ -445,8 +445,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show payment verification in progress
             paymentStatus.style.display = 'block';
             
+            // Clear any existing tickets with the same number to avoid duplicates
+            let existingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+            existingTickets = existingTickets.filter(t => t.ticketNumber !== ticketNumber);
+            localStorage.setItem('pendingTickets', JSON.stringify(existingTickets));
+            
             // Simulate sending ticket to payment gateway
             simulateTicketSubmission(ticketNumber);
+            
+            console.log('Payment confirmation sent for ticket:', ticketNumber);
             
             // Show waiting message
             paymentStatus.innerHTML = `
@@ -496,12 +503,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('Ticket submitted to payment gateway:', orderDetails);
         
-        // Trigger storage event for other tabs/windows
-        window.dispatchEvent(new StorageEvent('storage', {
-            key: 'pendingTickets',
-            newValue: JSON.stringify(pendingTickets),
-            url: window.location.href
-        }));
+        // No need to manually dispatch storage event - it will be triggered automatically
+        // when localStorage is changed in other tabs/windows
+        // But we need to make sure we're using a unique key each time to force an update
+        localStorage.setItem('pendingTicketsTimestamp', Date.now());
+        
+        // For same-window updates, we need to call loadPendingTickets directly
+        // if the payment gateway is in the same window
+        if (window.paymentGatewayLoaded) {
+            window.loadPendingTickets && window.loadPendingTickets();
+        }
     }
     
     if (cancelPaymentBtn) {
