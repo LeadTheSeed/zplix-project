@@ -10,30 +10,98 @@ document.addEventListener('DOMContentLoaded', function() {
     const adminUser = document.querySelector('.admin-user');
     const adminDropdown = document.querySelector('.admin-dropdown');
     
-    // Load crypto helper script
-    loadScript('/niqati/js/crypto-helper.js', () => {
-        console.log('Crypto helper loaded successfully');
+    // تهيئة الخدمات المطلوبة
+    initializeServices().then(() => {
+        // تحميل البيانات بعد تهيئة الخدمات
+        loadDashboardData();
+        
+        // الاشتراك في تحديثات البيانات
+        if (window.syncService) {
+            window.syncService.subscribe('verifiedPayments', () => {
+                if (currentSection === 'verified-payments') {
+                    loadVerifiedPaymentsData();
+                }
+                updateNotifications();
+            });
+            
+            window.syncService.subscribe('completedTransactions', () => {
+                if (currentSection === 'dashboard' || currentSection === 'orders') {
+                    loadDashboardData();
+                }
+            });
+        }
+        
+        // تحديث البيانات دورياً
+        setInterval(() => {
+            if (currentSection === 'dashboard') {
+                loadDashboardData();
+            } else if (currentSection === 'verified-payments') {
+                loadVerifiedPaymentsData();
+            }
+        }, 30000); // تحديث كل 30 ثانية بدلاً من 5 ثوانٍ
     });
     
-    // Load dashboard data on page load
-    loadDashboardData();
-    
-    // Refresh data every 5 seconds
-    setInterval(() => {
-        if (currentSection === 'dashboard') {
-            loadDashboardData();
-        } else if (currentSection === 'verified-payments') {
-            loadVerifiedPaymentsData();
+    // تهيئة الخدمات المطلوبة
+    async function initializeServices() {
+        try {
+            // تحميل خدمة المزامنة
+            await loadSyncService();
+            
+            // تحميل خدمة الكوبونات
+            await loadCouponService();
+            
+            return true;
+        } catch (error) {
+            console.error('Failed to initialize services:', error);
+            showToast('فشل في تحميل الخدمات المطلوبة');
+            return false;
         }
-    }, 5000);
+    }
     
-    // Function to load script dynamically
-    function loadScript(url, callback) {
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-        script.onload = callback;
-        document.head.appendChild(script);
+    // وظيفة لتحميل خدمة المزامنة
+    function loadSyncService() {
+        return new Promise((resolve, reject) => {
+            if (window.syncService) {
+                resolve(window.syncService);
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = '/niqati/js/sync-service.js';
+            script.onload = () => {
+                console.log('Sync service loaded successfully');
+                resolve(window.syncService);
+            };
+            script.onerror = (error) => {
+                console.error('Failed to load sync service:', error);
+                reject(error);
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
+    
+    // وظيفة لتحميل خدمة الكوبونات الآمنة
+    function loadCouponService() {
+        return new Promise((resolve, reject) => {
+            if (window.couponService) {
+                resolve(window.couponService);
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = '/niqati/js/secure-coupon-service.js';
+            script.onload = () => {
+                console.log('Secure coupon service loaded successfully');
+                resolve(window.couponService);
+            };
+            script.onerror = (error) => {
+                console.error('Failed to load secure coupon service:', error);
+                reject(error);
+            };
+            
+            document.head.appendChild(script);
+        });
     }
     
     // Sidebar navigation
@@ -83,13 +151,139 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Load dashboard data from localStorage
+    // Load dashboard data from localStorage or sync service
     function loadDashboardData() {
-        // Get data from localStorage
-        const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
-        const verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
-        const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+        // Update refresh indicator
+        showDataRefreshIndicator(true);
         
+        try {
+            // Get data from sync service if available
+            if (window.syncService) {
+                const pendingTickets = window.syncService.get('pendingTickets', []);
+                const verifiedPayments = window.syncService.get('verifiedPayments', []);
+                const completedTransactions = window.syncService.get('completedTransactions', []);
+                
+                // Update dashboard stats
+                updateDashboardStats(pendingTickets, verifiedPayments, completedTransactions);
+                
+                // Update recent orders table
+                updateRecentOrdersTable(pendingTickets, verifiedPayments, completedTransactions);
+                
+                // Update notifications
+                updateNotifications();
+            } else {
+                // Fallback to localStorage
+                const pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+                const verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
+                const completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+                
+                // Update dashboard stats
+                updateDashboardStats(pendingTickets, verifiedPayments, completedTransactions);
+                
+                // Update recent orders table
+                updateRecentOrdersTable(pendingTickets, verifiedPayments, completedTransactions);
+            }
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
+            showToast('حدث خطأ أثناء تحميل البيانات', 'error');
+        } finally {
+            // Hide refresh indicator
+            showDataRefreshIndicator(false);
+        }
+    }
+    
+    // Update notifications
+    function updateNotifications() {
+        try {
+            // Get verified payments
+            let verifiedPayments = [];
+            if (window.syncService) {
+                verifiedPayments = window.syncService.get('verifiedPayments', []);
+            } else {
+                verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
+            }
+            
+            // Update notifications badge
+            const notificationBadge = document.getElementById('notifications-badge');
+            if (notificationBadge) {
+                if (verifiedPayments.length > 0) {
+                    notificationBadge.textContent = verifiedPayments.length;
+                    notificationBadge.style.display = 'flex';
+                } else {
+                    notificationBadge.style.display = 'none';
+                }
+            }
+            
+            // Show alert if on dashboard and have verified payments
+            if (currentSection === 'dashboard' && verifiedPayments.length > 0) {
+                showVerifiedPaymentsAlert(verifiedPayments.length);
+            }
+        } catch (error) {
+            console.error('Error updating notifications:', error);
+        }
+    }
+    
+    // Show verified payments alert
+    function showVerifiedPaymentsAlert(count) {
+        // Check if alert already exists
+        let alertElement = document.querySelector('.verified-payments-alert');
+        
+        // Remove existing alert if found
+        if (alertElement) {
+            alertElement.parentElement.removeChild(alertElement);
+        }
+        
+        // Create new alert
+        alertElement = document.createElement('div');
+        alertElement.className = 'verified-payments-alert';
+        alertElement.innerHTML = `
+            <i class="fas fa-bell"></i>
+            <p>يوجد <strong>${count}</strong> مدفوعات متحقق منها تنتظر الموافقة وإصدار كود التفعيل.</p>
+            <a href="#" id="go-to-verified-payments">عرض المدفوعات</a>
+        `;
+        
+        // Insert alert at the top of the dashboard section
+        const dashboardSection = document.querySelector('.admin-section.dashboard');
+        if (dashboardSection) {
+            dashboardSection.insertBefore(alertElement, dashboardSection.firstChild);
+            
+            // Add event listener to the link
+            document.getElementById('go-to-verified-payments').addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection('verified-payments');
+            });
+        }
+    }
+    
+    // Show data refresh indicator
+    function showDataRefreshIndicator(show) {
+        let indicator = document.querySelector('.data-refresh-indicator');
+        
+        if (!indicator) {
+            // Create indicator if it doesn't exist
+            indicator = document.createElement('span');
+            indicator.className = 'data-refresh-indicator';
+            indicator.innerHTML = '<i class="fas fa-sync"></i> جاري التحديث...';
+            
+            // Add to each section header
+            document.querySelectorAll('.admin-section h2').forEach(header => {
+                const clone = indicator.cloneNode(true);
+                clone.style.display = 'none';
+                header.appendChild(clone);
+            });
+            
+            // Get the newly created indicators
+            indicator = document.querySelector('.data-refresh-indicator');
+        }
+        
+        // Show/hide all indicators
+        document.querySelectorAll('.data-refresh-indicator').forEach(ind => {
+            ind.style.display = show ? 'inline-block' : 'none';
+        });
+    }
+    
+    // Update dashboard stats
+    function updateDashboardStats(pendingTickets, verifiedPayments, completedTransactions) {
         // Calculate statistics
         const totalOrders = pendingTickets.length + verifiedPayments.length + completedTransactions.length;
         const pendingOrders = pendingTickets.length;
@@ -343,36 +537,85 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Approve payment and generate activation code
     function approveAndGenerateCode(order) {
-        // Generate secure activation code
-        const activationCode = window.cryptoHelper ? 
-            window.cryptoHelper.generateActivationCode() : 
-            generateFallbackActivationCode();
+        // Show loading state
+        showToast('جاري إصدار كود التفعيل...', 'info');
         
-        // Update localStorage: move from verified to completed
-        let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
-        verifiedPayments = verifiedPayments.filter(p => p.ticketNumber !== order.ticketNumber);
-        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
-        localStorage.setItem('verifiedPaymentsTimestamp', Date.now());
-        
-        // Add to completed transactions
-        let completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
-        order.status = 'approved';
-        order.activationCode = activationCode;
-        order.approvedAt = new Date().toISOString();
-        order.approvedBy = 'admin';
-        completedTransactions.push(order);
-        localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
-        localStorage.setItem('completedTransactionsTimestamp', Date.now());
-        
-        // Show confirmation modal
-        showActivationCodeModal(order, activationCode);
-        
-        // Refresh data
-        if (currentSection === 'verified-payments') {
-            loadVerifiedPaymentsData();
-        } else {
-            loadDashboardData();
+        // Use the secure coupon service
+        if (!window.couponService) {
+            console.error('Coupon service not available');
+            showToast('الخدمة غير متوفرة. يرجى تحديث الصفحة والمحاولة مرة أخرى.', 'error');
+            return;
         }
+        
+        // Generate secure activation code
+        window.couponService.generateActivationCode()
+            .then(activationCode => {
+                // Use sync service if available
+                if (window.syncService) {
+                    // Get verified payments
+                    let verifiedPayments = window.syncService.get('verifiedPayments', []);
+                    verifiedPayments = verifiedPayments.filter(p => p.ticketNumber !== order.ticketNumber);
+                    
+                    // Get completed transactions
+                    let completedTransactions = window.syncService.get('completedTransactions', []);
+                    
+                    // Update order status
+                    order.status = 'approved';
+                    order.activationCode = activationCode;
+                    order.approvedAt = new Date().toISOString();
+                    order.approvedBy = 'admin';
+                    completedTransactions.push(order);
+                    
+                    // Save changes
+                    window.syncService.setWithSync('verifiedPayments', verifiedPayments);
+                    window.syncService.setWithSync('completedTransactions', completedTransactions);
+                    
+                    // Create audit log
+                    const auditLog = {
+                        action: 'APPROVE_ORDER',
+                        timestamp: new Date().toISOString(),
+                        ticketNumber: order.ticketNumber,
+                        by: 'admin',
+                        details: {
+                            activationCode,
+                            amount: order.totalAmount
+                        }
+                    };
+                    
+                    let auditLogs = window.syncService.get('auditLogs', []);
+                    auditLogs.push(auditLog);
+                    window.syncService.setWithSync('auditLogs', auditLogs);
+                } else {
+                    // Fallback to direct localStorage
+                    let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
+                    verifiedPayments = verifiedPayments.filter(p => p.ticketNumber !== order.ticketNumber);
+                    localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
+                    localStorage.setItem('verifiedPaymentsTimestamp', Date.now());
+                    
+                    let completedTransactions = JSON.parse(localStorage.getItem('completedTransactions')) || [];
+                    order.status = 'approved';
+                    order.activationCode = activationCode;
+                    order.approvedAt = new Date().toISOString();
+                    order.approvedBy = 'admin';
+                    completedTransactions.push(order);
+                    localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
+                    localStorage.setItem('completedTransactionsTimestamp', Date.now());
+                }
+                
+                // Show confirmation modal
+                showActivationCodeModal(order, activationCode);
+                
+                // Refresh data
+                if (currentSection === 'verified-payments') {
+                    loadVerifiedPaymentsData();
+                } else {
+                    loadDashboardData();
+                }
+            })
+            .catch(error => {
+                console.error('Error generating activation code:', error);
+                showToast('حدث خطأ أثناء إصدار كود التفعيل. يرجى المحاولة مرة أخرى.', 'error');
+            });
     }
     
     // Reject verified payment
@@ -488,16 +731,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Show toast notification
-    function showToast(message) {
+    function showToast(message, type = '') {
         const toast = document.createElement('div');
         toast.className = 'toast';
-        toast.textContent = message;
+        
+        // Add type class if specified
+        if (type) {
+            toast.classList.add(type);
+        }
+        
+        // Create icon based on type
+        let icon = '';
+        if (type === 'success') {
+            icon = '<i class="fas fa-check-circle"></i> ';
+        } else if (type === 'error') {
+            icon = '<i class="fas fa-exclamation-circle"></i> ';
+        } else if (type === 'info') {
+            icon = '<i class="fas fa-info-circle"></i> ';
+        } else if (type === 'warning') {
+            icon = '<i class="fas fa-exclamation-triangle"></i> ';
+        }
+        
+        // Set content
+        toast.innerHTML = icon + message;
+        
+        // Add to body
         document.body.appendChild(toast);
+        
+        // Show animation
         setTimeout(() => { toast.classList.add('show'); }, 100);
+        
+        // Hide and remove
         setTimeout(() => {
             toast.classList.remove('show');
-            setTimeout(() => { if (document.body.contains(toast)) { document.body.removeChild(toast); } }, 300);
+            setTimeout(() => { 
+                if (document.body.contains(toast)) { 
+                    document.body.removeChild(toast); 
+                } 
+            }, 300);
         }, 3000);
+        
+        // Return the toast element for further manipulation
+        return toast;
     }
     
     // Load redemptions data

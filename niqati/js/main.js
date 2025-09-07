@@ -619,57 +619,83 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Valid activation - show result
                     document.querySelector('.activation-result').style.display = 'block';
                     
-                    // Load crypto helper script if not already loaded
-                    if (!window.cryptoHelper) {
-                        const script = document.createElement('script');
-                        script.src = '/niqati/js/crypto-helper.js';
-                        script.onload = function() {
-                            generateSecureCoupon(transaction);
-                        };
-                        document.head.appendChild(script);
-                    } else {
-                        generateSecureCoupon(transaction);
-                    }
+                    // Show loading state
+                    document.getElementById('generated-coupon-code').innerHTML = 
+                        '<i class="fas fa-spinner fa-spin"></i> جاري توليد الكوبون...';
                     
-                    // Generate secure coupon and display it
-                    function generateSecureCoupon(transaction) {
-                        // Use the crypto helper if available, otherwise fallback
-                        const generateCouponPromise = window.cryptoHelper ? 
-                            window.cryptoHelper.generateSecureCoupon(transaction) : 
-                            Promise.resolve(generateCouponCode());
-                            
-                        generateCouponPromise.then(couponCode => {
-                            // Display the coupon code
-                            document.getElementById('generated-coupon-code').textContent = couponCode;
-                            
-                            // Populate with actual transaction data
-                            document.getElementById('activated-coupon-type').textContent = transaction.productName || 'منتج غير محدد';
-                            document.getElementById('activated-coupon-points').textContent = transaction.quantity + ' وحدة';
-                            
-                            // Mark as redeemed
-                            transaction.status = 'redeemed';
-                            transaction.redeemedAt = new Date().toISOString();
-                            transaction.couponCode = couponCode;
-                            localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
-                            localStorage.setItem('completedTransactionsTimestamp', Date.now());
-                            
-                            // Scroll to result
-                            document.querySelector('.activation-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            
-                            // Copy button functionality
-                            const copyBtn = document.getElementById('copy-coupon');
-                            if (copyBtn) {
-                                copyBtn.onclick = function() {
-                                    navigator.clipboard.writeText(couponCode).then(() => {
-                                        showToast('تم نسخ الكوبون إلى الحافظة');
-                                    });
-                                };
-                            }
-                        }).catch(error => {
-                            console.error('Error generating coupon:', error);
-                            alert('حدث خطأ في إنشاء الكوبون. يرجى المحاولة مرة أخرى.');
-                        });
+                    // Generate secure coupon
+                    generateSecureCoupon(transaction, completedTransactions);
+                }
+            }, 1500);
+        });
+        
+        // وظيفة لتحميل خدمة الكوبونات الآمنة
+        function loadCouponService() {
+            return new Promise((resolve, reject) => {
+                // التحقق مما إذا كانت الخدمة محملة بالفعل
+                if (window.couponService) {
+                    resolve(window.couponService);
+                    return;
+                }
+                
+                // إنشاء عنصر script
+                const script = document.createElement('script');
+                script.src = '/niqati/js/secure-coupon-service.js';
+                script.onload = () => {
+                    console.log('Secure coupon service loaded successfully');
+                    resolve(window.couponService);
+                };
+                script.onerror = (error) => {
+                    console.error('Failed to load secure coupon service:', error);
+                    reject(error);
+                };
+                
+                // إضافة العنصر إلى الصفحة
+                document.head.appendChild(script);
+            });
+        }
+        
+        // وظيفة لتوليد كوبون آمن
+        function generateSecureCoupon(transaction, completedTransactions) {
+            loadCouponService()
+                .then(() => {
+                    // استخدام خدمة الكوبونات الآمنة
+                    return window.couponService.generateCoupon(transaction);
+                })
+                .then(couponCode => {
+                    // عرض كود الكوبون
+                    document.getElementById('generated-coupon-code').textContent = couponCode;
+                    
+                    // تحديث بيانات المنتج
+                    document.getElementById('activated-coupon-type').textContent = transaction.productName || 'منتج غير محدد';
+                    document.getElementById('activated-coupon-points').textContent = transaction.quantity + ' وحدة';
+                    
+                    // تحديث حالة المعاملة
+                    transaction.status = 'redeemed';
+                    transaction.redeemedAt = new Date().toISOString();
+                    transaction.couponCode = couponCode;
+                    localStorage.setItem('completedTransactions', JSON.stringify(completedTransactions));
+                    localStorage.setItem('completedTransactionsTimestamp', Date.now());
+                    
+                    // التمرير إلى النتيجة
+                    document.querySelector('.activation-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // وظيفة زر النسخ
+                    const copyBtn = document.getElementById('copy-coupon');
+                    if (copyBtn) {
+                        copyBtn.onclick = function() {
+                            navigator.clipboard.writeText(couponCode).then(() => {
+                                showToast('تم نسخ الكوبون إلى الحافظة');
+                            });
+                        };
                     }
+                })
+                .catch(error => {
+                    console.error('Error generating coupon:', error);
+                    document.getElementById('generated-coupon-code').textContent = 'حدث خطأ';
+                    showToast('حدث خطأ في إنشاء الكوبون. يرجى المحاولة مرة أخرى.');
+                });
+        }
                 } else if (pendingTicket) {
                     // Ticket exists but not yet approved
                     alert('لم يتم تأكيد الدفع بعد. يرجى الانتظار حتى يتم التحقق من الدفع.');

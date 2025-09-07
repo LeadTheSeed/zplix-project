@@ -1,0 +1,128 @@
+/* أنماط الإشعارات */
+
+.notification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding: 0 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 5px rgba(255, 71, 87, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+    }
+}
+
+.notification-container {
+    position: relative;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background-color: #5cb85c;
+}
+
+.toast.error {
+    background-color: #d9534f;
+}
+
+.toast.info {
+    background-color: #5bc0de;
+}
+
+.toast.warning {
+    background-color: #f0ad4e;
+}
+
+/* تنبيه الطلبات المتحقق منها */
+.verified-payments-alert {
+    padding: 12px 15px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+}
+
+.verified-payments-alert i {
+    color: #ffc107;
+    font-size: 20px;
+}
+
+.verified-payments-alert p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.verified-payments-alert a {
+    margin-left: auto;
+    padding: 5px 10px;
+    background-color: #ffc107;
+    color: #212529;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.verified-payments-alert a:hover {
+    background-color: #e0a800;
+}
+
+/* مؤشر تحديث البيانات */
+.data-refresh-indicator {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.data-refresh-indicator i {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
