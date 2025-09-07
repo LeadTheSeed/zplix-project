@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Expand card functionality
     if (expandCardBtns.length > 0) {
         expandCardBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any default behavior
+                e.stopPropagation(); // Stop event bubbling
+                
                 // Close any other expanded cards
                 document.querySelectorAll('.product-card.expanded').forEach(card => {
                     if (card !== this.closest('.product-card')) {
@@ -57,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.classList.add('expanded');
                 this.style.display = 'none';
                 card.querySelector('.product-controls').style.display = 'block';
+                
+                console.log('Card expanded:', card); // Add debugging
             });
         });
     }
@@ -64,11 +69,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Collapse card functionality
     if (collapseCardBtns.length > 0) {
         collapseCardBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any default behavior
+                e.stopPropagation(); // Stop event bubbling
+                
                 const card = this.closest('.product-card');
                 card.classList.remove('expanded');
                 card.querySelector('.product-controls').style.display = 'none';
                 card.querySelector('.expand-card').style.display = 'block';
+                
+                console.log('Card collapsed:', card); // Add debugging
             });
         });
     }
@@ -138,7 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add to cart functionality
     if (addToCartBtns.length > 0) {
         addToCartBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent any default behavior
+                e.stopPropagation(); // Stop event bubbling
+                
+                console.log('Add to cart clicked'); // Add debugging
+                
                 const productCard = this.closest('.product-card');
                 const productName = productCard.querySelector('h3').textContent;
                 const productQuantity = parseInt(productCard.querySelector('.points-input').value);

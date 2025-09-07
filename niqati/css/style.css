@@ -295,6 +295,11 @@ img {
     padding: var(--spacing-xl) 0;
 }
 
+/* Add rule to ensure product controls display properly when expanded */
+.product-card.expanded .product-controls {
+    display: block !important;
+}
+
 .filter-tabs {
     display: flex;
     justify-content: center;
@@ -392,6 +397,8 @@ img {
 
 .product-controls {
     margin-top: var(--spacing-md);
+    position: relative;
+    z-index: 10;
 }
 
 .quantity-control {
@@ -445,6 +452,12 @@ img {
     cursor: pointer;
     transition: var(--transition);
     margin-top: var(--spacing-md);
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(44, 107, 237, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .expand-card:hover {
