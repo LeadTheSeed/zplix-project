@@ -101,9 +101,11 @@ header {
 
 header .container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    gap: 10px;
 }
 
 .logo h1 {
@@ -198,9 +200,81 @@ html[dir="rtl"] .currency-selector::after {
 .user-panel {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--light-gray);
+}
+
+@media (min-width: 992px) {
+    .user-panel {
+        width: auto;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        justify-content: flex-end;
+    }
+}
+
+/* Make language, region and currency selectors more visible */
+.language-selector,
+.region-selector,
+.currency-selector {
+    position: relative;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.language-selector select,
+.region-selector select,
+.currency-selector select {
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    min-width: 120px;
+}
+
+/* Add labels above selectors for better clarity */
+.language-selector::before {
+    content: 'Language';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 0.7em;
+    color: var(--light-text);
+}
+
+.region-selector::before {
+    content: 'Region';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 0.7em;
+    color: var(--light-text);
+}
+
+.currency-selector::before {
+    content: 'Currency';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 0.7em;
+    color: var(--light-text);
+}
+
+html[dir="rtl"] .language-selector::before,
+html[dir="rtl"] .region-selector::before,
+html[dir="rtl"] .currency-selector::before {
+    left: auto;
+    right: 0;
 }
 
 #credit-display {
