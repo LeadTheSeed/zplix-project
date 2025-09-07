@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة البائع | كوبوناتي Couponati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    كوبوناتي <span>Couponati</span>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="seller.html" class="active">لوحة التحكم</a></li>
+                        <li class="nav-item"><a href="#" id="language-switcher">English</a></li>
+                        <li class="nav-item auth-item"><a href="#" id="logout-link">تسجيل الخروج</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">لوحة تحكم البائع</h1>
+                <p class="dashboard-subtitle">مرحباً، <span id="user-name">البائع</span></p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card stats-card">
+                    <div class="stats-number" id="pending-orders-count">0</div>
+                    <div class="stats-label">طلبات قيد المعالجة</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="issued-coupons-count">0</div>
+                    <div class="stats-label">الكوبونات المصدرة</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="total-sales">$0.00</div>
+                    <div class="stats-label">إجمالي المبيعات</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">الطلبات المعلقة</h2>
+                    <div class="card-actions">
+                        <button id="refresh-orders" class="btn btn-outline"><i class="fas fa-sync"></i> تحديث</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="pending-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>المستخدم</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>حالة الدفع</th>
+                                    <th>الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pending-orders-list">
+                                <!-- Orders will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-pending-orders" style="display: none;" class="text-center">
+                            <p>لا توجد طلبات معلقة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">الكوبونات المصدرة مؤخراً</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="coupons-table">
+                            <thead>
+                                <tr>
+                                    <th>رمز الكوبون</th>
+                                    <th>المستخدم</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الإصدار</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coupons-list">
+                                <!-- Coupons will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-coupons" style="display: none;" class="text-center">
+                            <p>لم يتم إصدار كوبونات بعد</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approve Order Modal -->
+    <div class="modal-backdrop" id="approve-order-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">إصدار كوبون</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="approve-order-form">
+                    <div class="order-details">
+                        <div class="detail-row">
+                            <span class="label">رقم الطلب:</span>
+                            <span class="value" id="order-id">ORD123456</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">المستخدم:</span>
+                            <span class="value" id="order-user">اسم المستخدم</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">القيمة:</span>
+                            <span class="value" id="order-amount">$10.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="coupon-generation">
+                        <div class="form-group">
+                            <label for="coupon-code" class="form-label">رمز الكوبون:</label>
+                            <div class="input-with-button">
+                                <input type="text" id="coupon-code" class="form-input" placeholder="أدخل رمز الكوبون أو اضغط على إنشاء تلقائي">
+                                <button type="button" id="generate-code" class="btn">إنشاء تلقائي</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="coupon-notes" class="form-label">ملاحظات (اختياري):</label>
+                        <textarea id="coupon-notes" class="form-input" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">إصدار الكوبون</button>
+                        <button type="button" id="reject-order" class="btn btn-error">رفض الطلب</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>كوبوناتي</h3>
+                    <p>منصة سهلة وآمنة لشراء كوبونات شحن الرصيد</p>
+                </div>
+                <div class="footer-section">
+                    <h3>الدعم</h3>
+                    <div class="footer-links">
+                        <a href="mailto:support@couponati.com"><i class="fas fa-envelope"></i> support@couponati.com</a>
+                        <a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 كوبوناتي | Couponati. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/seller.js"></script>
+</body>
+</html>

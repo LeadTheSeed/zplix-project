@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الدفع | كوبوناتي Couponati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    كوبوناتي <span>Couponati</span>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="index.html">الرئيسية</a></li>
+                        <li class="nav-item"><a href="#" id="language-switcher">English</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">بوابة الدفع</h1>
+                <p class="dashboard-subtitle">إتمام عملية شراء الكوبون</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">ملخص الطلب</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="order-summary">
+                            <div class="order-item">
+                                <span>المبلغ بالدولار الأمريكي:</span>
+                                <span id="order-amount">$0.00</span>
+                            </div>
+                            <div class="order-item">
+                                <span>المبلغ بالعملة المحلية:</span>
+                                <div id="order-local-amount" class="currency-amount">
+                                    <span class="amount">0.00</span>
+                                    <span class="currency">ريال سعودي</span>
+                                </div>
+                            </div>
+                            <div class="order-item highlight">
+                                <span>المبلغ الإجمالي:</span>
+                                <div id="order-total" class="currency-amount">
+                                    <span class="amount">0.00</span>
+                                    <span class="currency">ريال سعودي</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">طرق الدفع</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-methods">
+                            <div class="payment-method-selector">
+                                <div class="form-group">
+                                    <label class="radio-container">
+                                        <input type="radio" name="payment-method" value="bank-transfer" checked>
+                                        <span class="radio-label">تحويل بنكي</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="radio-container">
+                                        <input type="radio" name="payment-method" value="credit-card">
+                                        <span class="radio-label">بطاقة ائتمان</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Bank Transfer Form -->
+                            <div id="bank-transfer-form" class="payment-method-form">
+                                <div class="bank-details">
+                                    <div class="bank-detail-row">
+                                        <span class="label">اسم البنك:</span>
+                                        <span class="value" id="bank-name">البنك الأهلي</span>
+                                    </div>
+                                    <div class="bank-detail-row">
+                                        <span class="label">اسم الحساب:</span>
+                                        <span class="value">شركة كوبوناتي</span>
+                                    </div>
+                                    <div class="bank-detail-row">
+                                        <span class="label">رقم الحساب:</span>
+                                        <span class="value" id="bank-account">1234567890</span>
+                                    </div>
+                                    <div class="bank-detail-row">
+                                        <span class="label">رقم الآيبان:</span>
+                                        <span class="value" id="bank-iban">SA1234567890123456789012</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="transaction-id" class="form-label">رقم العملية:</label>
+                                    <input type="text" id="transaction-id" class="form-input" placeholder="أدخل رقم العملية بعد إتمام التحويل">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">صورة الإيصال (اختياري):</label>
+                                    <input type="file" id="receipt-image" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <!-- Credit Card Form (hidden by default) -->
+                            <div id="credit-card-form" class="payment-method-form" style="display: none;">
+                                <div class="form-group">
+                                    <label for="card-number" class="form-label">رقم البطاقة:</label>
+                                    <input type="text" id="card-number" class="form-input" placeholder="**** **** **** ****">
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group half">
+                                        <label for="expiry-date" class="form-label">تاريخ الانتهاء:</label>
+                                        <input type="text" id="expiry-date" class="form-input" placeholder="MM/YY">
+                                    </div>
+                                    
+                                    <div class="form-group half">
+                                        <label for="cvv" class="form-label">رمز CVV:</label>
+                                        <input type="text" id="cvv" class="form-input" placeholder="***">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="card-name" class="form-label">الاسم على البطاقة:</label>
+                                    <input type="text" id="card-name" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary" id="cancel-payment">إلغاء</button>
+                        <button class="btn btn-primary" id="confirm-payment">تأكيد الدفع</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-note">
+                <p><i class="fas fa-info-circle"></i> بعد تأكيد الدفع، سيتم تحويل الطلب إلى شركة البيع للموافقة عليه وإصدار الكوبون.</p>
+                <p><i class="fas fa-clock"></i> يستغرق إصدار الكوبون عادةً من 5 إلى 15 دقيقة بعد تأكيد الدفع.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Processing Modal -->
+    <div class="modal-backdrop" id="processing-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">جاري معالجة الدفع</h3>
+            </div>
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <p>جاري التحقق من معلومات الدفع...</p>
+                <p>يرجى عدم إغلاق هذه الصفحة.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal-backdrop" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">تم تأكيد الدفع بنجاح</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>تم تأكيد عملية الدفع بنجاح وتم تحويل الطلب إلى شركة البيع للموافقة عليه وإصدار الكوبون.</p>
+                <p>رقم الطلب: <span id="order-id">ORD123456</span></p>
+                <p>سيظهر الكوبون في حسابك بمجرد الموافقة عليه من قبل شركة البيع.</p>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="goto-dashboard">الذهاب إلى لوحة التحكم</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>كوبوناتي</h3>
+                    <p>منصة سهلة وآمنة لشراء كوبونات شحن الرصيد</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <div class="footer-links">
+                        <a href="index.html">الرئيسية</a>
+                        <a href="about.html">من نحن</a>
+                        <a href="terms.html">الشروط والأحكام</a>
+                        <a href="privacy.html">سياسة الخصوصية</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>تواصل معنا</h3>
+                    <div class="footer-links">
+                        <a href="mailto:support@couponati.com"><i class="fas fa-envelope"></i> support@couponati.com</a>
+                        <a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 كوبوناتي | Couponati. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>

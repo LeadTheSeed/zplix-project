@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | كوبوناتي Couponati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    كوبوناتي <span>Couponati</span>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="index.html">الرئيسية</a></li>
+                        <li class="nav-item"><a href="#" id="check-coupon-link">تحقق من الكوبون</a></li>
+                        <li class="nav-item"><a href="#" id="language-switcher">English</a></li>
+                        <li class="nav-item auth-item" id="dashboard-item"><a href="dashboard.html" class="active">لوحة التحكم</a></li>
+                        <li class="nav-item auth-item" id="logout-item"><a href="#" id="logout-link">تسجيل الخروج</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">لوحة التحكم</h1>
+                <p class="dashboard-subtitle">مرحباً، <span id="user-name">المستخدم</span></p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card stats-card">
+                    <div class="stats-number" id="coupons-count">0</div>
+                    <div class="stats-label">الكوبونات الحالية</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="pending-count">0</div>
+                    <div class="stats-label">الطلبات قيد المعالجة</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="total-spent">$0.00</div>
+                    <div class="stats-label">إجمالي المشتريات</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">كوبوناتي</h2>
+                    <button class="btn btn-primary" id="buy-new-coupon">شراء كوبون جديد</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="coupons-table">
+                            <thead>
+                                <tr>
+                                    <th>رمز الكوبون</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الإصدار</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coupons-list">
+                                <!-- Coupons will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-coupons-message" style="display: none;" class="text-center">
+                            <p>لا توجد كوبونات حالياً</p>
+                            <button class="btn btn-primary" id="buy-first-coupon">شراء أول كوبون</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">الطلبات قيد المعالجة</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="pending-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pending-list">
+                                <!-- Pending orders will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-pending-message" style="display: none;" class="text-center">
+                            <p>لا توجد طلبات قيد المعالجة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Check Coupon Modal -->
+    <div class="modal-backdrop" id="check-coupon-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">تحقق من الكوبون</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="check-coupon-form">
+                    <div class="form-group">
+                        <label for="coupon-code" class="form-label">أدخل رمز الكوبون</label>
+                        <input type="text" id="coupon-code" class="form-input" placeholder="مثال: COUP-1234-5678-90AB" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-submit">تحقق</button>
+                    </div>
+                </form>
+                <div id="coupon-result" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">نتيجة التحقق</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>حالة الكوبون: <span id="coupon-status" class="badge badge-success">صالح</span></p>
+                            <p>القيمة: <span id="coupon-value">$10.00</span></p>
+                            <p>تاريخ الإصدار: <span id="coupon-date">2025-09-08</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Coupon Modal -->
+    <div class="modal-backdrop" id="buy-coupon-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">شراء كوبون جديد</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="buy-coupon-form">
+                    <div class="form-group">
+                        <label for="coupon-amount" class="form-label">المبلغ بالدولار الأمريكي</label>
+                        <input type="number" id="coupon-amount" class="form-input" min="5" step="5" value="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المبلغ بالعملة المحلية</label>
+                        <div id="local-amount" class="currency-amount">
+                            <span class="amount">38.50</span>
+                            <span class="currency">ريال سعودي</span>
+                        </div>
+                        <small class="text-muted">السعر يشمل زيادة 1٪ عن سعر السوق</small>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-submit">متابعة للدفع</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Coupon Modal -->
+    <div class="modal-backdrop" id="view-coupon-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">تفاصيل الكوبون</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="coupon-details">
+                    <div class="coupon-code" id="modal-coupon-code">COUP-1234-5678-90AB</div>
+                    <p>القيمة: <span id="modal-coupon-value">$10.00</span></p>
+                    <p>تاريخ الإصدار: <span id="modal-coupon-date">2025-09-08</span></p>
+                    <p>الحالة: <span id="modal-coupon-status" class="badge badge-success">صالح</span></p>
+                    <p class="text-center">اضغط على الكود لنسخه</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>كوبوناتي</h3>
+                    <p>منصة سهلة وآمنة لشراء كوبونات شحن الرصيد</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <div class="footer-links">
+                        <a href="index.html">الرئيسية</a>
+                        <a href="about.html">من نحن</a>
+                        <a href="terms.html">الشروط والأحكام</a>
+                        <a href="privacy.html">سياسة الخصوصية</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>تواصل معنا</h3>
+                    <div class="footer-links">
+                        <a href="mailto:support@couponati.com"><i class="fas fa-envelope"></i> support@couponati.com</a>
+                        <a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 كوبوناتي | Couponati. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

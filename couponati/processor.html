@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة التحصيل | كوبوناتي Couponati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    كوبوناتي <span>Couponati</span>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="processor.html" class="active">لوحة التحكم</a></li>
+                        <li class="nav-item"><a href="#" id="language-switcher">English</a></li>
+                        <li class="nav-item auth-item"><a href="#" id="logout-link">تسجيل الخروج</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">لوحة تحكم شركة التحصيل</h1>
+                <p class="dashboard-subtitle">مرحباً، <span id="user-name">المعالج</span></p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card stats-card">
+                    <div class="stats-number" id="pending-transactions-count">0</div>
+                    <div class="stats-label">المعاملات المعلقة</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="approved-transactions-count">0</div>
+                    <div class="stats-label">المعاملات المعتمدة</div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-number" id="total-value">$0.00</div>
+                    <div class="stats-label">إجمالي القيمة</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">المعاملات المعلقة</h2>
+                    <div class="card-actions">
+                        <button id="refresh-transactions" class="btn btn-outline"><i class="fas fa-sync"></i> تحديث</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="pending-transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>المستخدم</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>طريقة الدفع</th>
+                                    <th>الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pending-transactions-list">
+                                <!-- Transactions will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-pending-transactions" style="display: none;" class="text-center">
+                            <p>لا توجد معاملات معلقة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">المعاملات الأخيرة</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="recent-transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>المستخدم</th>
+                                    <th>القيمة</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>طريقة الدفع</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-transactions-list">
+                                <!-- Transactions will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                        <div id="no-recent-transactions" style="display: none;" class="text-center">
+                            <p>لا توجد معاملات سابقة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transaction Details Modal -->
+    <div class="modal-backdrop" id="transaction-details-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">تفاصيل المعاملة</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="transaction-details">
+                    <div class="detail-row">
+                        <span class="label">رقم الطلب:</span>
+                        <span class="value" id="transaction-id">ORD123456</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">المستخدم:</span>
+                        <span class="value" id="transaction-user">اسم المستخدم</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">القيمة:</span>
+                        <span class="value" id="transaction-amount">$10.00</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">تاريخ الطلب:</span>
+                        <span class="value" id="transaction-date">2025-09-08</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">طريقة الدفع:</span>
+                        <span class="value" id="transaction-method">تحويل بنكي</span>
+                    </div>
+                </div>
+                
+                <!-- Bank Transfer Details -->
+                <div id="bank-transfer-details">
+                    <h4>تفاصيل التحويل البنكي</h4>
+                    <div class="detail-row">
+                        <span class="label">رقم العملية:</span>
+                        <span class="value" id="transaction-reference">TX12345678</span>
+                    </div>
+                </div>
+                
+                <!-- Credit Card Details -->
+                <div id="credit-card-details" style="display: none;">
+                    <h4>تفاصيل بطاقة الائتمان</h4>
+                    <div class="detail-row">
+                        <span class="label">رقم البطاقة:</span>
+                        <span class="value" id="card-number">**** **** **** 1234</span>
+                    </div>
+                </div>
+                
+                <div class="transaction-actions">
+                    <button class="btn btn-success" id="approve-transaction">الموافقة على المعاملة</button>
+                    <button class="btn btn-error" id="reject-transaction">رفض المعاملة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>كوبوناتي</h3>
+                    <p>منصة سهلة وآمنة لشراء كوبونات شحن الرصيد</p>
+                </div>
+                <div class="footer-section">
+                    <h3>الدعم</h3>
+                    <div class="footer-links">
+                        <a href="mailto:support@couponati.com"><i class="fas fa-envelope"></i> support@couponati.com</a>
+                        <a href="tel:+1234567890"><i class="fas fa-phone"></i> +123 456 7890</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 كوبوناتي | Couponati. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/processor.js"></script>
+</body>
+</html>
