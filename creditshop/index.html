@@ -14,18 +14,50 @@
                 <h1>Credit<span>Shop</span></h1>
             </div>
             <nav>
-                <ul>
-                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="shop">Shop</a></li>
-                    <li><a href="#" class="nav-link" data-page="account">My Account</a></li>
+                <ul id="nav-links">
+                    <li><a href="#" class="nav-link" data-page="home" data-trans="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="shop" data-trans="shop">Shop</a></li>
+                    <li><a href="#" class="nav-link" data-page="account" data-trans="myAccount">My Account</a></li>
                     <li><a href="#" class="nav-link" data-page="cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                 </ul>
             </nav>
             <div class="user-panel">
-                <div id="credit-display">Credit: $0.00</div>
-                <button id="login-btn" class="btn">Login</button>
-                <button id="register-btn" class="btn btn-outline">Register</button>
-                <button id="logout-btn" class="btn" style="display: none;">Logout</button>
+                <div id="credit-display" data-trans="credit">Credit: $0.00</div>
+                <div class="language-selector">
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+                <div class="region-selector">
+                    <select id="region-select">
+                        <option value="default" data-trans="selectRegion">Select Region</option>
+                        <option value="UAE" data-trans="uae">United Arab Emirates</option>
+                        <option value="KSA" data-trans="ksa">Saudi Arabia</option>
+                        <option value="Qatar" data-trans="qatar">Qatar</option>
+                        <option value="Kuwait" data-trans="kuwait">Kuwait</option>
+                        <option value="Bahrain" data-trans="bahrain">Bahrain</option>
+                        <option value="Oman" data-trans="oman">Oman</option>
+                        <option value="Jordan" data-trans="jordan">Jordan</option>
+                        <option value="Egypt" data-trans="egypt">Egypt</option>
+                    </select>
+                </div>
+                <div class="currency-selector">
+                    <select id="currency-select">
+                        <option value="USD" data-trans="usd">USD - US Dollar</option>
+                        <option value="AED" data-trans="aed">AED - UAE Dirham</option>
+                        <option value="SAR" data-trans="sar">SAR - Saudi Riyal</option>
+                        <option value="QAR" data-trans="qar">QAR - Qatari Riyal</option>
+                        <option value="KWD" data-trans="kwd">KWD - Kuwaiti Dinar</option>
+                        <option value="BHD" data-trans="bhd">BHD - Bahraini Dinar</option>
+                        <option value="OMR" data-trans="omr">OMR - Omani Rial</option>
+                        <option value="JOD" data-trans="jod">JOD - Jordanian Dinar</option>
+                        <option value="EGP" data-trans="egp">EGP - Egyptian Pound</option>
+                    </select>
+                </div>
+                <button id="login-btn" class="btn" data-trans="login">Login</button>
+                <button id="register-btn" class="btn btn-outline" data-trans="register">Register</button>
+                <button id="logout-btn" class="btn" style="display: none;" data-trans="logout">Logout</button>
             </div>
         </div>
     </header>
@@ -112,20 +144,39 @@
                     </div>
                     
                     <div class="account-section">
-                        <h3>Order History</h3>
+                        <h3 data-trans="orderHistory">Order History</h3>
                         <div id="order-history">
                             <table class="orders-table">
                                 <thead>
                                     <tr>
-                                        <th>Order #</th>
-                                        <th>Date</th>
-                                        <th>Items</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
+                                        <th data-trans="orderNumber">Order #</th>
+                                        <th data-trans="date">Date</th>
+                                        <th data-trans="items">Items</th>
+                                        <th data-trans="total">Total</th>
+                                        <th data-trans="status">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="orders-list">
                                     <!-- Orders will be added here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section">
+                        <h3 data-trans="pendingTransfers">Pending Transfers</h3>
+                        <div id="transfers-history">
+                            <table class="transfers-table">
+                                <thead>
+                                    <tr>
+                                        <th data-trans="reference">Reference</th>
+                                        <th data-trans="date">Date</th>
+                                        <th data-trans="amount">Amount</th>
+                                        <th data-trans="status">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transfers-list">
+                                    <!-- Transfers will be added here dynamically -->
                                 </tbody>
                             </table>
                         </div>
@@ -207,43 +258,54 @@
         <!-- Top Up Modal -->
         <div id="topup-modal" class="modal">
             <div class="modal-header">
-                <h3>Add Credit to Your Account</h3>
+                <h3 data-trans="topupTitle">Add Credit to Your Account</h3>
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="topup-form">
                     <div class="form-group">
-                        <label for="topup-amount">Amount ($)</label>
-                        <input type="number" id="topup-amount" min="5" step="5" value="50">
-                    </div>
-                    <div class="payment-methods">
-                        <h4>Payment Method</h4>
-                        <div class="payment-method">
-                            <input type="radio" id="payment-card" name="payment-method" value="card" checked>
-                            <label for="payment-card">Credit/Debit Card</label>
-                        </div>
-                        <div class="payment-method">
-                            <input type="radio" id="payment-paypal" name="payment-method" value="paypal">
-                            <label for="payment-paypal">PayPal</label>
+                        <label for="topup-amount" data-trans="amount">Amount</label>
+                        <div class="amount-with-currency">
+                            <input type="number" id="topup-amount" min="5" step="5" value="50">
+                            <span id="topup-currency">USD</span>
                         </div>
                     </div>
-                    <div id="card-details">
-                        <div class="form-group">
-                            <label for="card-number">Card Number</label>
-                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="card-expiry">Expiry Date</label>
-                                <input type="text" id="card-expiry" placeholder="MM/YY">
+                    <div class="bank-transfer-info">
+                        <h4 data-trans="bankTransfer">Bank Transfer</h4>
+                        <p class="transfer-instructions" data-trans="transferInstructions">Please transfer the exact amount and include the reference number in your transaction details.</p>
+                        
+                        <div class="bank-details">
+                            <div class="bank-detail-row">
+                                <span class="bank-detail-label" data-trans="bankName">Bank Name:</span>
+                                <span id="bank-name" class="bank-detail-value">International Bank</span>
                             </div>
-                            <div class="form-group">
-                                <label for="card-cvv">CVV</label>
-                                <input type="text" id="card-cvv" placeholder="123">
+                            <div class="bank-detail-row">
+                                <span class="bank-detail-label" data-trans="accountName">Account Name:</span>
+                                <span id="account-name" class="bank-detail-value">CreditShop LLC</span>
+                            </div>
+                            <div class="bank-detail-row">
+                                <span class="bank-detail-label" data-trans="accountNumber">Account Number:</span>
+                                <span id="account-number" class="bank-detail-value">0000000000</span>
+                            </div>
+                            <div class="bank-detail-row">
+                                <span class="bank-detail-label" data-trans="iban">IBAN:</span>
+                                <span id="account-iban" class="bank-detail-value">GB12CRED12345678901234</span>
+                            </div>
+                            <div class="bank-detail-row">
+                                <span class="bank-detail-label" data-trans="swiftCode">Swift Code:</span>
+                                <span id="swift-code" class="bank-detail-value">CREDGB2L</span>
+                            </div>
+                            <div class="bank-detail-row highlight">
+                                <span class="bank-detail-label" data-trans="transferReference">Transfer Reference:</span>
+                                <span id="transfer-reference" class="bank-detail-value">CS-</span>
                             </div>
                         </div>
+                        
+                        <div class="transfer-note">
+                            <p data-trans="verificationProcess">After making the transfer, please allow 1-2 business days for verification.</p>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-full">Add Credit</button>
+                    <button type="submit" class="btn btn-full" data-trans="confirmTopup">Confirm Transfer</button>
                 </form>
             </div>
         </div>
@@ -359,6 +421,7 @@
         </div>
     </footer>
 
+    <script src="js/translations.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

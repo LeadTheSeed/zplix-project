@@ -5,13 +5,39 @@
 let currentUser = null;
 let products = [];
 let cart = [];
+let currentLanguage = 'en';
+let currentRegion = 'default';
+let currentCurrency = 'USD';
 
 // Initialize application
 document.addEventListener('DOMContentLoaded', () => {
+    initializeLanguage();
+    initializeRegionAndCurrency();
     initializeApp();
     setupEventListeners();
     loadPage('home');
 });
+
+// Initialize language
+function initializeLanguage() {
+    // Get language from localStorage or default to English
+    const savedLanguage = localStorage.getItem('creditshop_language') || 'en';
+    setLanguage(savedLanguage);
+    document.getElementById('language-select').value = savedLanguage;
+}
+
+// Initialize region and currency
+function initializeRegionAndCurrency() {
+    // Get region and currency from localStorage or default
+    const savedRegion = localStorage.getItem('creditshop_region') || 'default';
+    const savedCurrency = localStorage.getItem('creditshop_currency') || 'USD';
+    
+    setRegion(savedRegion);
+    setCurrency(savedCurrency);
+    
+    document.getElementById('region-select').value = savedRegion;
+    document.getElementById('currency-select').value = savedCurrency;
+}
 
 // Initialize application data
 function initializeApp() {
@@ -40,7 +66,9 @@ function loadUserData() {
 // Update credit display in header
 function updateCreditDisplay() {
     if (currentUser) {
-        document.getElementById('credit-display').textContent = `Credit: $${currentUser.credit.toFixed(2)}`;
+        const convertedCredit = convertCurrency(currentUser.credit);
+        const creditText = translations[currentLanguage].credit || 'Credit';
+        document.getElementById('credit-display').textContent = `${creditText}: ${currentCurrency} ${convertedCredit.toFixed(2)}`;
     }
 }
 
@@ -147,7 +175,117 @@ function displayProducts(productsToDisplay) {
 }
 
 // Setup all event listeners
+// Language and translation functions
+function setLanguage(lang) {
+    if (!translations[lang]) {
+        console.error(`Translation for language ${lang} not found`);
+        return;
+    }
+    
+    currentLanguage = lang;
+    localStorage.setItem('creditshop_language', lang);
+    
+    // Set HTML dir attribute for RTL support
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    
+    // Update all translatable elements
+    document.querySelectorAll('[data-trans]').forEach(el => {
+        const key = el.getAttribute('data-trans');
+        if (translations[lang][key]) {
+            if (el.tagName === 'INPUT' && el.getAttribute('type') === 'placeholder') {
+                el.placeholder = translations[lang][key];
+            } else {
+                el.textContent = translations[lang][key];
+            }
+        }
+    });
+    
+    // Update currency format in credit display
+    updateCreditDisplay();
+}
+
+// Region and currency functions
+function setRegion(region) {
+    currentRegion = region;
+    localStorage.setItem('creditshop_region', region);
+    
+    // Update bank account details based on region
+    updateBankDetails();
+}
+
+function setCurrency(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('creditshop_currency', currency);
+    
+    // Update all price displays
+    updatePriceDisplays();
+    
+    // Update top-up currency display
+    document.getElementById('topup-currency').textContent = currency;
+}
+
+function updateBankDetails() {
+    const bankDetails = bankAccounts[currentRegion] || bankAccounts.default;
+    
+    document.getElementById('bank-name').textContent = bankDetails.bankName;
+    document.getElementById('account-name').textContent = bankDetails.accountName;
+    document.getElementById('account-number').textContent = bankDetails.accountNumber;
+    document.getElementById('account-iban').textContent = bankDetails.iban;
+    document.getElementById('swift-code').textContent = bankDetails.swiftCode;
+    
+    // Generate a unique reference code for the transfer
+    const refCode = 'CS-' + Date.now().toString().substr(-6) + 
+                   (currentUser ? '-' + currentUser.id.toString().substr(-4) : '');
+    document.getElementById('transfer-reference').textContent = refCode;
+}
+
+function updatePriceDisplays() {
+    // Convert all price displays to the selected currency
+    const rate = exchangeRates[currentCurrency] || 1;
+    
+    // Update product prices in shop
+    document.querySelectorAll('.product-price').forEach(el => {
+        const originalPrice = parseFloat(el.getAttribute('data-original-price') || el.textContent.replace(/[^0-9.]/g, ''));
+        el.setAttribute('data-original-price', originalPrice);
+        el.textContent = `${currentCurrency} ${(originalPrice * rate).toFixed(2)}`;
+    });
+    
+    // Update cart item prices
+    document.querySelectorAll('.cart-item-price').forEach(el => {
+        const originalPrice = parseFloat(el.getAttribute('data-original-price') || el.textContent.replace(/[^0-9.]/g, ''));
+        el.setAttribute('data-original-price', originalPrice);
+        el.textContent = `${currentCurrency} ${(originalPrice * rate).toFixed(2)}`;
+    });
+    
+    // Update cart summary
+    if (document.getElementById('cart-subtotal')) {
+        const subtotal = parseFloat(document.getElementById('cart-subtotal').getAttribute('data-value') || 0);
+        document.getElementById('cart-subtotal').textContent = `${currentCurrency} ${(subtotal * rate).toFixed(2)}`;
+        
+        const tax = parseFloat(document.getElementById('cart-tax').getAttribute('data-value') || 0);
+        document.getElementById('cart-tax').textContent = `${currentCurrency} ${(tax * rate).toFixed(2)}`;
+        
+        const total = parseFloat(document.getElementById('cart-total').getAttribute('data-value') || 0);
+        document.getElementById('cart-total').textContent = `${currentCurrency} ${(total * rate).toFixed(2)}`;
+    }
+}
+
 function setupEventListeners() {
+    // Language selector
+    document.getElementById('language-select').addEventListener('change', (e) => {
+        setLanguage(e.target.value);
+    });
+    
+    // Region selector
+    document.getElementById('region-select').addEventListener('change', (e) => {
+        setRegion(e.target.value);
+    });
+    
+    // Currency selector
+    document.getElementById('currency-select').addEventListener('change', (e) => {
+        setCurrency(e.target.value);
+    });
+    
     // Navigation links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -262,6 +400,9 @@ function handleAccountPage() {
         
         // Load order history
         loadOrderHistory();
+        
+        // Load transfer history
+        loadTransferHistory();
     } else {
         document.getElementById('login-form').style.display = 'block';
         document.getElementById('register-form').style.display = 'none';
@@ -281,16 +422,55 @@ function loadOrderHistory() {
                 <td>${order.id}</td>
                 <td>${new Date(order.date).toLocaleDateString()}</td>
                 <td>${order.items.length}</td>
-                <td>$${order.total.toFixed(2)}</td>
-                <td>Complete</td>
+                <td>${currentCurrency} ${convertCurrency(order.total).toFixed(2)}</td>
+                <td>${translations[currentLanguage].complete || 'Complete'}</td>
             `;
             ordersList.appendChild(row);
         });
     } else {
         const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="5" class="no-orders">No order history</td>';
+        row.innerHTML = `<td colspan="5" class="no-orders">${translations[currentLanguage].noOrders || 'No order history'}</td>`;
         ordersList.appendChild(row);
     }
+}
+
+// Load user's transfer history
+function loadTransferHistory() {
+    const transfersList = document.getElementById('transfers-list');
+    transfersList.innerHTML = '';
+    
+    // Get all transfers from localStorage
+    const allTransfers = JSON.parse(localStorage.getItem('creditshop_transfers') || '[]');
+    
+    // Filter transfers for current user
+    const userTransfers = allTransfers.filter(transfer => transfer.userId === currentUser.id);
+    
+    if (userTransfers.length > 0) {
+        userTransfers.forEach(transfer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span class="transfer-reference">${transfer.reference}</span></td>
+                <td>${new Date(transfer.date).toLocaleDateString()}</td>
+                <td>${transfer.currency} ${transfer.amount.toFixed(2)}</td>
+                <td>
+                    <span class="transfer-status ${transfer.status}">
+                        ${translations[currentLanguage][transfer.status] || transfer.status}
+                    </span>
+                </td>
+            `;
+            transfersList.appendChild(row);
+        });
+    } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="4" class="no-transfers">${translations[currentLanguage].noTransfers || 'No transfers'}</td>`;
+        transfersList.appendChild(row);
+    }
+}
+
+// Convert currency amount from USD to current currency
+function convertCurrency(amount) {
+    const rate = exchangeRates[currentCurrency] || 1;
+    return amount * rate;
 }
 
 // Handle login form submission
@@ -689,10 +869,43 @@ function handleTopUp(e) {
         return;
     }
     
-    // In a real app, this would connect to a payment processor
-    addCreditToAccount(amount);
+    // With bank transfers, we don't immediately add credit
+    // Instead, we simulate a pending transfer
+    const transferReference = document.getElementById('transfer-reference').textContent;
+    
+    // Save the pending transfer to localStorage
+    savePendingTransfer(amount, transferReference);
+    
+    // Show confirmation message
+    alert(translations[currentLanguage].addedSuccessfully);
     
     closeAllModals();
+}
+
+// Save pending transfer to localStorage
+function savePendingTransfer(amount, reference) {
+    if (!currentUser) return;
+    
+    const transfer = {
+        userId: currentUser.id,
+        amount: amount,
+        currency: currentCurrency,
+        reference: reference,
+        date: Date.now(),
+        status: 'pending'
+    };
+    
+    // Get existing transfers
+    const transfers = JSON.parse(localStorage.getItem('creditshop_transfers') || '[]');
+    transfers.push(transfer);
+    
+    // Save back to localStorage
+    localStorage.setItem('creditshop_transfers', JSON.stringify(transfers));
+    
+    // Update account page to show pending transfer
+    if (document.getElementById('account-page').classList.contains('active')) {
+        handleAccountPage();
+    }
 }
 
 // Add credit to user account

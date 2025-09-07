@@ -1,6 +1,7 @@
 /* Base Styles */
 :root {
     --primary-color: #5a67d8;
+    --primary-color-rgb: 90, 103, 216;
     --secondary-color: #4c51bf;
     --accent-color: #f6ad55;
     --text-color: #2d3748;
@@ -9,8 +10,13 @@
     --light-gray: #e2e8f0;
     --border-color: #cbd5e0;
     --success-color: #48bb78;
+    --success-color-rgb: 72, 187, 120;
     --error-color: #e53e3e;
+    --error-color-rgb: 229, 62, 62;
     --warning-color: #ed8936;
+    --warning-color-rgb: 237, 137, 54;
+    --mena-gold: #d4af37;
+    --mena-blue: #1e6091;
 }
 
 * {
@@ -127,10 +133,74 @@ nav ul li a:hover {
     color: var(--primary-color);
 }
 
+/* RTL Support */
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .nav ul li {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+html[dir="rtl"] .product-card-actions {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .modal-header {
+    flex-direction: row-reverse;
+}
+
+/* Language, Region and Currency Selectors */
+.language-selector,
+.region-selector,
+.currency-selector {
+    position: relative;
+    margin-right: 10px;
+}
+
+.language-selector select,
+.region-selector select,
+.currency-selector select {
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9em;
+    appearance: none;
+    padding-right: 24px;
+    cursor: pointer;
+}
+
+.language-selector::after,
+.region-selector::after,
+.currency-selector::after {
+    content: '\f078';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.8em;
+    color: var(--primary-color);
+}
+
+html[dir="rtl"] .language-selector::after,
+html[dir="rtl"] .region-selector::after,
+html[dir="rtl"] .currency-selector::after {
+    right: auto;
+    left: 8px;
+}
+
 .user-panel {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 #credit-display {
@@ -306,20 +376,55 @@ nav ul li a:hover {
     border-bottom: 1px solid var(--light-gray);
 }
 
-.orders-table {
+.orders-table,
+.transfers-table {
     width: 100%;
     border-collapse: collapse;
 }
 
 .orders-table th,
-.orders-table td {
+.orders-table td,
+.transfers-table th,
+.transfers-table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid var(--light-gray);
 }
 
-.orders-table th {
+.orders-table th,
+.transfers-table th {
     background-color: var(--background-color);
+}
+
+/* Transfer status styling */
+.transfer-reference {
+    font-family: monospace;
+    font-weight: bold;
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    padding: 3px 6px;
+    border-radius: 3px;
+}
+
+.transfer-status {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.transfer-status.pending {
+    background-color: rgba(var(--warning-color-rgb), 0.2);
+    color: var(--warning-color);
+}
+
+.transfer-status.complete {
+    background-color: rgba(var(--success-color-rgb), 0.2);
+    color: var(--success-color);
+}
+
+.transfer-status.rejected {
+    background-color: rgba(var(--error-color-rgb), 0.2);
+    color: var(--error-color);
 }
 
 /* Auth Forms */
@@ -569,16 +674,88 @@ nav ul li a:hover {
     gap: 15px;
 }
 
-/* Payment Methods */
-.payment-methods {
+/* Bank Transfer Details */
+.bank-transfer-info {
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: var(--background-color);
+}
+
+.transfer-instructions {
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: var(--light-text);
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    border-left: 3px solid var(--mena-gold);
+}
+
+.bank-details {
     margin: 20px 0;
 }
 
-.payment-method {
+.bank-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.bank-detail-row:last-child {
+    border-bottom: none;
+}
+
+.bank-detail-row.highlight {
+    background-color: rgba(var(--primary-color-rgb), 0.05);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px dashed var(--primary-color);
+    margin-top: 10px;
+}
+
+.bank-detail-label {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.bank-detail-value {
+    font-family: monospace;
+    padding: 5px 8px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid var(--light-gray);
+}
+
+.transfer-note {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(var(--warning-color-rgb), 0.1);
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.amount-with-currency {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+}
+
+.amount-with-currency input {
+    flex: 1;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.amount-with-currency span {
+    padding: 10px 15px;
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 /* Order Confirmation */
