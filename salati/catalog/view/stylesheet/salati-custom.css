@@ -1,0 +1,98 @@
+/**
+ * Salati - Middle East E-commerce Platform Custom Styles
+ * Built on OpenCart
+ */
+
+/* Right-to-left support for Arabic language */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Custom colors for Salati brand */
+:root {
+  --salati-primary: #007a5e;     /* Primary brand color - green */
+  --salati-secondary: #ffc107;   /* Secondary color - amber/gold */
+  --salati-accent: #e65100;      /* Accent color - orange */
+  --salati-light: #f5f5f5;       /* Light background */
+  --salati-dark: #263238;        /* Dark text color */
+}
+
+/* Header styling */
+header {
+  background: linear-gradient(135deg, var(--salati-primary), #004d40);
+  color: white;
+}
+
+/* Currency selector styling */
+.currency-select {
+  border: 1px solid var(--salati-secondary);
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Product cards with Middle Eastern design influence */
+.product-card {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.product-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.product-card .price {
+  color: var(--salati-accent);
+  font-weight: bold;
+}
+
+/* Custom button styling */
+.btn-salati {
+  background-color: var(--salati-primary);
+  border-color: var(--salati-primary);
+  color: white;
+}
+
+.btn-salati:hover {
+  background-color: #00695c;
+  border-color: #00695c;
+}
+
+/* Footer styling with arabesque pattern */
+footer {
+  background-color: var(--salati-dark);
+  color: white;
+  background-image: url('../image/arabesque-pattern.png');
+  background-blend-mode: overlay;
+  background-opacity: 0.1;
+}
+
+/* Account credit display */
+.account-credit {
+  background-color: var(--salati-secondary);
+  color: var(--salati-dark);
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Middle East region map on checkout */
+.region-map {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .currency-select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
