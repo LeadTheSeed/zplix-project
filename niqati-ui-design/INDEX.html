@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - Complete UI/UX Design System Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #A1A1AA;
+            margin-bottom: 40px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            min-width: 150px;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .stat-label {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 1.8rem;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .link-card {
+            background: rgba(123, 63, 242, 0.1);
+            border: 1px solid rgba(123, 63, 242, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .link-card:hover {
+            background: rgba(123, 63, 242, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(123, 63, 242, 0.3);
+        }
+        
+        .link-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .link-content {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .link-desc {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--secondary);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        .badge.new {
+            background: #10B981;
+        }
+        
+        .badge.wip {
+            background: #F59E0B;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">نظام تصميم منصة نقاطي</h1>
+            <p class="subtitle">الدليل الشامل لجميع واجهات ومكونات منصة تداول USDT بواجهة النقاط الرقمية</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">واجهة</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">200+</div>
+                    <div class="stat-label">مكون</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">لغة</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">شامل</div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🎨</span>
+                نظام التصميم الأساسي | Design System
+            </h2>
+            <div class="links-grid">
+                <a href="01-Design_System/colors/color_system.html" class="link-card">
+                    <span class="link-icon">🎨</span>
+                    <div class="link-content">
+                        <div class="link-title">نظام الألوان</div>
+                        <div class="link-desc">لوحة الألوان الكاملة ومتغيرات CSS</div>
+                    </div>
+                </a>
+                <a href="01-Design_System/typography/typography_system.html" class="link-card">
+                    <span class="link-icon">✏️</span>
+                    <div class="link-content">
+                        <div class="link-title">نظام الخطوط</div>
+                        <div class="link-desc">الخطوط والأحجام للعربية والإنجليزية</div>
+                    </div>
+                </a>
+                <a href="01-Design_System/spacing/spacing_system.html" class="link-card">
+                    <span class="link-icon">📐</span>
+                    <div class="link-content">
+                        <div class="link-title">نظام المسافات</div>
+                        <div class="link-desc">المسافات والحشو والهوامش</div>
+                    </div>
+                </a>
+                <a href="01-Design_System/grid/grid_system.html" class="link-card">
+                    <span class="link-icon">⚡</span>
+                    <div class="link-content">
+                        <div class="link-title">نظام الشبكة</div>
+                        <div class="link-desc">تخطيط الصفحات والأعمدة</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">💻</span>
+                واجهات سطح المكتب | Desktop Views
+            </h2>
+            <div class="links-grid">
+                <a href="02-Desktop_Views/authentication/login_page.html" class="link-card">
+                    <span class="link-icon">🔐</span>
+                    <div class="link-content">
+                        <div class="link-title">تسجيل الدخول</div>
+                        <div class="link-desc">صفحة الدخول للمنصة</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/authentication/register_page.html" class="link-card">
+                    <span class="link-icon">📝</span>
+                    <div class="link-content">
+                        <div class="link-title">التسجيل</div>
+                        <div class="link-desc">إنشاء حساب جديد</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/dashboard/dashboard.html" class="link-card">
+                    <span class="link-icon">📊</span>
+                    <div class="link-content">
+                        <div class="link-title">لوحة التحكم</div>
+                        <div class="link-desc">النظرة العامة والإحصائيات</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/wallet/wallet.html" class="link-card">
+                    <span class="link-icon">💰</span>
+                    <div class="link-content">
+                        <div class="link-title">المحفظة</div>
+                        <div class="link-desc">إدارة الأموال والتحويلات</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/trading/trading.html" class="link-card">
+                    <span class="link-icon">📈</span>
+                    <div class="link-content">
+                        <div class="link-title">التداول</div>
+                        <div class="link-desc">شراء وبيع USDT</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/kyc/kyc.html" class="link-card">
+                    <span class="link-icon">🆔</span>
+                    <div class="link-content">
+                        <div class="link-title">التحقق من الهوية</div>
+                        <div class="link-desc">إجراءات KYC</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/settings/settings.html" class="link-card">
+                    <span class="link-icon">⚙️</span>
+                    <div class="link-content">
+                        <div class="link-title">الإعدادات</div>
+                        <div class="link-desc">إدارة الحساب والتفضيلات</div>
+                    </div>
+                </a>
+                <a href="02-Desktop_Views/admin/admin_dashboard.html" class="link-card">
+                    <span class="link-icon">👨‍💼</span>
+                    <div class="link-content">
+                        <div class="link-title">لوحة الإدارة</div>
+                        <div class="link-desc">إدارة المنصة والمستخدمين</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📱</span>
+                واجهات الموبايل | Mobile Views
+            </h2>
+            <div class="links-grid">
+                <a href="03-Mobile_Views/mobile_home.html" class="link-card">
+                    <span class="link-icon">🏠</span>
+                    <div class="link-content">
+                        <div class="link-title">الصفحة الرئيسية</div>
+                        <div class="link-desc">واجهة الموبايل الرئيسية</div>
+                    </div>
+                </a>
+                <a href="03-Mobile_Views/mobile_wallet.html" class="link-card">
+                    <span class="link-icon">💳</span>
+                    <div class="link-content">
+                        <div class="link-title">المحفظة موبايل</div>
+                        <div class="link-desc">إدارة المحفظة على الموبايل</div>
+                    </div>
+                </a>
+                <a href="03-Mobile_Views/mobile_trading.html" class="link-card">
+                    <span class="link-icon">💱</span>
+                    <div class="link-content">
+                        <div class="link-title">التداول موبايل</div>
+                        <div class="link-desc">شراء وبيع من الموبايل</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🧩</span>
+                مكتبة المكونات | Components Library
+            </h2>
+            <div class="links-grid">
+                <a href="05-Components/buttons/button_components.html" class="link-card">
+                    <span class="link-icon">🔘</span>
+                    <div class="link-content">
+                        <div class="link-title">الأزرار</div>
+                        <div class="link-desc">جميع أنواع وأحجام الأزرار</div>
+                    </div>
+                </a>
+                <a href="05-Components/inputs/input_components.html" class="link-card">
+                    <span class="link-icon">📝</span>
+                    <div class="link-content">
+                        <div class="link-title">حقول الإدخال</div>
+                        <div class="link-desc">النصوص والأرقام والتواريخ</div>
+                    </div>
+                </a>
+                <a href="05-Components/cards/card_components.html" class="link-card">
+                    <span class="link-icon">🎴</span>
+                    <div class="link-content">
+                        <div class="link-title">البطاقات</div>
+                        <div class="link-desc">بطاقات العرض والمعلومات</div>
+                    </div>
+                </a>
+                <a href="05-Components/modals/modal_components.html" class="link-card">
+                    <span class="link-icon">🪟</span>
+                    <div class="link-content">
+                        <div class="link-title">النوافذ المنبثقة</div>
+                        <div class="link-desc">الحوارات والتنبيهات</div>
+                    </div>
+                </a>
+                <a href="05-Components/tables/table_components.html" class="link-card">
+                    <span class="link-icon">📊</span>
+                    <div class="link-content">
+                        <div class="link-title">الجداول</div>
+                        <div class="link-desc">عرض البيانات والمعلومات</div>
+                    </div>
+                </a>
+                <a href="05-Components/notifications/notification_components.html" class="link-card">
+                    <span class="link-icon">🔔</span>
+                    <div class="link-content">
+                        <div class="link-title">الإشعارات</div>
+                        <div class="link-desc">التنبيهات والرسائل</div>
+                    </div>
+                </a>
+                <a href="05-Components/loaders/loader_components.html" class="link-card">
+                    <span class="link-icon">⏳</span>
+                    <div class="link-content">
+                        <div class="link-title">مؤشرات التحميل</div>
+                        <div class="link-desc">الانتظار والمعالجة</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🗺️</span>
+                رحلة المستخدم | User Journey
+            </h2>
+            <div class="links-grid">
+                <a href="04-User_Journey/user_flows.html" class="link-card">
+                    <span class="link-icon">🔀</span>
+                    <div class="link-content">
+                        <div class="link-title">مخططات التدفق</div>
+                        <div class="link-desc">مسارات المستخدم في التطبيق</div>
+                    </div>
+                </a>
+                <a href="04-User_Journey/wireframes.html" class="link-card">
+                    <span class="link-icon">📐</span>
+                    <div class="link-content">
+                        <div class="link-title">المخططات الأولية</div>
+                        <div class="link-desc">الهياكل الأساسية للصفحات</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📚</span>
+                التوثيق | Documentation
+            </h2>
+            <div class="links-grid">
+                <a href="06-Documentation/design_guidelines.html" class="link-card">
+                    <span class="link-icon">📖</span>
+                    <div class="link-content">
+                        <div class="link-title">إرشادات التصميم</div>
+                        <div class="link-desc">قواعد ومعايير التصميم</div>
+                    </div>
+                </a>
+                <a href="06-Documentation/developer_guide.html" class="link-card">
+                    <span class="link-icon">👨‍💻</span>
+                    <div class="link-content">
+                        <div class="link-title">دليل المطور</div>
+                        <div class="link-desc">كيفية تنفيذ التصاميم</div>
+                    </div>
+                </a>
+                <a href="06-Documentation/accessibility.html" class="link-card">
+                    <span class="link-icon">♿</span>
+                    <div class="link-content">
+                        <div class="link-title">سهولة الوصول</div>
+                        <div class="link-desc">معايير WCAG والامتثال</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📈</span>
+                حالة التقدم | Progress Status
+            </h2>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">نظام التصميم الأساسي</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">واجهات سطح المكتب</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">واجهات الموبايل</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">مكتبة المكونات</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 10px;">التوثيق</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

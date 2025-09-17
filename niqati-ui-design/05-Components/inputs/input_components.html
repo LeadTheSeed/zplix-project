@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - مكونات حقول الإدخال</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --input-bg: #25252F;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #A1A1AA;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+        }
+        
+        .component-preview {
+            margin-bottom: 40px;
+        }
+        
+        .component-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .component-description {
+            margin-bottom: 20px;
+            color: #A1A1AA;
+        }
+        
+        .preview-container {
+            padding: 30px;
+            background: #0F0F14;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .code-example {
+            background: #0F0F14;
+            padding: 20px;
+            border-radius: 8px;
+            color: #D1D5DB;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        
+        .variable {
+            color: var(--secondary);
+        }
+        
+        /* Input Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #A1A1AA;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--input-bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 63, 242, 0.2);
+        }
+        
+        .form-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .form-input.error {
+            border-color: var(--error);
+        }
+        
+        .form-input.success {
+            border-color: var(--success);
+        }
+        
+        /* Input with Icon */
+        .input-group {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .input-icon.left {
+            right: 16px;
+        }
+        
+        .input-icon.right {
+            left: 16px;
+        }
+        
+        .form-input.with-icon-left {
+            padding-right: 45px;
+        }
+        
+        .form-input.with-icon-right {
+            padding-left: 45px;
+        }
+        
+        /* Input Sizes */
+        .form-input.input-sm {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        
+        .form-input.input-lg {
+            padding: 16px 20px;
+            font-size: 1.1rem;
+        }
+        
+        /* Textarea */
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--input-bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 63, 242, 0.2);
+        }
+        
+        /* Select */
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--input-bg);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 63, 242, 0.2);
+        }
+        
+        /* Checkbox & Radio */
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .form-check-label {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* Custom Checkbox */
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .custom-checkbox input {
+            display: none;
+        }
+        
+        .custom-checkbox-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .custom-checkbox input:checked + .custom-checkbox-box {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .custom-checkbox-box i {
+            display: none;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .custom-checkbox input:checked + .custom-checkbox-box i {
+            display: block;
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .toggle-switch input {
+            display: none;
+        }
+        
+        .toggle-slider {
+            width: 50px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 50px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .toggle-slider::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--primary);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider::before {
+            right: 27px;
+        }
+        
+        /* Range Slider */
+        .form-range {
+            width: 100%;
+            appearance: none;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .form-range::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .form-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        /* File Upload */
+        .file-upload {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: var(--input-bg);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(123, 63, 242, 0.05);
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+        
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .file-upload-hint {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Input Group Addon */
+        .input-group-addon {
+            display: flex;
+        }
+        
+        .input-addon {
+            padding: 12px 16px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-addon.left {
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .input-addon.right {
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .input-group-addon .form-input {
+            border-radius: 0;
+        }
+        
+        .input-group-addon .form-input:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .input-group-addon .form-input:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+        
+        /* Error & Success Messages */
+        .form-message {
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .form-message.error {
+            color: var(--error);
+        }
+        
+        .form-message.success {
+            color: var(--success);
+        }
+        
+        /* Search Input */
+        .search-input {
+            position: relative;
+        }
+        
+        .search-input input {
+            padding-right: 45px;
+        }
+        
+        .search-btn {
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            bottom: 2px;
+            padding: 0 15px;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">مكونات حقول الإدخال</h1>
+            <p class="subtitle">جميع أنواع حقول الإدخال المستخدمة في منصة نقاطي</p>
+        </header>
+        
+        <!-- Text Inputs -->
+        <section class="section">
+            <h2 class="section-title">حقول النص | Text Inputs</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقل نص عادي</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" class="form-input" placeholder="أدخل اسمك الكامل">
+                    </div>
+                </div>
+                
+                <div class="code-example">
+&lt;div class="<span class="variable">form-group</span>"&gt;
+    &lt;label class="<span class="variable">form-label</span>"&gt;الاسم الكامل&lt;/label&gt;
+    &lt;input type="text" class="<span class="variable">form-input</span>" placeholder="أدخل اسمك الكامل"&gt;
+&lt;/div&gt;
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقول بأحجام مختلفة</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">صغير</label>
+                        <input type="text" class="form-input input-sm" placeholder="حقل صغير">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">عادي</label>
+                        <input type="text" class="form-input" placeholder="حقل عادي">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">كبير</label>
+                        <input type="text" class="form-input input-lg" placeholder="حقل كبير">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقول مع أيقونات</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <input type="email" class="form-input with-icon-left" placeholder="example@email.com">
+                            <i class="fas fa-envelope input-icon left"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف</label>
+                        <div class="input-group">
+                            <input type="tel" class="form-input with-icon-right" placeholder="0501234567" dir="ltr">
+                            <i class="fas fa-phone input-icon right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Special Inputs -->
+        <section class="section">
+            <h2 class="section-title">حقول خاصة | Special Inputs</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقل كلمة المرور</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">كلمة المرور</label>
+                        <div class="input-group">
+                            <input type="password" class="form-input with-icon-left" placeholder="••••••••">
+                            <i class="fas fa-lock input-icon left"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقل البحث</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <div class="search-input">
+                            <input type="search" class="form-input" placeholder="ابحث عن معاملة...">
+                            <button class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقل الأرقام</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">المبلغ</label>
+                        <input type="number" class="form-input" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">حقل التاريخ</h3>
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">تاريخ الميلاد</label>
+                        <input type="date" class="form-input">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Text Area -->
+        <section class="section">
+            <h2 class="section-title">حقل النص الطويل | Textarea</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">ملاحظات</label>
+                        <textarea class="form-textarea" placeholder="اكتب ملاحظاتك هنا..." rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Select -->
+        <section class="section">
+            <h2 class="section-title">قائمة الاختيار | Select</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">البلد</label>
+                        <select class="form-select">
+                            <option>اختر البلد</option>
+                            <option>الإمارات العربية المتحدة</option>
+                            <option>المملكة العربية السعودية</option>
+                            <option>الكويت</option>
+                            <option>قطر</option>
+                            <option>البحرين</option>
+                            <option>عُمان</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Checkboxes & Radio -->
+        <section class="section">
+            <h2 class="section-title">صناديق الاختيار والأزرار الدائرية | Checkboxes & Radio</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">صندوق اختيار عادي</h3>
+                <div class="preview-container">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check1">
+                        <label class="form-check-label" for="check1">أوافق على الشروط والأحكام</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check2" checked>
+                        <label class="form-check-label" for="check2">إرسال الإشعارات</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">صندوق اختيار مخصص</h3>
+                <div class="preview-container">
+                    <label class="custom-checkbox">
+                        <input type="checkbox">
+                        <span class="custom-checkbox-box">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span>خيار مخصص 1</span>
+                    </label>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" checked>
+                        <span class="custom-checkbox-box">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span>خيار مخصص 2</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار دائرية</h3>
+                <div class="preview-container">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio1" name="radioGroup">
+                        <label class="form-check-label" for="radio1">خيار 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio2" name="radioGroup" checked>
+                        <label class="form-check-label" for="radio2">خيار 2</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Toggle Switch -->
+        <section class="section">
+            <h2 class="section-title">مفتاح التبديل | Toggle Switch</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="toggle-slider"></span>
+                        <span>تفعيل التحقق بخطوتين</span>
+                    </label>
+                    
+                    <br><br>
+                    
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                        <span>استقبال الإشعارات</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Range Slider -->
+        <section class="section">
+            <h2 class="section-title">شريط التمرير | Range Slider</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">حجم الصفقة: <span id="rangeValue">50</span>%</label>
+                        <input type="range" class="form-range" min="0" max="100" value="50" oninput="document.getElementById('rangeValue').textContent = this.value">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- File Upload -->
+        <section class="section">
+            <h2 class="section-title">رفع الملفات | File Upload</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <label class="file-upload">
+                        <input type="file">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <span class="file-upload-text">اسحب الملفات هنا أو انقر للاستعراض</span>
+                        <span class="file-upload-hint">PNG, JPG, PDF حتى 10MB</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Input Groups -->
+        <section class="section">
+            <h2 class="section-title">مجموعات الإدخال | Input Groups</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">السعر بالعملة</label>
+                        <div class="input-group-addon">
+                            <span class="input-addon left">AED</span>
+                            <input type="text" class="form-input" placeholder="0.00">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">الموقع الإلكتروني</label>
+                        <div class="input-group-addon">
+                            <input type="text" class="form-input" placeholder="yoursite">
+                            <span class="input-addon right">.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Validation States -->
+        <section class="section">
+            <h2 class="section-title">حالات التحقق | Validation States</h2>
+            
+            <div class="component-preview">
+                <div class="preview-container">
+                    <div class="form-group">
+                        <label class="form-label">حقل صحيح</label>
+                        <input type="text" class="form-input success" value="قيمة صحيحة">
+                        <div class="form-message success">✓ تم التحقق بنجاح</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">حقل خاطئ</label>
+                        <input type="text" class="form-input error" value="قيمة خاطئة">
+                        <div class="form-message error">✕ يرجى إدخال قيمة صحيحة</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">حقل معطل</label>
+                        <input type="text" class="form-input" disabled value="حقل معطل">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

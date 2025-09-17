@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - إرشادات التصميم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .principle-card {
+            background: #0F0F14;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .principle-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .principle-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .principle-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .principle-content {
+            color: #A1A1AA;
+            line-height: 1.6;
+        }
+        
+        .do-dont-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .do-card, .dont-card {
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .do-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+        }
+        
+        .dont-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .do-card .card-header {
+            color: var(--success);
+        }
+        
+        .dont-card .card-header {
+            color: var(--error);
+        }
+        
+        .example-box {
+            background: #0F0F14;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .spacing-demo {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .spacing-item {
+            text-align: center;
+        }
+        
+        .spacing-box {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">إرشادات التصميم</h1>
+            <p class="subtitle">المبادئ والقواعد الأساسية لتصميم منصة نقاطي</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">🎯 مبادئ التصميم الأساسية</h2>
+            
+            <div class="principle-card">
+                <div class="principle-header">
+                    <div class="principle-icon">🎨</div>
+                    <h3 class="principle-title">البساطة والوضوح</h3>
+                </div>
+                <div class="principle-content">
+                    التصميم يجب أن يكون بسيطاً وواضحاً، مع التركيز على تجربة المستخدم. تجنب الإفراط في العناصر الزخرفية والتركيز على الوظيفة.
+                </div>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-header">
+                    <div class="principle-icon">🔄</div>
+                    <h3 class="principle-title">الاتساق</h3>
+                </div>
+                <div class="principle-content">
+                    استخدم نفس الأنماط والمكونات عبر جميع الصفحات. هذا يساعد المستخدمين على التعلم والتنقل بسهولة.
+                </div>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-header">
+                    <div class="principle-icon">📱</div>
+                    <h3 class="principle-title">التجاوب</h3>
+                </div>
+                <div class="principle-content">
+                    التصميم يجب أن يعمل بشكل مثالي على جميع أحجام الشاشات من الموبايل إلى سطح المكتب.
+                </div>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-header">
+                    <div class="principle-icon">♿</div>
+                    <h3 class="principle-title">سهولة الوصول</h3>
+                </div>
+                <div class="principle-content">
+                    التصميم يجب أن يكون قابلاً للاستخدام من قبل جميع المستخدمين بما في ذلك ذوي الاحتياجات الخاصة.
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🎨 استخدام الألوان</h2>
+            
+            <div class="do-dont-grid">
+                <div class="do-card">
+                    <div class="card-header">
+                        <i class="fas fa-check-circle"></i>
+                        افعل
+                    </div>
+                    <ul style="color: #A1A1AA;">
+                        <li>استخدم الألوان الأساسية للعناصر المهمة</li>
+                        <li>حافظ على التباين الكافي للنصوص</li>
+                        <li>استخدم الألوان للتوجيه وليس للزينة فقط</li>
+                        <li>احترم دلالات الألوان (أخضر للنجاح، أحمر للخطأ)</li>
+                    </ul>
+                </div>
+                
+                <div class="dont-card">
+                    <div class="card-header">
+                        <i class="fas fa-times-circle"></i>
+                        لا تفعل
+                    </div>
+                    <ul style="color: #A1A1AA;">
+                        <li>لا تستخدم أكثر من 3 ألوان رئيسية</li>
+                        <li>لا تعتمد على اللون فقط لنقل المعلومات</li>
+                        <li>لا تستخدم ألوان متقاربة جداً</li>
+                        <li>لا تستخدم ألوان زاهية بشكل مفرط</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <h4 style="margin-bottom: 15px;">أمثلة على الاستخدام الصحيح:</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button style="background: var(--primary); color: white; padding: 10px 20px; border: none; border-radius: 8px;">زر رئيسي</button>
+                    <button style="background: transparent; color: white; padding: 10px 20px; border: 2px solid var(--border); border-radius: 8px;">زر ثانوي</button>
+                    <button style="background: var(--success); color: white; padding: 10px 20px; border: none; border-radius: 8px;">زر نجاح</button>
+                    <button style="background: var(--error); color: white; padding: 10px 20px; border: none; border-radius: 8px;">زر خطر</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">✏️ الخطوط والنصوص</h2>
+            
+            <div class="example-box">
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">عنوان رئيسي H1 - 2.5rem</h1>
+                <h2 style="font-size: 2rem; margin-bottom: 10px;">عنوان فرعي H2 - 2rem</h2>
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">عنوان H3 - 1.5rem</h3>
+                <p style="font-size: 1rem; margin-bottom: 10px;">نص عادي - 1rem</p>
+                <small style="font-size: 0.875rem; color: #A1A1AA;">نص صغير - 0.875rem</small>
+            </div>
+            
+            <div class="do-dont-grid" style="margin-top: 20px;">
+                <div class="do-card">
+                    <div class="card-header">
+                        <i class="fas fa-check-circle"></i>
+                        قواعد الخطوط
+                    </div>
+                    <ul style="color: #A1A1AA;">
+                        <li>استخدم Cairo للعربية</li>
+                        <li>حافظ على التسلسل الهرمي للعناوين</li>
+                        <li>استخدم أوزان مختلفة للتمييز</li>
+                        <li>ارتفاع سطر 1.5 للنصوص الطويلة</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #0F0F14; padding: 20px; border-radius: 10px;">
+                    <h4 style="margin-bottom: 15px;">أوزان الخطوط:</h4>
+                    <div style="font-weight: 400;">عادي - 400</div>
+                    <div style="font-weight: 600;">متوسط - 600</div>
+                    <div style="font-weight: 700;">عريض - 700</div>
+                    <div style="font-weight: 900;">عريض جداً - 900</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">📐 المسافات والهوامش</h2>
+            
+            <div class="spacing-demo">
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 8px; height: 8px;"></div>
+                    <small>8px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 16px; height: 16px;"></div>
+                    <small>16px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 24px; height: 24px;"></div>
+                    <small>24px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 32px; height: 32px;"></div>
+                    <small>32px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 40px; height: 40px;"></div>
+                    <small>40px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box" style="width: 48px; height: 48px;"></div>
+                    <small>48px</small>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-box"></div>
+                    <small>60px</small>
+                </div>
+            </div>
+            
+            <div style="background: #0F0F14; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <h4 style="margin-bottom: 15px;">قواعد المسافات:</h4>
+                <ul style="color: #A1A1AA; list-style: none;">
+                    <li>• استخدم مضاعفات 8px للمسافات</li>
+                    <li>• المسافات الداخلية: 16px - 24px</li>
+                    <li>• المسافات بين الأقسام: 40px - 60px</li>
+                    <li>• الهوامش الخارجية للصفحة: 20px على الموبايل، 40px على الديسكتوب</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🎯 الأيقونات</h2>
+            
+            <div class="do-dont-grid">
+                <div class="do-card">
+                    <div class="card-header">
+                        <i class="fas fa-check-circle"></i>
+                        استخدام صحيح
+                    </div>
+                    <ul style="color: #A1A1AA;">
+                        <li>استخدم أيقونات Font Awesome</li>
+                        <li>حافظ على حجم موحد للأيقونات</li>
+                        <li>أضف نص توضيحي مع الأيقونة</li>
+                        <li>استخدم أيقونات ذات معنى واضح</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4 style="margin-bottom: 15px;">أحجام الأيقونات:</h4>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <i class="fas fa-home" style="font-size: 1rem;"></i>
+                        <i class="fas fa-home" style="font-size: 1.25rem;"></i>
+                        <i class="fas fa-home" style="font-size: 1.5rem;"></i>
+                        <i class="fas fa-home" style="font-size: 2rem;"></i>
+                        <i class="fas fa-home" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <small style="color: #A1A1AA; margin-top: 10px; display: block;">1rem - 1.25rem - 1.5rem - 2rem - 2.5rem</small>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🌐 دعم RTL</h2>
+            
+            <div class="principle-card">
+                <h3 style="margin-bottom: 15px;">قواعد تصميم RTL:</h3>
+                <ul style="color: #A1A1AA; list-style: none;">
+                    <li>✓ جميع العناصر تنعكس من اليمين لليسار</li>
+                    <li>✓ الأيقونات الاتجاهية تنعكس (→ تصبح ←)</li>
+                    <li>✓ المحاذاة النصية تكون لليمين</li>
+                    <li>✓ التدرجات والظلال تنعكس</li>
+                    <li>✓ ترتيب الأزرار: الزر الرئيسي على اليمين</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

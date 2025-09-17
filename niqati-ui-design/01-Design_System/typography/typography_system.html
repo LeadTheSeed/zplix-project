@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - نظام الخطوط</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            
+            /* Font Families */
+            --font-ar: 'Cairo', sans-serif;
+            --font-en: 'Inter', sans-serif;
+            
+            /* Font Sizes */
+            --text-xs: 0.75rem;     /* 12px */
+            --text-sm: 0.875rem;    /* 14px */
+            --text-base: 1rem;      /* 16px */
+            --text-lg: 1.125rem;    /* 18px */
+            --text-xl: 1.25rem;     /* 20px */
+            --text-2xl: 1.5rem;     /* 24px */
+            --text-3xl: 1.875rem;   /* 30px */
+            --text-4xl: 2.25rem;    /* 36px */
+            --text-5xl: 3rem;       /* 48px */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-ar);
+            background: var(--dark);
+            color: var(--text-primary);
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: var(--text-5xl);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: var(--text-xl);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: var(--text-2xl);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+        }
+        
+        .font-card {
+            margin-bottom: 40px;
+        }
+        
+        .font-family {
+            font-size: var(--text-xl);
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .font-details {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .font-preview {
+            margin-top: 20px;
+        }
+        
+        .font-sample {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(15, 15, 20, 0.5);
+            border-radius: 8px;
+        }
+        
+        .font-weights {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .weight-sample {
+            padding: 15px;
+            background: rgba(15, 15, 20, 0.5);
+            border-radius: 8px;
+        }
+        
+        .font-scale-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .font-scale-table th {
+            text-align: right;
+            padding: 12px 15px;
+            background: rgba(15, 15, 20, 0.7);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        
+        .font-scale-table td {
+            padding: 15px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .font-variable {
+            font-family: monospace;
+            color: var(--secondary);
+            background: rgba(0, 212, 170, 0.1);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        
+        .font-value {
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+        
+        .english-sample {
+            font-family: var(--font-en);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">نظام الخطوط لمنصة نقاطي</h1>
+            <p class="subtitle">دليل شامل للخطوط والطباعة المستخدمة في تصميم منصة نقاطي للتداول</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">عائلات الخطوط | Font Families</h2>
+            
+            <div class="font-card">
+                <h3 class="font-family">Cairo - العربية</h3>
+                <div class="font-details">
+                    <p>خط Cairo هو الخط الرئيسي للمحتوى العربي في المنصة. يتميز بوضوحه وأناقته، مما يجعله مثالياً للواجهات الرقمية.</p>
+                </div>
+                <div class="font-preview">
+                    <div class="font-sample" style="font-size: var(--text-5xl); font-weight: 700;">منصة نقاطي</div>
+                    <div class="font-sample" style="font-size: var(--text-2xl);">التداول سهل وآمن بواسطة النقاط الرقمية</div>
+                    <div class="font-sample" style="font-size: var(--text-base);">تداول USDT من خلال منصة نقاطي، المنصة الأولى في الشرق الأوسط المتوافقة مع الشريعة الإسلامية للتداول بالنقاط الرقمية. أرسل واستقبل وتداول بسهولة وأمان.</div>
+                </div>
+                
+                <h4 style="margin-top: 30px; margin-bottom: 15px;">أوزان الخط | Font Weights</h4>
+                <div class="font-weights">
+                    <div class="weight-sample" style="font-weight: 300;">نص خفيف (Light - 300)</div>
+                    <div class="weight-sample" style="font-weight: 400;">نص عادي (Regular - 400)</div>
+                    <div class="weight-sample" style="font-weight: 600;">نص شبه سميك (Semibold - 600)</div>
+                    <div class="weight-sample" style="font-weight: 700;">نص سميك (Bold - 700)</div>
+                    <div class="weight-sample" style="font-weight: 900;">نص أسود (Black - 900)</div>
+                </div>
+            </div>
+            
+            <div class="font-card">
+                <h3 class="font-family">Inter - English</h3>
+                <div class="font-details">
+                    <p class="english-sample">Inter is the main font for English content in the platform. It's designed for high legibility on screens with excellent performance in small sizes.</p>
+                </div>
+                <div class="font-preview">
+                    <div class="font-sample english-sample" style="font-size: var(--text-5xl); font-weight: 700;">Niqati Platform</div>
+                    <div class="font-sample english-sample" style="font-size: var(--text-2xl);">Easy and secure trading with digital points</div>
+                    <div class="font-sample english-sample" style="font-size: var(--text-base);">Trade USDT through Niqati Platform, the first Shariah-compliant digital points trading platform in the Middle East. Send, receive, and trade with ease and security.</div>
+                </div>
+                
+                <h4 style="margin-top: 30px; margin-bottom: 15px;" class="english-sample">Font Weights</h4>
+                <div class="font-weights">
+                    <div class="weight-sample english-sample" style="font-weight: 300;">Light text (300)</div>
+                    <div class="weight-sample english-sample" style="font-weight: 400;">Regular text (400)</div>
+                    <div class="weight-sample english-sample" style="font-weight: 500;">Medium text (500)</div>
+                    <div class="weight-sample english-sample" style="font-weight: 600;">Semibold text (600)</div>
+                    <div class="weight-sample english-sample" style="font-weight: 700;">Bold text (700)</div>
+                    <div class="weight-sample english-sample" style="font-weight: 800;">Extrabold text (800)</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">مقاسات الخطوط | Font Sizes</h2>
+            
+            <table class="font-scale-table">
+                <thead>
+                    <tr>
+                        <th>المتغير</th>
+                        <th>الحجم</th>
+                        <th>مثال</th>
+                        <th>الاستخدام</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="font-variable">--text-xs</span></td>
+                        <td><span class="font-value">0.75rem (12px)</span></td>
+                        <td style="font-size: var(--text-xs);">هذا نص بحجم xs</td>
+                        <td>النص التوضيحي الصغير، التنبيهات</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-sm</span></td>
+                        <td><span class="font-value">0.875rem (14px)</span></td>
+                        <td style="font-size: var(--text-sm);">هذا نص بحجم sm</td>
+                        <td>التعليقات، البيانات الثانوية</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-base</span></td>
+                        <td><span class="font-value">1rem (16px)</span></td>
+                        <td style="font-size: var(--text-base);">هذا نص بحجم base</td>
+                        <td>نص الفقرات الرئيسي</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-lg</span></td>
+                        <td><span class="font-value">1.125rem (18px)</span></td>
+                        <td style="font-size: var(--text-lg);">هذا نص بحجم lg</td>
+                        <td>النصوص البارزة، الفقرات المهمة</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-xl</span></td>
+                        <td><span class="font-value">1.25rem (20px)</span></td>
+                        <td style="font-size: var(--text-xl);">هذا نص بحجم xl</td>
+                        <td>عناوين البطاقات الصغيرة</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-2xl</span></td>
+                        <td><span class="font-value">1.5rem (24px)</span></td>
+                        <td style="font-size: var(--text-2xl);">هذا نص بحجم 2xl</td>
+                        <td>عناوين الأقسام</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-3xl</span></td>
+                        <td><span class="font-value">1.875rem (30px)</span></td>
+                        <td style="font-size: var(--text-3xl);">هذا نص بحجم 3xl</td>
+                        <td>العناوين الفرعية للصفحات</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-4xl</span></td>
+                        <td><span class="font-value">2.25rem (36px)</span></td>
+                        <td style="font-size: var(--text-4xl);">هذا نص بحجم 4xl</td>
+                        <td>العناوين الرئيسية</td>
+                    </tr>
+                    <tr>
+                        <td><span class="font-variable">--text-5xl</span></td>
+                        <td><span class="font-value">3rem (48px)</span></td>
+                        <td style="font-size: var(--text-5xl);">هذا نص 5xl</td>
+                        <td>عناوين الصفحات الرئيسية</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">تباعد السطور | Line Heights</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;">تباعد السطور الافتراضي للنص العادي: <span class="font-value">1.6</span></p>
+                <div class="font-sample" style="font-size: var(--text-base); line-height: 1.6;">
+                    منصة نقاطي هي منصة تداول USDT بواجهة نقاط رقمية سهلة الاستخدام. تم تصميمها خصيصاً لمستخدمي الشرق الأوسط وشمال إفريقيا مع مراعاة التوافق مع الشريعة الإسلامية. هذا مثال على النص مع تباعد السطور الافتراضي.
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;">تباعد السطور للعناوين: <span class="font-value">1.2</span></p>
+                <div class="font-sample" style="font-size: var(--text-3xl); line-height: 1.2; font-weight: 700;">
+                    العناوين تحتاج إلى تباعد أقل بين السطور لتبدو أكثر تماسكاً وقوة في التصميم.
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;">تباعد السطور للنصوص الصغيرة: <span class="font-value">1.5</span></p>
+                <div class="font-sample" style="font-size: var(--text-xs); line-height: 1.5;">
+                    النصوص الصغيرة مثل التعليقات والملاحظات تحتاج إلى تباعد سطور مناسب لتحسين القراءة. هذا مثال على نص توضيحي صغير مع تباعد سطور 1.5 لتحسين القراءة وسهولة الوصول.
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">توجيهات للاستخدام | Usage Guidelines</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">العناوين الرئيسية | Main Headings</h3>
+                <div class="font-sample">
+                    <div style="font-size: var(--text-4xl); font-weight: 700; margin-bottom: 10px;">عنوان رئيسي</div>
+                    <p style="color: var(--text-secondary);">استخدم حجم <span class="font-variable">--text-4xl</span> مع وزن <span class="font-value">Bold (700)</span> أو <span class="font-value">Black (900)</span> للعناوين الرئيسية.</p>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">العناوين الفرعية | Subheadings</h3>
+                <div class="font-sample">
+                    <div style="font-size: var(--text-2xl); font-weight: 600; margin-bottom: 10px;">عنوان فرعي</div>
+                    <p style="color: var(--text-secondary);">استخدم حجم <span class="font-variable">--text-2xl</span> مع وزن <span class="font-value">Semibold (600)</span> للعناوين الفرعية.</p>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">نص الفقرات | Body Text</h3>
+                <div class="font-sample">
+                    <div style="font-size: var(--text-base); margin-bottom: 10px;">هذا مثال لنص فقرة. يجب أن يكون النص واضحاً ومقروءاً على جميع أحجام الشاشات.</div>
+                    <p style="color: var(--text-secondary);">استخدم حجم <span class="font-variable">--text-base</span> مع وزن <span class="font-value">Regular (400)</span> لنص الفقرات.</p>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">النص التوضيحي | Caption Text</h3>
+                <div class="font-sample">
+                    <div style="font-size: var(--text-xs); margin-bottom: 10px;">هذا مثال لنص توضيحي صغير يستخدم للمعلومات الإضافية والملاحظات.</div>
+                    <p style="color: var(--text-secondary);">استخدم حجم <span class="font-variable">--text-xs</span> أو <span class="font-variable">--text-sm</span> للنصوص التوضيحية.</p>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">أزرار وعناصر التفاعل | Buttons & Interactive Elements</h3>
+                <div class="font-sample" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <div style="background: var(--primary); padding: 12px 25px; border-radius: 8px; font-size: var(--text-base); font-weight: 600;">زر كبير</div>
+                    <div style="background: var(--primary); padding: 8px 20px; border-radius: 8px; font-size: var(--text-sm); font-weight: 600;">زر متوسط</div>
+                    <div style="background: var(--primary); padding: 6px 15px; border-radius: 6px; font-size: var(--text-xs); font-weight: 600;">زر صغير</div>
+                </div>
+                <p style="color: var(--text-secondary); margin-top: 10px;">استخدم وزن <span class="font-value">Semibold (600)</span> للأزرار مع حجم مناسب حسب حجم الزر.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">استخدام متغيرات CSS | CSS Variables</h2>
+            <div style="background: rgba(15, 15, 20, 0.7); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <pre style="color: #D1D5DB; font-family: monospace; white-space: pre-wrap;">
+:root {
+    /* Font Families */
+    <span class="font-variable">--font-ar: 'Cairo', sans-serif;</span>
+    <span class="font-variable">--font-en: 'Inter', sans-serif;</span>
+    
+    /* Font Sizes */
+    <span class="font-variable">--text-xs: 0.75rem;</span>     /* 12px */
+    <span class="font-variable">--text-sm: 0.875rem;</span>    /* 14px */
+    <span class="font-variable">--text-base: 1rem;</span>      /* 16px */
+    <span class="font-variable">--text-lg: 1.125rem;</span>    /* 18px */
+    <span class="font-variable">--text-xl: 1.25rem;</span>     /* 20px */
+    <span class="font-variable">--text-2xl: 1.5rem;</span>     /* 24px */
+    <span class="font-variable">--text-3xl: 1.875rem;</span>   /* 30px */
+    <span class="font-variable">--text-4xl: 2.25rem;</span>    /* 36px */
+    <span class="font-variable">--text-5xl: 3rem;</span>       /* 48px */
+}
+                </pre>
+            </div>
+            <p style="color: #D1D5DB; margin-bottom: 20px;">استخدم متغيرات CSS للحفاظ على اتساق الخطوط في جميع أنحاء التطبيق. مثال:</p>
+            <div style="background: rgba(15, 15, 20, 0.7); padding: 20px; border-radius: 12px;">
+                <pre style="color: #D1D5DB; font-family: monospace; white-space: pre-wrap;">
+.heading-main {
+    font-family: <span class="font-variable">var(--font-ar)</span>;
+    font-size: <span class="font-variable">var(--text-4xl)</span>;
+    font-weight: 700;
+}
+
+.button-label {
+    font-size: <span class="font-variable">var(--text-sm)</span>;
+    font-weight: 600;
+}
+
+/* English version */
+html[lang="en"] .heading-main {
+    font-family: <span class="font-variable">var(--font-en)</span>;
+}
+                </pre>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

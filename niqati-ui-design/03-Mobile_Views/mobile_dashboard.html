@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Mobile - الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+        
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background: var(--dark);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Header */
+        .mobile-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .greeting {
+            font-size: 0.9rem;
+            color: #A1A1AA;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+        
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--error);
+            border-radius: 50%;
+        }
+        
+        /* Balance Card */
+        .balance-card {
+            margin: 0 20px 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .balance-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .balance-amount {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        
+        .balance-equivalent {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .balance-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .balance-action {
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .balance-action i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .balance-action span {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Quick Stats */
+        .quick-stats {
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .stat-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        .stat-label {
+            color: #A1A1AA;
+            font-size: 0.85rem;
+        }
+        
+        /* Recent Transactions */
+        .section {
+            padding: 0 20px;
+            margin-bottom: 25px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .transaction-list {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .transaction-details h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .transaction-details p {
+            color: #A1A1AA;
+            font-size: 0.8rem;
+        }
+        
+        .transaction-amount {
+            text-align: left;
+        }
+        
+        .amount-value {
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        .amount-time {
+            color: #A1A1AA;
+            font-size: 0.75rem;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(123, 63, 242, 0.4);
+            font-size: 1.5rem;
+            z-index: 99;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+        }
+        
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(123, 63, 242, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .service-label {
+            font-size: 0.75rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="mobile-header">
+            <div class="header-left">
+                <div class="user-avatar">أح</div>
+                <div>
+                    <div class="greeting">مرحباً،</div>
+                    <div class="user-name">أحمد محمد</div>
+                </div>
+            </div>
+            <div class="header-icons">
+                <div class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </div>
+                <div class="icon-btn">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-content">
+                <div class="balance-label">رصيد النقاط</div>
+                <div class="balance-amount">125,430</div>
+                <div class="balance-equivalent">≈ $1,254.30 USDT</div>
+                
+                <div class="balance-actions">
+                    <a href="#" class="balance-action">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>إيداع</span>
+                    </a>
+                    <a href="#" class="balance-action">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>سحب</span>
+                    </a>
+                    <a href="#" class="balance-action">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>إرسال</span>
+                    </a>
+                    <a href="#" class="balance-action">
+                        <i class="fas fa-history"></i>
+                        <span>السجل</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                        <i class="fas fa-arrow-trend-up"></i>
+                    </div>
+                </div>
+                <div class="stat-value">+$234</div>
+                <div class="stat-label">أرباح اليوم</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(123, 63, 242, 0.1); color: var(--primary);">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                </div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">معاملات اليوم</div>
+            </div>
+        </div>
+        
+        <!-- Services -->
+        <div class="section">
+            <div class="section-header">
+                <h3 class="section-title">خدمات سريعة</h3>
+            </div>
+            
+            <div class="services-grid">
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="service-label">تداول</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span class="service-label">البطاقات</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <span class="service-label">المكافآت</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="service-label">الإحالة</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span class="service-label">الأمان</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <span class="service-label">الدعم</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <span class="service-label">إعدادات</span>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <span class="service-label">المزيد</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Transactions -->
+        <div class="section">
+            <div class="section-header">
+                <h3 class="section-title">آخر المعاملات</h3>
+                <a href="#" class="section-link">عرض الكل ←</a>
+            </div>
+            
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="transaction-left">
+                        <div class="transaction-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>إيداع USDT</h4>
+                            <p>تحويل بنكي</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value" style="color: var(--success);">+500</div>
+                        <div class="amount-time">منذ 5 دقائق</div>
+                    </div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-left">
+                        <div class="transaction-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--error);">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>سحب</h4>
+                            <p>إلى البنك</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value" style="color: var(--error);">-200</div>
+                        <div class="amount-time">أمس</div>
+                    </div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-left">
+                        <div class="transaction-icon" style="background: rgba(123, 63, 242, 0.1); color: var(--primary);">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>تحويل</h4>
+                            <p>محمد أحمد</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">
+                        <div class="amount-value">100</div>
+                        <div class="amount-time">منذ يومين</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Action Button -->
+        <div class="fab">
+            <i class="fas fa-plus"></i>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>التداول</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>السجل</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>الحساب</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

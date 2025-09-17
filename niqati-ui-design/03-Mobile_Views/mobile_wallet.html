@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Mobile - المحفظة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .header-action {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        /* Balance Card */
+        .balance-section {
+            padding: 20px;
+        }
+        
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .balance-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .balance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .balance-amount {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        
+        .balance-equivalent {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .action-btn i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .action-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        /* Assets List */
+        .assets-section {
+            padding: 0 20px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .asset-list {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .asset-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .asset-item:last-child {
+            border-bottom: none;
+        }
+        
+        .asset-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(123, 63, 242, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .asset-info {
+            flex: 1;
+        }
+        
+        .asset-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .asset-symbol {
+            color: #A1A1AA;
+            font-size: 0.85rem;
+        }
+        
+        .asset-value {
+            text-align: left;
+        }
+        
+        .asset-amount {
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        
+        .asset-price {
+            color: #A1A1AA;
+            font-size: 0.85rem;
+        }
+        
+        /* Transaction History */
+        .transactions-section {
+            padding: 20px;
+        }
+        
+        .transaction-list {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+        }
+        
+        .transaction-icon.deposit {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .transaction-icon.withdraw {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+        
+        .transaction-info {
+            flex: 1;
+        }
+        
+        .transaction-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .transaction-time {
+            color: #A1A1AA;
+            font-size: 0.8rem;
+        }
+        
+        .transaction-amount {
+            font-weight: 700;
+        }
+        
+        .transaction-amount.positive {
+            color: var(--success);
+        }
+        
+        .transaction-amount.negative {
+            color: var(--error);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-action">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <h1 class="header-title">المحفظة</h1>
+            <div class="header-action">
+                <i class="fas fa-qrcode"></i>
+            </div>
+        </div>
+        
+        <!-- Balance Section -->
+        <div class="balance-section">
+            <div class="balance-card">
+                <div class="balance-content">
+                    <div class="balance-label">إجمالي الرصيد</div>
+                    <div class="balance-amount">$2,345.67</div>
+                    <div class="balance-equivalent">≈ 8,780 AED</div>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>إيداع</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>سحب</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>إرسال</span>
+                        </a>
+                        <a href="#" class="action-btn">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>تبديل</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Assets List -->
+        <div class="assets-section">
+            <div class="section-header">
+                <h2 class="section-title">الأصول</h2>
+                <a href="#" class="section-link">عرض الكل</a>
+            </div>
+            
+            <div class="asset-list">
+                <div class="asset-item">
+                    <div class="asset-icon">USDT</div>
+                    <div class="asset-info">
+                        <div class="asset-name">Tether</div>
+                        <div class="asset-symbol">USDT</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-amount">1,500.00</div>
+                        <div class="asset-price">≈ 5,625 AED</div>
+                    </div>
+                </div>
+                
+                <div class="asset-item">
+                    <div class="asset-icon" style="background: rgba(0, 212, 170, 0.1); color: var(--secondary);">نقاط</div>
+                    <div class="asset-info">
+                        <div class="asset-name">نقاط المكافآت</div>
+                        <div class="asset-symbol">POINTS</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-amount">125,430</div>
+                        <div class="asset-price">≈ 1,254 AED</div>
+                    </div>
+                </div>
+                
+                <div class="asset-item">
+                    <div class="asset-icon" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">BTC</div>
+                    <div class="asset-info">
+                        <div class="asset-name">Bitcoin</div>
+                        <div class="asset-symbol">BTC</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-amount">0.0085</div>
+                        <div class="asset-price">≈ 1,901 AED</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Transaction History -->
+        <div class="transactions-section">
+            <div class="section-header">
+                <h2 class="section-title">آخر المعاملات</h2>
+                <a href="#" class="section-link">عرض الكل</a>
+            </div>
+            
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="transaction-icon deposit">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-title">إيداع USDT</div>
+                        <div class="transaction-time">اليوم، 2:30 م</div>
+                    </div>
+                    <div class="transaction-amount positive">+500.00</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-icon withdraw">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-title">سحب إلى البنك</div>
+                        <div class="transaction-time">أمس، 5:45 م</div>
+                    </div>
+                    <div class="transaction-amount negative">-200.00</div>
+                </div>
+                
+                <div class="transaction-item">
+                    <div class="transaction-icon deposit">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-title">مكافأة يومية</div>
+                        <div class="transaction-time">أمس، 12:00 ص</div>
+                    </div>
+                    <div class="transaction-amount positive">+50 نقطة</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>التداول</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>السجل</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bars"></i>
+                <span>المزيد</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

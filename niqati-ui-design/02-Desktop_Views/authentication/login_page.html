@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - صفحة تسجيل الدخول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --primary-hover: #946DF6;
+            --primary-active: #6232D2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --input-bg: #25252F;
+            --border: #2D2D3A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --text-muted: #6B7280;
+            --error: #EF4444;
+            --success: #10B981;
+            --gradient-primary: linear-gradient(135deg, #7B3FF2 0%, #00D4AA 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .login-container {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Left side - Login Form */
+        .login-form-container {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .login-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+        
+        .login-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .login-logo-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-form {
+            max-width: 450px;
+            width: 100%;
+        }
+        
+        .login-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .login-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .form-input-container {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 63, 242, 0.2);
+        }
+        
+        .form-input-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 1rem;
+            color: var(--text-muted);
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        .form-checkbox label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .forgot-password {
+            display: block;
+            text-align: left;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 63, 242, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(123, 63, 242, 0.4);
+        }
+        
+        .login-separator {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: var(--text-muted);
+        }
+        
+        .login-separator::before,
+        .login-separator::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+        
+        .login-separator-text {
+            padding: 0 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .alt-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .alt-login-btn {
+            flex: 1;
+            padding: 0.875rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .alt-login-btn:hover {
+            background-color: rgba(123, 63, 242, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .register-link {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Right side - Visual */
+        .login-visual {
+            background: linear-gradient(135deg, rgba(123, 63, 242, 0.9) 0%, rgba(0, 212, 170, 0.9) 100%), url('https://images.unsplash.com/photo-1640340434858-8c9a79947267?auto=format&fit=crop&w=1000&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 100 100"><g fill="rgba(255,255,255,0.1)" stroke="none"><circle cx="25" cy="25" r="12"/><circle cx="75" cy="75" r="12"/><circle cx="75" cy="25" r="8"/><circle cx="25" cy="75" r="8"/></g></svg>');
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .visual-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+        }
+        
+        .visual-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .visual-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .visual-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .visual-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            gap: 0.75rem;
+        }
+        
+        .visual-badge-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #009688;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .visual-badge-text {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .language-switch {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .language-switch:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .login-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-visual {
+                display: none;
+            }
+            
+            .login-form-container {
+                padding: 2rem;
+            }
+            
+            .login-form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Login Form Side -->
+        <div class="login-form-container">
+            <div class="login-logo">
+                <div class="login-logo-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="login-logo-text">نقاطي</div>
+            </div>
+            
+            <form class="login-form">
+                <h1 class="login-title">مرحباً بك مجدداً</h1>
+                <p class="login-subtitle">سجل دخولك لإدارة محفظتك وتداولاتك</p>
+                
+                <div class="form-group">
+                    <label class="form-label">رقم الجوال</label>
+                    <div class="form-input-container">
+                        <input type="tel" class="form-input" placeholder="+971 50 123 4567" />
+                        <i class="fas fa-phone form-input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <div class="form-input-container">
+                        <input type="password" class="form-input" placeholder="••••••••" />
+                        <i class="fas fa-lock form-input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="remember" />
+                    <label for="remember">تذكرني</label>
+                </div>
+                
+                <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                
+                <button type="submit" class="login-btn">تسجيل الدخول</button>
+                
+                <div class="login-separator">
+                    <span class="login-separator-text">أو التسجيل باستخدام</span>
+                </div>
+                
+                <div class="alt-login">
+                    <button type="button" class="alt-login-btn">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button type="button" class="alt-login-btn">
+                        <i class="fab fa-apple"></i>
+                        Apple
+                    </button>
+                </div>
+                
+                <p class="register-link">
+                    ليس لديك حساب؟ <a href="#">إنشاء حساب جديد</a>
+                </p>
+            </form>
+        </div>
+        
+        <!-- Visual Side -->
+        <div class="login-visual">
+            <div class="language-switch">
+                <i class="fas fa-globe"></i>
+                English
+            </div>
+            
+            <div class="visual-content">
+                <h2 class="visual-title">منصة نقاطي</h2>
+                <p class="visual-text">تداول USDT بكل سهولة من خلال واجهة النقاط الرقمية المبتكرة. تمتع بتجربة آمنة ومتوافقة مع الشريعة الإسلامية.</p>
+                
+                <div class="visual-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">+100K</div>
+                        <div class="stat-label">مستخدم نشط</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">دول مدعومة</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$2.5M</div>
+                        <div class="stat-label">تداولات يومية</div>
+                    </div>
+                </div>
+                
+                <div class="visual-badge">
+                    <div class="visual-badge-icon">✓</div>
+                    <div class="visual-badge-text">متوافق مع الشريعة الإسلامية</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

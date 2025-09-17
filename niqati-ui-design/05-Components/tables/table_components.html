@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - مكونات الجداول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        /* Basic Table */
+        .table-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #0F0F14;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+            color: #A1A1AA;
+        }
+        
+        td {
+            padding: 15px;
+            border-top: 1px solid var(--border);
+        }
+        
+        tr:hover {
+            background: rgba(123, 63, 242, 0.05);
+        }
+        
+        /* Striped Table */
+        .table-striped tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        /* Bordered Table */
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid var(--border);
+        }
+        
+        /* Compact Table */
+        .table-compact th,
+        .table-compact td {
+            padding: 8px 12px;
+        }
+        
+        /* Table with Actions */
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Status Badges */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+        
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+        
+        /* Table Header with Controls */
+        .table-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .table-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .table-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-input {
+            padding: 8px 15px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Pagination */
+        .pagination {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Responsive Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        /* User Avatar */
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Amount Styling */
+        .amount {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .amount.positive {
+            color: var(--success);
+        }
+        
+        .amount.negative {
+            color: var(--error);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">مكونات الجداول</h1>
+            <p class="subtitle">جميع أنواع الجداول المستخدمة في منصة نقاطي</p>
+        </header>
+        
+        <!-- Basic Table -->
+        <section class="section">
+            <h2 class="section-title">جدول أساسي</h2>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>أحمد محمد</td>
+                            <td>ahmed@example.com</td>
+                            <td>2025/09/18</td>
+                            <td><span class="badge badge-success">نشط</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>سارة أحمد</td>
+                            <td>sara@example.com</td>
+                            <td>2025/09/17</td>
+                            <td><span class="badge badge-warning">معلق</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>خالد علي</td>
+                            <td>khaled@example.com</td>
+                            <td>2025/09/16</td>
+                            <td><span class="badge badge-error">محظور</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Transaction Table -->
+        <section class="section">
+            <h2 class="section-title">جدول المعاملات</h2>
+            
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3 class="table-title">آخر المعاملات</h3>
+                    <div class="table-controls">
+                        <input type="text" class="search-input" placeholder="بحث...">
+                        <button class="filter-btn">
+                            <i class="fas fa-filter"></i> تصفية
+                        </button>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم المعاملة</th>
+                            <th>النوع</th>
+                            <th>المبلغ</th>
+                            <th>العملة</th>
+                            <th>التاريخ والوقت</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-family: monospace;">#TRX-001234</td>
+                            <td>
+                                <i class="fas fa-arrow-down" style="color: var(--success); margin-left: 8px;"></i>
+                                إيداع
+                            </td>
+                            <td class="amount positive">+500.00</td>
+                            <td>USDT</td>
+                            <td>2025/09/18 14:30</td>
+                            <td><span class="badge badge-success">مكتمل</span></td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: monospace;">#TRX-001235</td>
+                            <td>
+                                <i class="fas fa-arrow-up" style="color: var(--error); margin-left: 8px;"></i>
+                                سحب
+                            </td>
+                            <td class="amount negative">-200.00</td>
+                            <td>USDT</td>
+                            <td>2025/09/18 12:15</td>
+                            <td><span class="badge badge-warning">معالجة</span></td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: monospace;">#TRX-001236</td>
+                            <td>
+                                <i class="fas fa-exchange-alt" style="color: var(--info); margin-left: 8px;"></i>
+                                تحويل
+                            </td>
+                            <td class="amount">100.00</td>
+                            <td>USDT</td>
+                            <td>2025/09/18 10:45</td>
+                            <td><span class="badge badge-success">مكتمل</span></td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="page-btn">→</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">...</button>
+                    <button class="page-btn">10</button>
+                    <button class="page-btn">←</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Users Table with Avatars -->
+        <section class="section">
+            <h2 class="section-title">جدول المستخدمين مع الصور</h2>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المستخدم</th>
+                            <th>رقم الهاتف</th>
+                            <th>مستوى KYC</th>
+                            <th>الرصيد</th>
+                            <th>آخر نشاط</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="avatar">أح</div>
+                                    <div>
+                                        <div style="font-weight: 600;">أحمد محمد</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">ahmed@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td dir="ltr">+971 50 123 4567</td>
+                            <td><span class="badge badge-success">المستوى 3</span></td>
+                            <td class="amount">5,234 USDT</td>
+                            <td>منذ 5 دقائق</td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                                <button class="action-btn">تعديل</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="avatar" style="background: linear-gradient(135deg, #EC4899, #8B5CF6);">سا</div>
+                                    <div>
+                                        <div style="font-weight: 600;">سارة أحمد</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">sara@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td dir="ltr">+966 55 987 6543</td>
+                            <td><span class="badge badge-warning">المستوى 2</span></td>
+                            <td class="amount">1,500 USDT</td>
+                            <td>منذ ساعة</td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                                <button class="action-btn">تعديل</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="avatar" style="background: linear-gradient(135deg, #F59E0B, #EF4444);">خا</div>
+                                    <div>
+                                        <div style="font-weight: 600;">خالد العلي</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">khaled@example.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td dir="ltr">+965 66 111 2222</td>
+                            <td><span class="badge badge-info">المستوى 1</span></td>
+                            <td class="amount">750 USDT</td>
+                            <td>منذ يومين</td>
+                            <td>
+                                <button class="action-btn">عرض</button>
+                                <button class="action-btn">تعديل</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Striped Table -->
+        <section class="section">
+            <h2 class="section-title">جدول مخطط</h2>
+            
+            <div class="table-wrapper">
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th>العملة</th>
+                            <th>السعر</th>
+                            <th>التغير 24س</th>
+                            <th>الحجم</th>
+                            <th>القيمة السوقية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>USDT</strong></td>
+                            <td>3.75 AED</td>
+                            <td class="amount positive">+0.5%</td>
+                            <td>$2.5M</td>
+                            <td>$83.2B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BTC</strong></td>
+                            <td>245,000 AED</td>
+                            <td class="amount negative">-1.2%</td>
+                            <td>$45.3M</td>
+                            <td>$1.2T</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ETH</strong></td>
+                            <td>9,500 AED</td>
+                            <td class="amount positive">+2.3%</td>
+                            <td>$12.7M</td>
+                            <td>$312B</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Compact Table -->
+        <section class="section">
+            <h2 class="section-title">جدول مضغوط</h2>
+            
+            <div class="table-wrapper">
+                <table class="table-compact">
+                    <thead>
+                        <tr>
+                            <th>الوقت</th>
+                            <th>السعر</th>
+                            <th>الكمية</th>
+                            <th>الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14:32:15</td>
+                            <td>3.751</td>
+                            <td>500</td>
+                            <td>1,875.5</td>
+                        </tr>
+                        <tr>
+                            <td>14:31:48</td>
+                            <td>3.750</td>
+                            <td>1,200</td>
+                            <td>4,500.0</td>
+                        </tr>
+                        <tr>
+                            <td>14:31:22</td>
+                            <td>3.749</td>
+                            <td>750</td>
+                            <td>2,811.75</td>
+                        </tr>
+                        <tr>
+                            <td>14:30:55</td>
+                            <td>3.748</td>
+                            <td>2,000</td>
+                            <td>7,496.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

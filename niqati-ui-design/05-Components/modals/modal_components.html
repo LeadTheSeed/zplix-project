@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - مكونات النوافذ المنبثقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+        }
+        
+        /* Modal Styles */
+        .modal-demo {
+            display: inline-block;
+            position: relative;
+            background: #0F0F14;
+            border-radius: 15px;
+            margin: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .modal {
+            background: var(--card-bg);
+            border-radius: 15px;
+            width: 500px;
+            max-width: 90vw;
+        }
+        
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid var(--border);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+        
+        /* Confirmation Modal */
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .confirmation-icon.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .confirmation-icon.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+        
+        .confirmation-icon.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .confirmation-icon.info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+        
+        /* Form Modal */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #A1A1AA;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #25252F;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        /* Progress Modal */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 60%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: #A1A1AA;
+            margin-bottom: 10px;
+        }
+        
+        /* Image Modal */
+        .image-modal-content {
+            text-align: center;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 300px;
+            background: #0F0F14;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* List Modal */
+        .list-items {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .list-item {
+            padding: 15px;
+            background: #0F0F14;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .list-item:hover {
+            background: rgba(123, 63, 242, 0.1);
+        }
+        
+        /* Notification Modal */
+        .notification-modal {
+            width: 400px;
+        }
+        
+        .notification-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .notification-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">مكونات النوافذ المنبثقة</h1>
+            <p class="subtitle">جميع أنواع النوافذ المنبثقة المستخدمة في منصة نقاطي</p>
+        </header>
+        
+        <!-- Basic Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة أساسية</h2>
+            
+            <div class="modal-demo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">عنوان النافذة</h3>
+                        <button class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>هذا محتوى النافذة المنبثقة الأساسية. يمكن أن يحتوي على أي محتوى تريده.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary">إلغاء</button>
+                        <button class="btn btn-primary">تأكيد</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Confirmation Modals -->
+        <section class="section">
+            <h2 class="section-title">نوافذ التأكيد</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
+                <!-- Warning Modal -->
+                <div class="modal-demo">
+                    <div class="modal">
+                        <div class="modal-body" style="text-align: center;">
+                            <div class="confirmation-icon warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px;">تحذير!</h3>
+                            <p style="color: #A1A1AA;">هل أنت متأكد من حذف هذا العنصر؟ لا يمكن التراجع عن هذا الإجراء.</p>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button class="btn btn-secondary">إلغاء</button>
+                            <button class="btn btn-danger">حذف</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success Modal -->
+                <div class="modal-demo">
+                    <div class="modal">
+                        <div class="modal-body" style="text-align: center;">
+                            <div class="confirmation-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px;">تمت العملية بنجاح!</h3>
+                            <p style="color: #A1A1AA;">تم إرسال المعاملة بنجاح وستصل خلال دقائق.</p>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button class="btn btn-success">حسناً</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Form Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة نموذج</h2>
+            
+            <div class="modal-demo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">إرسال USDT</h3>
+                        <button class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">عنوان المحفظة</label>
+                            <input type="text" class="form-input" placeholder="0x123...abc">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">المبلغ (USDT)</label>
+                            <input type="number" class="form-input" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الشبكة</label>
+                            <select class="form-input">
+                                <option>TRC20</option>
+                                <option>ERC20</option>
+                                <option>BEP20</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary">إلغاء</button>
+                        <button class="btn btn-primary">إرسال</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Progress Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة التقدم</h2>
+            
+            <div class="modal-demo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">جاري المعالجة...</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress-text">60% مكتمل</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p style="text-align: center; color: #A1A1AA; margin-top: 20px;">
+                            جاري معالجة المعاملة، يرجى الانتظار...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- List Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة قائمة</h2>
+            
+            <div class="modal-demo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">اختر طريقة الدفع</h3>
+                        <button class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-items">
+                            <div class="list-item">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <i class="fas fa-credit-card" style="font-size: 1.5rem; color: var(--primary);"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">بطاقة بنكية</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">فوري</div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-left" style="color: #666;"></i>
+                            </div>
+                            
+                            <div class="list-item">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <i class="fas fa-university" style="font-size: 1.5rem; color: var(--primary);"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">تحويل بنكي</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">1-3 أيام</div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-left" style="color: #666;"></i>
+                            </div>
+                            
+                            <div class="list-item">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <i class="fas fa-wallet" style="font-size: 1.5rem; color: var(--primary);"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">رصيد النقاط</div>
+                                        <div style="color: #A1A1AA; font-size: 0.9rem;">125,430 نقطة متاحة</div>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-left" style="color: #666;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- QR Code Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة رمز QR</h2>
+            
+            <div class="modal-demo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3 class="modal-title">استلام USDT</h3>
+                        <button class="modal-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <div style="width: 200px; height: 200px; margin: 0 auto 20px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-qrcode" style="font-size: 8rem; color: #000;"></i>
+                        </div>
+                        <p style="margin-bottom: 15px;">امسح رمز QR لإرسال USDT</p>
+                        <div style="background: #0F0F14; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 0.9rem; word-break: break-all;">
+                            TRX1234567890abcdefghijklmnop
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button class="btn btn-primary">نسخ العنوان</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Error Modal -->
+        <section class="section">
+            <h2 class="section-title">نافذة خطأ</h2>
+            
+            <div class="modal-demo">
+                <div class="modal notification-modal">
+                    <div class="modal-body">
+                        <div class="notification-content">
+                            <div class="notification-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--error);">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px;">فشلت العملية!</h3>
+                            <p style="color: #A1A1AA;">الرصيد غير كافي لإتمام هذه العملية.</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button class="btn btn-danger">حسناً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

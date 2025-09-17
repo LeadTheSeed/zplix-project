@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - معايير سهولة الوصول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .guideline {
+            padding: 20px;
+            background: #0F0F14;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .guideline-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .guideline-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(123, 63, 242, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .guideline-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .guideline-content {
+            color: #A1A1AA;
+            line-height: 1.6;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .checklist li {
+            padding: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checklist i {
+            color: var(--success);
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">معايير سهولة الوصول</h1>
+            <p class="subtitle">دليل تطبيق معايير WCAG 2.1 في منصة نقاطي</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">المبادئ الأساسية</h2>
+            
+            <div class="guideline">
+                <div class="guideline-header">
+                    <div class="guideline-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="guideline-title">قابلية الإدراك (Perceivable)</h3>
+                </div>
+                <div class="guideline-content">
+                    <p>يجب أن تكون المعلومات ومكونات واجهة المستخدم قابلة للعرض بطرق يمكن للمستخدمين إدراكها.</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> توفير نص بديل لجميع الصور</li>
+                        <li><i class="fas fa-check"></i> تباين الألوان 4.5:1 للنص العادي</li>
+                        <li><i class="fas fa-check"></i> تباين 3:1 للنص الكبير</li>
+                        <li><i class="fas fa-check"></i> عدم الاعتماد على اللون فقط لنقل المعلومات</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guideline">
+                <div class="guideline-header">
+                    <div class="guideline-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="guideline-title">قابلية التشغيل (Operable)</h3>
+                </div>
+                <div class="guideline-content">
+                    <p>يجب أن تكون مكونات واجهة المستخدم والتنقل قابلة للتشغيل.</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> جميع الوظائف متاحة عبر لوحة المفاتيح</li>
+                        <li><i class="fas fa-check"></i> وقت كافٍ لقراءة واستخدام المحتوى</li>
+                        <li><i class="fas fa-check"></i> عدم وجود محتوى يسبب النوبات</li>
+                        <li><i class="fas fa-check"></i> مساعدة المستخدمين على التنقل والعثور على المحتوى</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guideline">
+                <div class="guideline-header">
+                    <div class="guideline-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="guideline-title">قابلية الفهم (Understandable)</h3>
+                </div>
+                <div class="guideline-content">
+                    <p>يجب أن تكون المعلومات وعمليات واجهة المستخدم مفهومة.</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> نصوص قابلة للقراءة والفهم</li>
+                        <li><i class="fas fa-check"></i> صفحات ويب تعمل بطريقة متوقعة</li>
+                        <li><i class="fas fa-check"></i> مساعدة المستخدمين على تجنب وتصحيح الأخطاء</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guideline">
+                <div class="guideline-header">
+                    <div class="guideline-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="guideline-title">القوة والموثوقية (Robust)</h3>
+                </div>
+                <div class="guideline-content">
+                    <p>يجب أن يكون المحتوى قويًا بما يكفي ليتم تفسيره بشكل موثوق.</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> توافق مع التقنيات المساعدة</li>
+                        <li><i class="fas fa-check"></i> HTML صحيح ومنظم</li>
+                        <li><i class="fas fa-check"></i> استخدام ARIA بشكل صحيح</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">أمثلة التطبيق</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: #0F0F14; padding: 20px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 15px;">✅ مثال صحيح</h3>
+                    <button style="background: var(--primary); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;">
+                        <i class="fas fa-download" style="margin-left: 8px;"></i>
+                        تحميل التقرير
+                    </button>
+                    <p style="color: #A1A1AA; margin-top: 10px; font-size: 0.9rem;">
+                        الزر يحتوي على نص واضح وأيقونة داعمة
+                    </p>
+                </div>
+                
+                <div style="background: #0F0F14; padding: 20px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 15px;">❌ مثال خاطئ</h3>
+                    <button style="background: var(--primary); color: white; width: 40px; height: 40px; border: none; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <p style="color: #A1A1AA; margin-top: 10px; font-size: 0.9rem;">
+                        الزر يحتوي على أيقونة فقط بدون نص
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">قائمة التحقق</h2>
+            
+            <div style="background: #0F0F14; padding: 25px; border-radius: 10px;">
+                <ul class="checklist">
+                    <li><i class="fas fa-check"></i> جميع الصور لديها نص بديل alt</li>
+                    <li><i class="fas fa-check"></i> جميع حقول النموذج لديها تسميات labels</li>
+                    <li><i class="fas fa-check"></i> ترتيب التنقل بالـ Tab منطقي</li>
+                    <li><i class="fas fa-check"></i> Focus states واضحة لجميع العناصر التفاعلية</li>
+                    <li><i class="fas fa-check"></i> رسائل الخطأ واضحة ومفيدة</li>
+                    <li><i class="fas fa-check"></i> الألوان ليست الوسيلة الوحيدة لنقل المعلومات</li>
+                    <li><i class="fas fa-check"></i> النصوص قابلة للتكبير حتى 200%</li>
+                    <li><i class="fas fa-check"></i> المحتوى متجاوب على جميع الأجهزة</li>
+                    <li><i class="fas fa-check"></i> لا توجد عناصر تومض أكثر من 3 مرات في الثانية</li>
+                    <li><i class="fas fa-check"></i> دعم قارئات الشاشة</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

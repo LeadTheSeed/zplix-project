@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - التداول</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --usdt: #26A17B;
+            --halal: #009688;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .price-ticker {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        
+        .ticker-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ticker-label {
+            font-size: 0.85rem;
+            color: #A1A1AA;
+            margin-bottom: 2px;
+        }
+        
+        .ticker-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--usdt);
+        }
+        
+        .ticker-change {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .ticker-change.up {
+            color: var(--success);
+        }
+        
+        .ticker-change.down {
+            color: var(--error);
+        }
+        
+        /* Trading Layout */
+        .trading-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+        }
+        
+        /* Trading Panel */
+        .trading-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        .trading-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .trading-tab {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: #A1A1AA;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .trading-tab.buy.active {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .trading-tab.sell.active {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
+        }
+        
+        /* Shariah Badge */
+        .shariah-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--halal), #00695C);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Price Display */
+        .price-display {
+            background: #0F0F14;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .price-label {
+            color: #A1A1AA;
+            margin-bottom: 10px;
+        }
+        
+        .price-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--usdt);
+            margin-bottom: 10px;
+        }
+        
+        .price-change {
+            font-size: 1rem;
+        }
+        
+        .price-change.up {
+            color: var(--success);
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #A1A1AA;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            padding-left: 50px;
+            background: #0F0F14;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .input-currency {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        /* Quick Amount Buttons */
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-btn {
+            padding: 10px;
+            background: #0F0F14;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            border-color: var(--primary);
+            background: rgba(123, 63, 242, 0.1);
+        }
+        
+        .quick-btn.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Network Selection */
+        .network-selection {
+            margin-bottom: 20px;
+        }
+        
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .network-option {
+            padding: 12px;
+            background: #0F0F14;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .network-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .network-option.selected {
+            border-color: var(--primary);
+            background: rgba(123, 63, 242, 0.1);
+        }
+        
+        .network-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .network-fee {
+            font-size: 0.85rem;
+            color: #A1A1AA;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            margin-bottom: 25px;
+        }
+        
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .payment-card {
+            padding: 15px;
+            background: #0F0F14;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .payment-card.selected {
+            border-color: var(--primary);
+            background: rgba(123, 63, 242, 0.1);
+        }
+        
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .payment-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        /* Summary Box */
+        .summary-box {
+            background: rgba(123, 63, 242, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-label {
+            color: #A1A1AA;
+        }
+        
+        .summary-value {
+            font-weight: 600;
+        }
+        
+        .summary-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 15px 0;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        /* Trade Button */
+        .trade-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .trade-btn.buy {
+            background: linear-gradient(135deg, var(--success), #00D4AA);
+            color: white;
+        }
+        
+        .trade-btn.sell {
+            background: linear-gradient(135deg, var(--error), #FF006E);
+            color: white;
+        }
+        
+        .trade-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Side Panel */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        /* Market Info */
+        .market-info {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+        }
+        
+        .market-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .market-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .market-stat:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .market-stat-label {
+            color: #A1A1AA;
+        }
+        
+        .market-stat-value {
+            font-weight: 600;
+        }
+        
+        /* Order Book */
+        .order-book {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+        }
+        
+        .order-book-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #0F0F14;
+            border-radius: 8px;
+        }
+        
+        .order-price {
+            font-weight: 600;
+        }
+        
+        .order-price.buy {
+            color: var(--success);
+        }
+        
+        .order-price.sell {
+            color: var(--error);
+        }
+        
+        .order-amount {
+            color: #A1A1AA;
+        }
+        
+        /* Alerts */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3B82F6;
+            color: #3B82F6;
+        }
+        
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">التداول</h1>
+            <div class="price-ticker">
+                <div class="ticker-item">
+                    <span class="ticker-label">سعر USDT</span>
+                    <span class="ticker-value">3.75 AED</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">التغير 24س</span>
+                    <span class="ticker-change up">↑ +0.5%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">الحجم 24س</span>
+                    <span class="ticker-value">$2.5M</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="trading-layout">
+            <!-- Trading Panel -->
+            <div class="trading-panel">
+                <!-- Trading Tabs -->
+                <div class="trading-tabs">
+                    <button class="trading-tab buy active">شراء USDT</button>
+                    <button class="trading-tab sell">بيع USDT</button>
+                </div>
+                
+                <!-- Shariah Compliance Badge -->
+                <div class="shariah-badge">
+                    <i class="fas fa-check-circle"></i>
+                    متوافق مع الشريعة الإسلامية
+                </div>
+                
+                <!-- Price Display -->
+                <div class="price-display">
+                    <div class="price-label">سعر USDT الحالي</div>
+                    <div class="price-value">3.75 AED</div>
+                    <div class="price-change up">↑ +0.018 (+0.5%) خلال 24 ساعة</div>
+                </div>
+                
+                <!-- Alert -->
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>الحد الأدنى للشراء 10 USDT، والحد الأقصى 10,000 USDT</span>
+                </div>
+                
+                <!-- Amount Input -->
+                <div class="form-group">
+                    <label class="form-label">المبلغ بالنقاط</label>
+                    <div class="input-group">
+                        <input type="number" class="form-input" placeholder="0.00" value="1000">
+                        <span class="input-currency">نقطة</span>
+                    </div>
+                </div>
+                
+                <!-- Quick Amounts -->
+                <div class="quick-amounts">
+                    <button class="quick-btn">100</button>
+                    <button class="quick-btn">500</button>
+                    <button class="quick-btn selected">1000</button>
+                    <button class="quick-btn">5000</button>
+                </div>
+                
+                <!-- USDT Equivalent -->
+                <div class="form-group">
+                    <label class="form-label">يساوي USDT</label>
+                    <div class="input-group">
+                        <input type="text" class="form-input" value="266.67" disabled style="background: rgba(38, 161, 123, 0.1); color: var(--usdt);">
+                        <span class="input-currency" style="color: var(--usdt);">USDT</span>
+                    </div>
+                </div>
+                
+                <!-- Network Selection -->
+                <div class="network-selection">
+                    <label class="form-label">اختر الشبكة</label>
+                    <div class="network-grid">
+                        <div class="network-option selected">
+                            <div class="network-name">TRC20</div>
+                            <div class="network-fee">رسوم: 1 USDT</div>
+                        </div>
+                        <div class="network-option">
+                            <div class="network-name">ERC20</div>
+                            <div class="network-fee">رسوم: 5 USDT</div>
+                        </div>
+                        <div class="network-option">
+                            <div class="network-name">BEP20</div>
+                            <div class="network-fee">رسوم: 0.5 USDT</div>
+                        </div>
+                        <div class="network-option">
+                            <div class="network-name">Polygon</div>
+                            <div class="network-fee">رسوم: 0.1 USDT</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Method -->
+                <div class="payment-methods">
+                    <label class="form-label">طريقة الدفع</label>
+                    <div class="payment-grid">
+                        <div class="payment-card selected">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-name">بطاقة بنكية</div>
+                        </div>
+                        <div class="payment-card">
+                            <div class="payment-icon">🏦</div>
+                            <div class="payment-name">تحويل بنكي</div>
+                        </div>
+                        <div class="payment-card">
+                            <div class="payment-icon">💰</div>
+                            <div class="payment-name">رصيد النقاط</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary -->
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span class="summary-label">المبلغ</span>
+                        <span class="summary-value">266.67 USDT</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">رسوم الشبكة</span>
+                        <span class="summary-value">1 USDT</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">رسوم المنصة</span>
+                        <span class="summary-value">0.5 USDT</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-total">
+                        <span>الإجمالي</span>
+                        <span>268.17 USDT</span>
+                    </div>
+                </div>
+                
+                <!-- Trade Button -->
+                <button class="trade-btn buy">
+                    <i class="fas fa-shopping-cart"></i> تأكيد الشراء
+                </button>
+            </div>
+            
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <!-- Market Info -->
+                <div class="market-info">
+                    <h3 class="market-title">معلومات السوق</h3>
+                    
+                    <div class="market-stat">
+                        <span class="market-stat-label">أعلى سعر 24س</span>
+                        <span class="market-stat-value" style="color: var(--success);">3.78 AED</span>
+                    </div>
+                    
+                    <div class="market-stat">
+                        <span class="market-stat-label">أدنى سعر 24س</span>
+                        <span class="market-stat-value" style="color: var(--error);">3.72 AED</span>
+                    </div>
+                    
+                    <div class="market-stat">
+                        <span class="market-stat-label">حجم التداول 24س</span>
+                        <span class="market-stat-value">$2,543,234</span>
+                    </div>
+                    
+                    <div class="market-stat">
+                        <span class="market-stat-label">عدد الصفقات</span>
+                        <span class="market-stat-value">1,234</span>
+                    </div>
+                    
+                    <div class="market-stat">
+                        <span class="market-stat-label">السيولة المتاحة</span>
+                        <span class="market-stat-value">$500,000</span>
+                    </div>
+                </div>
+                
+                <!-- Order Book -->
+                <div class="order-book">
+                    <h3 class="order-book-title">دفتر الطلبات</h3>
+                    
+                    <div class="order-list">
+                        <div class="order-item">
+                            <span class="order-price sell">3.756</span>
+                            <span class="order-amount">1,234 USDT</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-price sell">3.755</span>
+                            <span class="order-amount">5,678 USDT</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-price sell">3.754</span>
+                            <span class="order-amount">2,345 USDT</span>
+                        </div>
+                        
+                        <div style="text-align: center; padding: 10px; font-weight: 700; color: var(--usdt);">
+                            3.750 AED
+                        </div>
+                        
+                        <div class="order-item">
+                            <span class="order-price buy">3.749</span>
+                            <span class="order-amount">3,456 USDT</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-price buy">3.748</span>
+                            <span class="order-amount">4,567 USDT</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-price buy">3.747</span>
+                            <span class="order-amount">1,890 USDT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alert -->
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>تحقق من هويتك KYC للتداول بمبالغ أكبر من 1000 USDT</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
