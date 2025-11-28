@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Niqati - Ultimate UI/UX System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#7B3FF2;--s:#00D4AA;--d:#0F0F14;--usdt:#26A17B;--gold:#FFB800}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Cairo,sans-serif;background:#0A0A0F;color:#FFF}
+.nav{position:fixed;top:0;width:100%;background:rgba(15,15,20,.95);backdrop-filter:blur(20px);z-index:999;padding:15px 30px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p),var(--s));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tabs{display:flex;gap:10px}
+.tab{padding:8px 20px;background:transparent;border:2px solid transparent;color:#999;border-radius:50px;cursor:pointer;transition:.3s}
+.tab:hover{border-color:var(--p);color:var(--p)}
+.tab.active{background:linear-gradient(135deg,var(--p),var(--s));color:#FFF;border:none}
+.hero{padding:120px 20px 60px;text-align:center;background:linear-gradient(135deg,var(--p),var(--s))}
+.hero h1{font-size:3rem;margin-bottom:20px}
+.container{max-width:1400px;margin:60px auto;padding:0 20px}
+.section{display:none}.section.active{display:block}
+.card{background:#1A1A23;border:1px solid #2D2D3A;border-radius:20px;padding:40px;margin-bottom:30px}
+.card h3{font-size:1.5rem;margin-bottom:20px}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.auth{max-width:450px;margin:0 auto;background:#1A1A23;border-radius:20px;padding:40px}
+.form-group{margin-bottom:20px}
+.label{display:block;margin-bottom:8px;color:#999;font-weight:600}
+.input{width:100%;padding:12px 20px;background:#0F0F14;border:2px solid #2D2D3A;border-radius:12px;color:#FFF;font-size:16px}
+.input:focus{outline:none;border-color:var(--p)}
+.btn{padding:12px 30px;border:none;border-radius:12px;font-weight:600;cursor:pointer;font-size:16px;transition:.3s}
+.btn-p{background:linear-gradient(135deg,var(--p),var(--s));color:#FFF}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(123,63,242,.3)}
+.btn-full{width:100%}
+.wallet{background:linear-gradient(135deg,var(--p),var(--s));border-radius:20px;padding:30px;color:#FFF;position:relative;overflow:hidden}
+.wallet::before{content:'💳';position:absolute;right:-20px;top:-20px;font-size:150px;opacity:.1}
+.balance{font-size:2.5rem;font-weight:900;margin:10px 0}
+.stat{background:#1A1A23;border:1px solid #2D2D3A;border-radius:15px;padding:25px;text-align:center}
+.stat-icon{width:50px;height:50px;background:rgba(123,63,242,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;color:var(--p);font-size:24px}
+.stat-value{font-size:2rem;font-weight:800;margin-bottom:5px}
+.stat-label{color:#999;font-size:14px}
+.tx{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #2D2D3A}
+.tx-info{display:flex;align-items:center;gap:15px}
+.tx-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.tx-icon.buy{background:rgba(16,185,129,.1);color:#10B981}
+.tx-icon.sell{background:rgba(239,68,68,.1);color:#EF4444}
+.tx-amount{font-weight:700;font-size:18px}
+.tx-amount.pos{color:#10B981}
+.tx-amount.neg{color:#EF4444}
+.trade{background:#1A1A23;border-radius:20px;padding:30px}
+.trade-tabs{display:flex;gap:10px;margin-bottom:30px}
+.trade-tab{flex:1;padding:12px;background:transparent;border:2px solid #2D2D3A;border-radius:10px;color:#999;cursor:pointer;text-align:center;font-weight:600}
+.trade-tab.buy.active{background:#10B981;color:#FFF;border-color:#10B981}
+.trade-tab.sell.active{background:#EF4444;color:#FFF;border-color:#EF4444}
+.price-box{background:#0F0F14;border:2px solid #2D2D3A;border-radius:15px;padding:20px;margin-bottom:20px;text-align:center}
+.price-label{color:#999;margin-bottom:10px}
+.price-value{font-size:2.5rem;font-weight:900;color:var(--usdt)}
+.price-change{margin-top:10px;font-size:14px}
+.price-change.up{color:#10B981}
+.price-change.down{color:#EF4444}
+.kyc{background:linear-gradient(135deg,#F59E0B,#F59E0B);border-radius:15px;padding:20px;margin-bottom:30px;display:flex;align-items:center;justify-content:space-between}
+.payment{background:#0F0F14;border:2px solid #2D2D3A;border-radius:15px;padding:20px;text-align:center;cursor:pointer}
+.payment:hover{border-color:var(--p)}
+.payment.selected{border-color:var(--p);background:rgba(123,63,242,.1)}
+.network{display:flex;gap:10px;margin-bottom:20px}
+.net-opt{flex:1;padding:12px;background:#0F0F14;border:2px solid #2D2D3A;border-radius:10px;text-align:center;cursor:pointer}
+.net-opt:hover{border-color:var(--p)}
+.net-opt.selected{border-color:var(--p);background:rgba(123,63,242,.1)}
+.shariah{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#009688,#00695C);color:#FFF;padding:8px 16px;border-radius:50px;font-weight:600;font-size:14px}
+.table{width:100%;background:#1A1A23;border-radius:15px;overflow:hidden}
+.table th{background:#0F0F14;padding:15px;text-align:right;font-weight:600;color:#999;border-bottom:1px solid #2D2D3A}
+.table td{padding:15px;border-bottom:1px solid #2D2D3A}
+.status{display:inline-block;padding:5px 12px;border-radius:50px;font-size:12px;font-weight:600}
+.status.active{background:rgba(16,185,129,.1);color:#10B981}
+.status.pending{background:rgba(245,158,11,.1);color:#F59E0B}
+.status.blocked{background:rgba(239,68,68,.1);color:#EF4444}
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:20px;padding:30px;background:#1A1A23;border-radius:20px}
+.color{text-align:center}
+.color-box{height:80px;border-radius:12px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;color:#FFF;font-weight:600;font-size:12px}
+.mobile{max-width:375px;margin:0 auto;border:8px solid #333;border-radius:36px;overflow:hidden;background:#0F0F14}
+.mobile-header{background:#1A1A23;padding:20px;text-align:center}
+.mobile-content{padding:20px}
+@media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="logo">نقاطي NIQATI</div>
+<div class="tabs">
+<button class="tab active" onclick="show('overview')">نظرة عامة</button>
+<button class="tab" onclick="show('auth')">المصادقة</button>
+<button class="tab" onclick="show('dashboard')">لوحة التحكم</button>
+<button class="tab" onclick="show('trading')">التداول</button>
+<button class="tab" onclick="show('admin')">الإدارة</button>
+</div>
+</nav>
+
+<div class="hero">
+<h1>نظام التصميم الأضخم في التاريخ</h1>
+<p>منصة نقاطي - تداول USDT بواجهة نقاط رقمية</p>
+</div>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<div id="overview" class="section active">
+<div class="card">
+<h3>🎯 نظرة شاملة على المنصة</h3>
+<div class="grid g4">
+<div class="stat">
+<div class="stat-icon">📱</div>
+<div class="stat-value">25+</div>
+<div class="stat-label">واجهة مستخدم</div>
+</div>
+<div class="stat">
+<div class="stat-icon">🧩</div>
+<div class="stat-value">150+</div>
+<div class="stat-label">مكون UI</div>
+</div>
+<div class="stat">
+<div class="stat-icon">🌍</div>
+<div class="stat-value">AR/EN</div>
+<div class="stat-label">لغتان</div>
+</div>
+<div class="stat">
+<div class="stat-icon">✅</div>
+<div class="stat-value">100%</div>
+<div class="stat-label">حلال</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🎨 نظام الألوان الكامل</h3>
+<div class="color-grid">
+<div class="color">
+<div class="color-box" style="background:#7B3FF2">#7B3FF2</div>
+<small>Primary</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#00D4AA">#00D4AA</div>
+<small>Secondary</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#26A17B">#26A17B</div>
+<small>USDT</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#FFB800">#FFB800</div>
+<small>Gold</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#10B981">#10B981</div>
+<small>Success</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#EF4444">#EF4444</div>
+<small>Error</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#F59E0B">#F59E0B</div>
+<small>Warning</small>
+</div>
+<div class="color">
+<div class="color-box" style="background:#0F0F14">#0F0F14</div>
+<small>Dark</small>
+</div>
+</div>
+</div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="section">
+<div class="auth">
+<h2 style="text-align:center;margin-bottom:30px">تسجيل الدخول</h2>
+<div class="form-group">
+<label class="label">رقم الجوال</label>
+<input class="input" placeholder="+971 50 123 4567">
+</div>
+<div class="form-group">
+<label class="label">كلمة المرور</label>
+<input type="password" class="input" placeholder="••••••••">
+</div>
+<button class="btn btn-p btn-full">دخول</button>
+<p style="text-align:center;margin-top:20px;color:#999">
+ليس لديك حساب؟ <a href="#" style="color:var(--p)">سجل الآن</a>
+</p>
+</div>
+
+<div class="card" style="margin-top:30px">
+<h3>🔐 التحقق من الهوية KYC</h3>
+<div class="kyc">
+<div>
+<h4>أكمل التحقق من هويتك</h4>
+<p style="font-size:14px;opacity:.9">مطلوب للتداول بأكثر من 1000$</p>
+</div>
+<button class="btn" style="background:#FFF;color:#F59E0B">ابدأ الآن</button>
+</div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section">
+<div class="wallet">
+<p style="opacity:.9">رصيد النقاط</p>
+<div class="balance">125,430 نقطة</div>
+<p style="opacity:.8">≈ $1,254.30 USDT</p>
+<div style="display:flex;gap:15px;margin-top:20px">
+<button class="btn" style="background:rgba(255,255,255,.2);color:#FFF;border:1px solid rgba(255,255,255,.3)">شراء</button>
+<button class="btn" style="background:rgba(255,255,255,.2);color:#FFF;border:1px solid rgba(255,255,255,.3)">بيع</button>
+<button class="btn" style="background:rgba(255,255,255,.2);color:#FFF;border:1px solid rgba(255,255,255,.3)">تحويل</button>
+</div>
+</div>
+
+<div class="card">
+<h3>📊 إحصائياتك</h3>
+<div class="grid g3">
+<div class="stat">
+<div class="stat-icon">💰</div>
+<div class="stat-value">$5,234</div>
+<div class="stat-label">إجمالي المعاملات</div>
+</div>
+<div class="stat">
+<div class="stat-icon">📈</div>
+<div class="stat-value">+12.5%</div>
+<div class="stat-label">الربح الشهري</div>
+</div>
+<div class="stat">
+<div class="stat-icon">🔄</div>
+<div class="stat-value">47</div>
+<div class="stat-label">معاملة</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>💸 آخر المعاملات</h3>
+<div class="tx">
+<div class="tx-info">
+<div class="tx-icon buy">↓</div>
+<div>
+<div>شراء USDT</div>
+<small style="color:#999">منذ 5 دقائق</small>
+</div>
+</div>
+<div class="tx-amount pos">+500 USDT</div>
+</div>
+<div class="tx">
+<div class="tx-info">
+<div class="tx-icon sell">↑</div>
+<div>
+<div>بيع USDT</div>
+<small style="color:#999">منذ ساعتين</small>
+</div>
+</div>
+<div class="tx-amount neg">-200 USDT</div>
+</div>
+</div>
+</div>
+
+<!-- TRADING -->
+<div id="trading" class="section">
+<div class="trade">
+<div class="trade-tabs">
+<button class="trade-tab buy active">شراء USDT</button>
+<button class="trade-tab sell">بيع USDT</button>
+</div>
+<div class="price-box">
+<div class="price-label">سعر USDT الحالي</div>
+<div class="price-value">3.75 AED</div>
+<div class="price-change up">↑ +0.5% (24h)</div>
+</div>
+<div class="form-group">
+<label class="label">المبلغ بالنقاط</label>
+<input class="input" placeholder="1000">
+</div>
+<div class="form-group">
+<label class="label">يساوي USDT</label>
+<input class="input" placeholder="266.67" disabled>
+</div>
+<div class="network">
+<div class="net-opt selected">
+<div style="font-weight:600">TRC20</div>
+<small style="color:#999;font-size:12px">رسوم: 1 USDT</small>
+</div>
+<div class="net-opt">
+<div style="font-weight:600">ERC20</div>
+<small style="color:#999;font-size:12px">رسوم: 5 USDT</small>
+</div>
+<div class="net-opt">
+<div style="font-weight:600">BEP20</div>
+<small style="color:#999;font-size:12px">رسوم: 0.5 USDT</small>
+</div>
+</div>
+<button class="btn btn-p btn-full">تأكيد الشراء</button>
+<div style="text-align:center;margin-top:15px">
+<span class="shariah">✓ متوافق مع الشريعة الإسلامية</span>
+</div>
+</div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="section">
+<div class="card">
+<h3>👥 إدارة المستخدمين</h3>
+<table class="table">
+<thead>
+<tr>
+<th>المستخدم</th>
+<th>الرصيد</th>
+<th>الحالة</th>
+<th>KYC</th>
+<th>إجراءات</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>أحمد محمد</td>
+<td>$5,234</td>
+<td><span class="status active">نشط</span></td>
+<td>✅</td>
+<td><button class="btn" style="padding:5px 15px;font-size:14px">عرض</button></td>
+</tr>
+<tr>
+<td>سارة أحمد</td>
+<td>$1,234</td>
+<td><span class="status pending">معلق</span></td>
+<td>⏳</td>
+<td><button class="btn" style="padding:5px 15px;font-size:14px">عرض</button></td>
+</tr>
+<tr>
+<td>محمد علي</td>
+<td>$0</td>
+<td><span class="status blocked">محظور</span></td>
+<td>❌</td>
+<td><button class="btn" style="padding:5px 15px;font-size:14px">عرض</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>📈 إحصائيات المنصة</h3>
+<div class="grid g4">
+<div class="stat">
+<div class="stat-icon">👥</div>
+<div class="stat-value">15,234</div>
+<div class="stat-label">إجمالي المستخدمين</div>
+</div>
+<div class="stat">
+<div class="stat-icon">💰</div>
+<div class="stat-value">$2.5M</div>
+<div class="stat-label">حجم التداول</div>
+</div>
+<div class="stat">
+<div class="stat-icon">📊</div>
+<div class="stat-value">98.5%</div>
+<div class="stat-label">معدل النجاح</div>
+</div>
+<div class="stat">
+<div class="stat-icon">⚡</div>
+<div class="stat-value">1.2s</div>
+<div class="stat-label">سرعة المعالجة</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+function show(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

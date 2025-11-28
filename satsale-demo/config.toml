@@ -1,0 +1,25 @@
+title = "Zplix SatSale Demo"
+
+# العملة المستخدمة (بيتكوين فقط)
+currency = "BTC"
+
+# قيمة التبرع/الدفع الافتراضية بالساتوشي (0.001 BTC = 100000 ساتوشي)
+amount = "100000"
+
+# طرق الدفع المتاحة
+payment_methods = ["xpub"]
+
+# للتوضيح فقط، في الإصدار الكامل يجب استبدال هذا بمفتاح xpub حقيقي
+[xpub]
+xpub = "xpub6BosfCnifzxcFwrSzQiqu2DBVTshkCXacvNsWGYJVVhhawA7d4R5WSWGFNbi8Aw6ZRc1brxMyWMzG3DSSSSoekkudhUd9yLb6qx39T9nMdj"
+bip = "BIP84"
+
+# إعدادات القالب
+[template]
+name = "Zplix Payment Gateway"
+description = "تجربة بوابة دفع بيتكوين لمشروع Zplix"
+primary_color = "#1e90ff"
+accent_color = "#4CAF50"
+background_color = "#f8f8f8"
+show_logo = true
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"

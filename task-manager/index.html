@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager | Zplix</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2196f3;
+      margin-bottom: 1.5rem;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #2196f3;
+      color: white;
+      border: 2px solid #2196f3;
+    }
+    .btn-outline {
+      background-color: transparent;
+      color: #2196f3;
+      border: 2px solid #2196f3;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .languages {
+      margin-top: 2rem;
+      color: #666;
+    }
+    .lang-switch {
+      display: inline-block;
+      margin: 0 0.5rem;
+      color: #2196f3;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #2196f3;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">Task Manager</h1>
+    <p id="description">A multilingual full-stack application for task management.</p>
+    <div class="buttons">
+      <a href="/frontend" class="btn btn-primary" id="app-btn">Open Application</a>
+      <a href="https://github.com/username/zplix-project/tree/main/task-manager" class="btn btn-outline" id="code-btn">View Source Code</a>
+    </div>
+    <div class="loader" id="loader"></div>
+    <div class="languages">
+      <span id="lang-label">Language:</span>
+      <a href="#" class="lang-switch" onclick="switchLanguage('en')">English</a> |
+      <a href="#" class="lang-switch" onclick="switchLanguage('ar')">العربية</a>
+    </div>
+  </div>
+
+  <script>
+    // Simple language switch
+    function switchLanguage(lang) {
+      if (lang === 'ar') {
+        document.getElementById('title').innerText = 'مدير المهام';
+        document.getElementById('description').innerText = 'تطبيق متكامل متعدد اللغات لإدارة المهام.';
+        document.getElementById('app-btn').innerText = 'فتح التطبيق';
+        document.getElementById('code-btn').innerText = 'عرض كود المصدر';
+        document.getElementById('lang-label').innerText = 'اللغة:';
+        document.body.style.direction = 'rtl';
+      } else {
+        document.getElementById('title').innerText = 'Task Manager';
+        document.getElementById('description').innerText = 'A multilingual full-stack application for task management.';
+        document.getElementById('app-btn').innerText = 'Open Application';
+        document.getElementById('code-btn').innerText = 'View Source Code';
+        document.getElementById('lang-label').innerText = 'Language:';
+        document.body.style.direction = 'ltr';
+      }
+    }
+
+    // Check URL for language parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+    if (lang === 'ar') {
+      switchLanguage('ar');
+    }
+
+    // Show loader when clicking app button
+    document.getElementById('app-btn').addEventListener('click', function() {
+      document.getElementById('loader').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - دليل المطور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .code-block {
+            background: #0F0F14;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .code-title {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #A1A1AA;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .tech-card {
+            background: #0F0F14;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tech-version {
+            color: #A1A1AA;
+            font-size: 0.9rem;
+        }
+        
+        .step-list {
+            counter-reset: steps;
+            list-style: none;
+        }
+        
+        .step-list li {
+            counter-increment: steps;
+            position: relative;
+            padding: 20px 20px 20px 60px;
+            margin-bottom: 20px;
+            background: #0F0F14;
+            border-radius: 10px;
+        }
+        
+        .step-list li::before {
+            content: counter(steps);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">دليل المطور</h1>
+            <p class="subtitle">كل ما تحتاجه لتطوير منصة نقاطي</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">🚀 البدء السريع</h2>
+            
+            <ol class="step-list">
+                <li>
+                    <strong>استنساخ المشروع</strong>
+                    <p style="color: #A1A1AA; margin-top: 5px;">قم بنسخ الملفات من المستودع</p>
+                </li>
+                <li>
+                    <strong>تثبيت التبعيات</strong>
+                    <p style="color: #A1A1AA; margin-top: 5px;">npm install أو yarn install</p>
+                </li>
+                <li>
+                    <strong>إعداد البيئة</strong>
+                    <p style="color: #A1A1AA; margin-top: 5px;">قم بإنشاء ملف .env وأضف المتغيرات</p>
+                </li>
+                <li>
+                    <strong>تشغيل المشروع</strong>
+                    <p style="color: #A1A1AA; margin-top: 5px;">npm run dev للتطوير المحلي</p>
+                </li>
+            </ol>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">💻 التقنيات المستخدمة</h2>
+            
+            <div class="tech-stack">
+                <div class="tech-card">
+                    <div class="tech-icon">⚛️</div>
+                    <div class="tech-name">React</div>
+                    <div class="tech-version">v18.2.0</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🎨</div>
+                    <div class="tech-name">Tailwind CSS</div>
+                    <div class="tech-version">v3.3.0</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">📦</div>
+                    <div class="tech-name">Node.js</div>
+                    <div class="tech-version">v18.17.0</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🗄️</div>
+                    <div class="tech-name">MongoDB</div>
+                    <div class="tech-version">v6.0</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🔗</div>
+                    <div class="tech-name">Web3.js</div>
+                    <div class="tech-version">v4.0.2</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🚀</div>
+                    <div class="tech-name">Express.js</div>
+                    <div class="tech-version">v4.18.2</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">📁 هيكل المشروع</h2>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Project Structure</span>
+                    <button class="copy-btn">نسخ</button>
+                </div>
+                <pre>
+niqati-platform/
+├── src/
+│   ├── components/       # المكونات القابلة لإعادة الاستخدام
+│   ├── pages/           # صفحات التطبيق
+│   ├── services/        # خدمات API والمنطق
+│   ├── hooks/           # React Hooks المخصصة
+│   ├── utils/           # الدوال المساعدة
+│   ├── styles/          # ملفات CSS والأنماط
+│   └── assets/          # الصور والملفات الثابتة
+├── public/              # الملفات العامة
+├── tests/               # الاختبارات
+├── docs/                # التوثيق
+└── config/              # ملفات الإعدادات
+                </pre>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🎨 استخدام متغيرات CSS</h2>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">CSS Variables</span>
+                    <button class="copy-btn">نسخ</button>
+                </div>
+                <pre>
+/* متغيرات الألوان الأساسية */
+:root {
+    --primary: #7B3FF2;
+    --secondary: #00D4AA;
+    --dark: #0F0F14;
+    --card-bg: #1A1A23;
+    --border: #2D2D3A;
+    --success: #10B981;
+    --error: #EF4444;
+    --warning: #F59E0B;
+    --info: #3B82F6;
+}
+
+/* استخدام المتغيرات */
+.button {
+    background: var(--primary);
+    color: white;
+}
+                </pre>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">⚛️ مثال على مكون React</h2>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Button Component</span>
+                    <button class="copy-btn">نسخ</button>
+                </div>
+                <pre>
+import React from 'react';
+import './Button.css';
+
+const Button = ({ 
+    children, 
+    variant = 'primary', 
+    size = 'medium', 
+    onClick,
+    disabled = false 
+}) => {
+    return (
+        &lt;button 
+            className={`btn btn-${variant} btn-${size}`}
+            onClick={onClick}
+            disabled={disabled}
+        &gt;
+            {children}
+        &lt;/button&gt;
+    );
+};
+
+export default Button;
+                </pre>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🔗 التكامل مع Web3</h2>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">Web3 Connection</span>
+                    <button class="copy-btn">نسخ</button>
+                </div>
+                <pre>
+// الاتصال بـ MetaMask
+const connectWallet = async () => {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({
+                method: 'eth_requestAccounts'
+            });
+            console.log('Connected:', accounts[0]);
+            return accounts[0];
+        } catch (error) {
+            console.error('Connection failed:', error);
+        }
+    } else {
+        alert('Please install MetaMask!');
+    }
+};
+
+// إرسال USDT
+const sendUSDT = async (to, amount) => {
+    const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+    const decimals = 6; // USDT decimals
+    const value = amount * Math.pow(10, decimals);
+    
+    return await contract.methods
+        .transfer(to, value)
+        .send({ from: currentAccount });
+};
+                </pre>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">📋 أوامر مفيدة</h2>
+            
+            <div style="display: grid; gap: 15px;">
+                <div style="background: #0F0F14; padding: 15px; border-radius: 8px;">
+                    <code style="color: var(--primary);">npm run dev</code>
+                    <p style="color: #A1A1AA; margin-top: 5px;">تشغيل بيئة التطوير</p>
+                </div>
+                <div style="background: #0F0F14; padding: 15px; border-radius: 8px;">
+                    <code style="color: var(--primary);">npm run build</code>
+                    <p style="color: #A1A1AA; margin-top: 5px;">بناء الإصدار الإنتاجي</p>
+                </div>
+                <div style="background: #0F0F14; padding: 15px; border-radius: 8px;">
+                    <code style="color: var(--primary);">npm run test</code>
+                    <p style="color: #A1A1AA; margin-top: 5px;">تشغيل الاختبارات</p>
+                </div>
+                <div style="background: #0F0F14; padding: 15px; border-radius: 8px;">
+                    <code style="color: var(--primary);">npm run lint</code>
+                    <p style="color: #A1A1AA; margin-top: 5px;">فحص جودة الكود</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">🔒 الأمان</h2>
+            
+            <ul style="list-style: none; display: grid; gap: 15px;">
+                <li style="display: flex; align-items: flex-start; gap: 10px;">
+                    <i class="fas fa-check" style="color: var(--success); margin-top: 3px;"></i>
+                    <div>
+                        <strong>تشفير البيانات:</strong> استخدم HTTPS دائماً وقم بتشفير البيانات الحساسة
+                    </div>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 10px;">
+                    <i class="fas fa-check" style="color: var(--success); margin-top: 3px;"></i>
+                    <div>
+                        <strong>التحقق من المدخلات:</strong> تحقق من جميع المدخلات على الخادم
+                    </div>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 10px;">
+                    <i class="fas fa-check" style="color: var(--success); margin-top: 3px;"></i>
+                    <div>
+                        <strong>حماية API:</strong> استخدم JWT tokens ومعدل الطلبات
+                    </div>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 10px;">
+                    <i class="fas fa-check" style="color: var(--success); margin-top: 3px;"></i>
+                    <div>
+                        <strong>تدقيق العقود الذكية:</strong> تأكد من تدقيق العقود قبل النشر
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - Complete Workflow Document | وثيقة سير العمل الكاملة لمنصة نقاطي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6772e5;
+            --accent-color: #8e44ad;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--light-gray);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .version-info {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+        
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            font-weight: 500;
+            z-index: 1000;
+        }
+        
+        .lang-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .toc h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .toc-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .toc-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 10px 0;
+            flex-grow: 1;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        
+        .toc-link:hover {
+            color: var(--primary-color);
+            background: var(--light-gray);
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        
+        .section-content {
+            padding: 20px;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #777;
+        }
+        
+        /* Arabic styles */
+        .ar {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .ar .toc-number {
+            margin-right: 0;
+            margin-left: 15px;
+        }
+        
+        .ar .toc-link {
+            padding-left: 0;
+            padding-right: 10px;
+        }
+        
+        .ar .info-box {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .en {
+            display: block;
+        }
+        
+        .ar {
+            display: none;
+        }
+        
+        body.arabic .en {
+            display: none;
+        }
+        
+        body.arabic .ar {
+            display: block;
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 11pt;
+                background: white;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .header {
+                background: none !important;
+                color: var(--text-color) !important;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: none;
+            }
+            
+            .lang-toggle {
+                display: none;
+            }
+            
+            .section-card {
+                box-shadow: none;
+                margin-bottom: 20px;
+                break-inside: avoid;
+            }
+            
+            .section-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .section-header {
+                background: var(--light-gray) !important;
+                color: var(--text-color) !important;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span id="lang-btn">🌐 عربي | Arabic</span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="en">Niqati Platform - Complete Technical Workflow</h1>
+            <h1 class="ar">منصة نقاطي - وثيقة سير العمل الفني الكاملة</h1>
+            <p class="en">End-to-End Implementation Guide for the MENA Region Digital Points Marketplace</p>
+            <p class="ar">دليل التنفيذ الشامل لسوق النقاط الرقمية في منطقة الشرق الأوسط وشمال إفريقيا</p>
+            <div class="version-info">
+                <span class="en">Version 2.0 - September 2025</span>
+                <span class="ar">الإصدار 2.0 - سبتمبر 2025</span>
+            </div>
+        </div>
+
+        <div class="toc">
+            <h2 class="en">Table of Contents</h2>
+            <h2 class="ar">جدول المحتويات</h2>
+            
+            <ul class="toc-list en">
+                <li class="toc-item">
+                    <span class="toc-number">1</span>
+                    <a href="niqati_workflow_doc_part1.html" class="toc-link">Executive Summary</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">2</span>
+                    <a href="niqati_workflow_doc_part2.html" class="toc-link">System Architecture & User Authentication</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">3</span>
+                    <a href="niqati_workflow_doc_part3.html" class="toc-link">Payment Gateway & Cryptocurrency Integration</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">4</span>
+                    <a href="niqati_workflow_doc_part4.html" class="toc-link">User Wallet & Purchase Flow</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">5</span>
+                    <a href="niqati-payment-strategy.html" class="toc-link">Revised Payment Strategy</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">6</span>
+                    <a href="#" class="toc-link">Implementation Timeline & Roadmap</a>
+                </li>
+            </ul>
+            
+            <ul class="toc-list ar">
+                <li class="toc-item">
+                    <span class="toc-number">١</span>
+                    <a href="niqati_workflow_doc_part1.html" class="toc-link">الملخص التنفيذي</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">٢</span>
+                    <a href="niqati_workflow_doc_part2.html" class="toc-link">هندسة النظام ومصادقة المستخدم</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">٣</span>
+                    <a href="niqati_workflow_doc_part3.html" class="toc-link">تكامل بوابة الدفع والعملات المشفرة</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">٤</span>
+                    <a href="niqati_workflow_doc_part4.html" class="toc-link">محفظة المستخدم وتدفق الشراء</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">٥</span>
+                    <a href="niqati-payment-strategy.html" class="toc-link">استراتيجية الدفع المعدلة</a>
+                </li>
+                <li class="toc-item">
+                    <span class="toc-number">٦</span>
+                    <a href="#" class="toc-link">الجدول الزمني للتنفيذ وخارطة الطريق</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sections Overview -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2 class="en">Document Overview</h2>
+                <h2 class="ar">نظرة عامة على الوثيقة</h2>
+            </div>
+            <div class="section-content">
+                <div class="section-description en">
+                    <p>This comprehensive document outlines the complete technical workflow and implementation plan for transforming the Niqati platform from an MVP to a full-scale production system. The document is divided into multiple sections covering all aspects of the platform including architecture, user flows, payment processing, wallet systems, and implementation strategy.</p>
+                    <p>Each section is provided as a separate HTML document for easier navigation and reference. The documents include both English and Arabic content, accessible via the language toggle button.</p>
+                </div>
+                <div class="section-description ar">
+                    <p>توضح هذه الوثيقة الشاملة سير العمل الفني الكامل وخطة التنفيذ لتحويل منصة نقاطي من نموذج أولي إلى نظام إنتاج كامل. تنقسم الوثيقة إلى أقسام متعددة تغطي جميع جوانب المنصة بما في ذلك الهندسة المعمارية، وتدفقات المستخدم، ومعالجة الدفع، وأنظمة المحفظة، واستراتيجية التنفيذ.</p>
+                    <p>يتم توفير كل قسم كوثيقة HTML منفصلة لتسهيل التنقل والرجوع إليها. تتضمن المستندات محتوى باللغتين الإنجليزية والعربية، يمكن الوصول إليها عبر زر تبديل اللغة.</p>
+                </div>
+                
+                <div class="info-box en">
+                    <strong>Note on Payment Strategy:</strong> As specified, the initial launch phase will exclusively support bank transfers to local payment gateway accounts, while the system architecture will be designed to accommodate all planned payment methods for future activation.
+                </div>
+                
+                <div class="info-box ar">
+                    <strong>ملاحظة حول استراتيجية الدفع:</strong> كما هو محدد، ستدعم مرحلة الإطلاق الأولية حصريًا التحويلات البنكية إلى حسابات بوابة الدفع المحلية، بينما سيتم تصميم هندسة النظام لاستيعاب جميع طرق الدفع المخططة للتفعيل المستقبلي.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h2 class="en">How to Use This Document</h2>
+                <h2 class="ar">كيفية استخدام هذه الوثيقة</h2>
+            </div>
+            <div class="section-content">
+                <div class="section-description en">
+                    <p>This document is intended for the CTO and technical team responsible for implementing the Niqati platform. The document follows a logical progression, starting with an executive summary and system architecture, then detailing specific components and flows, before concluding with implementation strategies.</p>
+                    
+                    <h3>For Technical Implementation:</h3>
+                    <ol>
+                        <li>Begin with the Executive Summary to understand the overall scope</li>
+                        <li>Review the System Architecture to grasp the high-level design</li>
+                        <li>Study the User Authentication, Payment, and Wallet flows in detail</li>
+                        <li>Pay special attention to the Revised Payment Strategy section, which outlines the phased approach to payment methods</li>
+                        <li>Use the Implementation Timeline to plan development phases</li>
+                    </ol>
+                    
+                    <h3>For Printing:</h3>
+                    <p>This document is optimized for both online viewing and printing. To create a complete PDF:</p>
+                    <ol>
+                        <li>Open each HTML file in a browser</li>
+                        <li>Use the browser's print function (Ctrl+P or Cmd+P)</li>
+                        <li>Select "Save as PDF" as the destination</li>
+                        <li>Combine the individual PDFs into a single document using a PDF tool</li>
+                    </ol>
+                </div>
+                
+                <div class="section-description ar">
+                    <p>هذه الوثيقة مخصصة للمدير التقني والفريق التقني المسؤول عن تنفيذ منصة نقاطي. تتبع الوثيقة تسلسلًا منطقيًا، بدءًا من ملخص تنفيذي وهندسة النظام، ثم تفصيل المكونات والتدفقات المحددة، قبل الختام باستراتيجيات التنفيذ.</p>
+                    
+                    <h3>للتنفيذ التقني:</h3>
+                    <ol>
+                        <li>ابدأ بالملخص التنفيذي لفهم النطاق العام</li>
+                        <li>راجع هندسة النظام لفهم التصميم رفيع المستوى</li>
+                        <li>ادرس تدفقات مصادقة المستخدم والدفع والمحفظة بالتفصيل</li>
+                        <li>انتبه بشكل خاص إلى قسم استراتيجية الدفع المعدلة، الذي يوضح النهج المرحلي لطرق الدفع</li>
+                        <li>استخدم الجدول الزمني للتنفيذ لتخطيط مراحل التطوير</li>
+                    </ol>
+                    
+                    <h3>للطباعة:</h3>
+                    <p>تم تحسين هذه الوثيقة للعرض عبر الإنترنت والطباعة. لإنشاء ملف PDF كامل:</p>
+                    <ol>
+                        <li>افتح كل ملف HTML في متصفح</li>
+                        <li>استخدم وظيفة الطباعة في المتصفح (Ctrl+P أو Cmd+P)</li>
+                        <li>حدد "حفظ كـ PDF" كوجهة</li>
+                        <li>ادمج ملفات PDF الفردية في مستند واحد باستخدام أداة PDF</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="en">Prepared for Niqati Platform Implementation - 2025</p>
+            <p class="ar">تم إعداده لتنفيذ منصة نقاطي - 2025</p>
+        </div>
+    </div>
+    
+    <script>
+        function toggleLanguage() {
+            const body = document.body;
+            const langBtn = document.getElementById('lang-btn');
+            
+            if (body.classList.contains('arabic')) {
+                body.classList.remove('arabic');
+                langBtn.innerText = '🌐 عربي | Arabic';
+            } else {
+                body.classList.add('arabic');
+                langBtn.innerText = '🌐 English | إنجليزي';
+            }
+        }
+    </script>
+</body>
+</html>

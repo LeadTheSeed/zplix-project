@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - مكونات الأزرار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --primary-hover: #946DF6;
+            --primary-active: #6232D2;
+            
+            --secondary: #00D4AA;
+            --secondary-hover: #21DCBE;
+            --secondary-active: #00AF8C;
+            
+            --success: #10B981;
+            --success-hover: #34D399;
+            --success-active: #059669;
+            
+            --warning: #F59E0B;
+            --warning-hover: #FBBF24;
+            --warning-active: #D97706;
+            
+            --error: #EF4444;
+            --error-hover: #F87171;
+            --error-active: #DC2626;
+            
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --text-disabled: #6B7280;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #7B3FF2 0%, #00D4AA 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #00D4AA 100%);
+            --gradient-error: linear-gradient(135deg, #EF4444 0%, #FF006E 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #FFB800 100%);
+            --gradient-premium: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+        }
+        
+        .component-preview {
+            margin-bottom: 40px;
+        }
+        
+        .component-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .component-description {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .preview-container {
+            padding: 30px;
+            background: rgba(15, 15, 20, 0.5);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .code-example {
+            background: rgba(15, 15, 20, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            color: #D1D5DB;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:active {
+            background-color: var(--primary-active);
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary:active {
+            background-color: var(--secondary-active);
+            transform: translateY(0);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: var(--text-primary);
+        }
+        
+        .btn-success:hover {
+            background-color: var(--success-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success:active {
+            background-color: var(--success-active);
+            transform: translateY(0);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--text-primary);
+        }
+        
+        .btn-warning:hover {
+            background-color: var(--warning-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning:active {
+            background-color: var(--warning-active);
+            transform: translateY(0);
+        }
+        
+        .btn-error {
+            background-color: var(--error);
+            color: var(--text-primary);
+        }
+        
+        .btn-error:hover {
+            background-color: var(--error-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-error:active {
+            background-color: var(--error-active);
+            transform: translateY(0);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(123, 63, 242, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline:active {
+            background-color: rgba(123, 63, 242, 0.2);
+            transform: translateY(0);
+        }
+        
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .btn-ghost:hover {
+            background-color: rgba(123, 63, 242, 0.1);
+        }
+        
+        .btn-ghost:active {
+            background-color: rgba(123, 63, 242, 0.2);
+        }
+        
+        .btn-gradient-primary {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+        }
+        
+        .btn-gradient-primary:hover {
+            box-shadow: 0 5px 15px rgba(123, 63, 242, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-gradient-primary:active {
+            box-shadow: 0 2px 5px rgba(123, 63, 242, 0.4);
+            transform: translateY(0);
+        }
+        
+        .btn-gradient-success {
+            background: var(--gradient-success);
+            color: var(--text-primary);
+        }
+        
+        .btn-gradient-success:hover {
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-gradient-success:active {
+            box-shadow: 0 2px 5px rgba(16, 185, 129, 0.4);
+            transform: translateY(0);
+        }
+        
+        .btn-gradient-error {
+            background: var(--gradient-error);
+            color: var(--text-primary);
+        }
+        
+        .btn-gradient-error:hover {
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-gradient-error:active {
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.4);
+            transform: translateY(0);
+        }
+        
+        .btn-gradient-premium {
+            background: var(--gradient-premium);
+            color: var(--text-primary);
+        }
+        
+        .btn-gradient-premium:hover {
+            box-shadow: 0 5px 15px rgba(255, 184, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-gradient-premium:active {
+            box-shadow: 0 2px 5px rgba(255, 184, 0, 0.4);
+            transform: translateY(0);
+        }
+        
+        .btn-lg {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+        }
+        
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+        }
+        
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .btn-rounded {
+            border-radius: 50px;
+        }
+        
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .variable-name {
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">مكونات الأزرار لمنصة نقاطي</h1>
+            <p class="subtitle">دليل شامل لتصميم وأنماط الأزرار المستخدمة في منصة نقاطي للتداول</p>
+        </header>
+        
+        <section class="section">
+            <h2 class="section-title">الأزرار الأساسية | Primary Buttons</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">الأزرار الملونة | Colored Buttons</h3>
+                <div class="component-description">
+                    <p>الأزرار الأساسية بألوان مختلفة تستخدم للإجراءات المختلفة في التطبيق.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary">زر رئيسي</button>
+                    <button class="btn btn-secondary">زر ثانوي</button>
+                    <button class="btn btn-success">زر النجاح</button>
+                    <button class="btn btn-warning">زر التحذير</button>
+                    <button class="btn btn-error">زر الخطأ</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary"&gt;</span>زر رئيسي<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-secondary"&gt;</span>زر ثانوي<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-success"&gt;</span>زر النجاح<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-warning"&gt;</span>زر التحذير<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-error"&gt;</span>زر الخطأ<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار التدرج | Gradient Buttons</h3>
+                <div class="component-description">
+                    <p>أزرار مميزة بخلفيات متدرجة للإجراءات الرئيسية والمميزة.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-gradient-primary">زر رئيسي متدرج</button>
+                    <button class="btn btn-gradient-success">زر النجاح المتدرج</button>
+                    <button class="btn btn-gradient-error">زر الخطأ المتدرج</button>
+                    <button class="btn btn-gradient-premium">زر مميز</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-gradient-primary"&gt;</span>زر رئيسي متدرج<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-gradient-success"&gt;</span>زر النجاح المتدرج<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-gradient-error"&gt;</span>زر الخطأ المتدرج<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-gradient-premium"&gt;</span>زر مميز<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">أزرار الإطار والشفافية | Outline & Ghost Buttons</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار الإطار | Outline Buttons</h3>
+                <div class="component-description">
+                    <p>أزرار بإطار خارجي بدون خلفية، تستخدم للإجراءات الثانوية.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-outline">زر إطار</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-outline"&gt;</span>زر إطار<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار شفافة | Ghost Buttons</h3>
+                <div class="component-description">
+                    <p>أزرار شفافة بدون خلفية أو إطار، تستخدم للروابط والإجراءات الخفيفة.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-ghost">زر شفاف</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-ghost"&gt;</span>زر شفاف<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">أحجام الأزرار | Button Sizes</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أحجام مختلفة | Different Sizes</h3>
+                <div class="component-description">
+                    <p>أزرار بأحجام متعددة للاستخدامات المختلفة.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary btn-lg">زر كبير</button>
+                    <button class="btn btn-primary">زر متوسط</button>
+                    <button class="btn btn-primary btn-sm">زر صغير</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary btn-lg"&gt;</span>زر كبير<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-primary"&gt;</span>زر متوسط<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-primary btn-sm"&gt;</span>زر صغير<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار الأيقونات | Icon Buttons</h3>
+                <div class="component-description">
+                    <p>أزرار مربعة تحتوي على أيقونات فقط.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary btn-icon">+</button>
+                    <button class="btn btn-secondary btn-icon">✓</button>
+                    <button class="btn btn-error btn-icon">✕</button>
+                    <button class="btn btn-outline btn-icon">↻</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary btn-icon"&gt;</span>+<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-secondary btn-icon"&gt;</span>✓<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-error btn-icon"&gt;</span>✕<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-outline btn-icon"&gt;</span>↻<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">أشكال الأزرار | Button Shapes</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار مستديرة | Rounded Buttons</h3>
+                <div class="component-description">
+                    <p>أزرار بحواف مستديرة بشكل كامل.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary btn-rounded">زر مستدير</button>
+                    <button class="btn btn-outline btn-rounded">زر إطار مستدير</button>
+                    <button class="btn btn-gradient-primary btn-rounded">زر متدرج مستدير</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary btn-rounded"&gt;</span>زر مستدير<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-outline btn-rounded"&gt;</span>زر إطار مستدير<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-gradient-primary btn-rounded"&gt;</span>زر متدرج مستدير<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">حالات الأزرار | Button States</h2>
+            
+            <div class="component-preview">
+                <h3 class="component-title">زر معطل | Disabled Button</h3>
+                <div class="component-description">
+                    <p>حالة الزر عندما يكون غير متاح للضغط.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary btn-disabled">زر معطل</button>
+                    <button class="btn btn-outline btn-disabled">زر إطار معطل</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary btn-disabled"&gt;</span>زر معطل<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-outline btn-disabled"&gt;</span>زر إطار معطل<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+            
+            <div class="component-preview">
+                <h3 class="component-title">أزرار مع أيقونات | Buttons with Icons</h3>
+                <div class="component-description">
+                    <p>أزرار تحتوي على نص وأيقونة.</p>
+                </div>
+                
+                <div class="preview-container">
+                    <button class="btn btn-primary">✓ تأكيد</button>
+                    <button class="btn btn-error">✕ إلغاء</button>
+                    <button class="btn btn-success">⬇️ تنزيل</button>
+                    <button class="btn btn-warning">⚠️ تحذير</button>
+                </div>
+                
+                <div class="code-example">
+<span class="variable-name">&lt;button class="btn btn-primary"&gt;</span>✓ تأكيد<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-error"&gt;</span>✕ إلغاء<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-success"&gt;</span>⬇️ تنزيل<span class="variable-name">&lt;/button&gt;</span>
+<span class="variable-name">&lt;button class="btn btn-warning"&gt;</span>⚠️ تحذير<span class="variable-name">&lt;/button&gt;</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">متغيرات CSS للأزرار | Button CSS Variables</h2>
+            
+            <div class="code-example" style="margin-top: 0;">
+:root {
+    <span class="variable-name">--primary: #7B3FF2;</span>
+    <span class="variable-name">--primary-hover: #946DF6;</span>
+    <span class="variable-name">--primary-active: #6232D2;</span>
+    
+    <span class="variable-name">--secondary: #00D4AA;</span>
+    <span class="variable-name">--secondary-hover: #21DCBE;</span>
+    <span class="variable-name">--secondary-active: #00AF8C;</span>
+    
+    <span class="variable-name">--success: #10B981;</span>
+    <span class="variable-name">--success-hover: #34D399;</span>
+    <span class="variable-name">--success-active: #059669;</span>
+    
+    <span class="variable-name">--warning: #F59E0B;</span>
+    <span class="variable-name">--warning-hover: #FBBF24;</span>
+    <span class="variable-name">--warning-active: #D97706;</span>
+    
+    <span class="variable-name">--error: #EF4444;</span>
+    <span class="variable-name">--error-hover: #F87171;</span>
+    <span class="variable-name">--error-active: #DC2626;</span>
+    
+    /* Gradients */
+    <span class="variable-name">--gradient-primary: linear-gradient(135deg, #7B3FF2 0%, #00D4AA 100%);</span>
+    <span class="variable-name">--gradient-success: linear-gradient(135deg, #10B981 0%, #00D4AA 100%);</span>
+    <span class="variable-name">--gradient-error: linear-gradient(135deg, #EF4444 0%, #FF006E 100%);</span>
+    <span class="variable-name">--gradient-premium: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);</span>
+}
+            </div>
+        </section>
+    </div>
+</body>
+</html>

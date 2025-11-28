@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - Payment Gateway & Wallet Integration | تكامل بوابة الدفع والمحفظة الرقمية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6772e5;
+            --accent-color: #8e44ad;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        
+        h4 {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .workflow-box {
+            background: var(--light-gray);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step h5 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        th {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        /* Arabic styles */
+        .ar {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .ar ul, .ar ol {
+            margin-left: 0;
+            margin-right: 25px;
+        }
+        
+        .ar .step {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .info-box, .ar .warning-box {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .warning-box {
+            border-right-color: #ffc107;
+        }
+        
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Payment Gateway Integration -->
+        <div class="section">
+            <h2>4. Payment Gateway Integration | تكامل بوابة الدفع</h2>
+            
+            <!-- English Section -->
+            <div>
+                <h3>4.1 Multi-Country Payment Processing</h3>
+                <p>
+                    Niqati will integrate with multiple payment gateways across the MENA region to provide 
+                    localized payment options for each country, allowing customers to pay in their local 
+                    currency using their preferred payment methods.
+                </p>
+                
+                <h4>Regional Payment Gateway Support</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Currency</th>
+                            <th>Payment Gateway</th>
+                            <th>Supported Methods</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UAE</td>
+                            <td>AED</td>
+                            <td>Amazon Payment Services, Telr</td>
+                            <td>Cards, Apple Pay, Samsung Pay, Google Pay</td>
+                        </tr>
+                        <tr>
+                            <td>Saudi Arabia</td>
+                            <td>SAR</td>
+                            <td>Tap Payments, PayTabs, STC Pay</td>
+                            <td>Mada, Cards, Apple Pay, STC Pay</td>
+                        </tr>
+                        <tr>
+                            <td>Egypt</td>
+                            <td>EGP</td>
+                            <td>Paymob, Fawry, PayTabs</td>
+                            <td>Cards, Fawry, Mobile Wallets, Installments</td>
+                        </tr>
+                        <tr>
+                            <td>Jordan</td>
+                            <td>JOD</td>
+                            <td>MadfooatCom, eFAWATEERcom</td>
+                            <td>Cards, eFAWATEERcom, Bank Transfers</td>
+                        </tr>
+                        <tr>
+                            <td>Kuwait</td>
+                            <td>KWD</td>
+                            <td>Tap Payments, KNET</td>
+                            <td>Cards, KNET, Mobile Wallets</td>
+                        </tr>
+                        <tr>
+                            <td>Qatar</td>
+                            <td>QAR</td>
+                            <td>QPay, Tap Payments</td>
+                            <td>Cards, QPay, Apple Pay</td>
+                        </tr>
+                        <tr>
+                            <td>Bahrain</td>
+                            <td>BHD</td>
+                            <td>Benefit Pay, Tap Payments</td>
+                            <td>Cards, Benefit Pay, Apple Pay</td>
+                        </tr>
+                        <tr>
+                            <td>Morocco</td>
+                            <td>MAD</td>
+                            <td>CMI, PayZone</td>
+                            <td>Cards, Cash Plus</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>4.2 Complete Payment Flow</h3>
+                <div class="workflow-box">
+                    <div class="step">
+                        <h5>Step 1: Checkout Initialization</h5>
+                        <ul>
+                            <li>User reviews cart items and proceeds to checkout</li>
+                            <li>System detects user's country based on profile/IP address</li>
+                            <li>Prices are displayed in user's local currency</li>
+                            <li>Available payment methods for user's country are shown</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 2: Payment Method Selection</h5>
+                        <ul>
+                            <li>User selects preferred payment method:
+                                <ul>
+                                    <li>Credit/Debit Card</li>
+                                    <li>Local payment method (e.g., Mada, Fawry, KNET)</li>
+                                    <li>Digital wallet (Apple Pay, Google Pay)</li>
+                                    <li>Bank transfer (where available)</li>
+                                    <li>Platform wallet balance (if sufficient)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 3: Payment Gateway Integration</h5>
+                        <ul>
+                            <li>System routes to appropriate payment gateway based on:
+                                <ul>
+                                    <li>User's country</li>
+                                    <li>Selected payment method</li>
+                                    <li>Transaction amount</li>
+                                </ul>
+                            </li>
+                            <li>Payment gateway initialization with order details</li>
+                            <li>User redirected to secure payment page if necessary</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 4: Payment Processing</h5>
+                        <ul>
+                            <li>Payment gateway processes the transaction</li>
+                            <li>3D Secure authentication where required</li>
+                            <li>Gateway validates payment and sends response</li>
+                            <li>System receives webhook notification of payment status</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 5: Order Confirmation</h5>
+                        <ul>
+                            <li>System confirms payment and updates order status</li>
+                            <li>Generates unique transaction ID and order reference</li>
+                            <li>Sends confirmation via email/SMS/WhatsApp</li>
+                            <li>Updates inventory and user purchase history</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>4.3 Currency Conversion</h3>
+                <p>
+                    The system will handle automatic currency conversion for cross-border transactions:
+                </p>
+                <ul>
+                    <li>Real-time exchange rates from reliable providers (Fixer.io, Open Exchange Rates)</li>
+                    <li>Base currency: USD for internal processing</li>
+                    <li>Display currency: User's local currency</li>
+                    <li>Settlement currency: Merchant's preferred currency or USDT</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <strong>Important Compliance Notes:</strong>
+                    <ul>
+                        <li>All payment processing must comply with local regulations</li>
+                        <li>PCI DSS compliance required for card processing</li>
+                        <li>Transaction monitoring for fraud prevention</li>
+                        <li>KYC requirements for high-value transactions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Arabic Section -->
+            <div class="ar">
+                <h3>4.1 معالجة الدفع متعدد البلدان</h3>
+                <p>
+                    ستقوم منصة نقاطي بالتكامل مع بوابات دفع متعددة في جميع أنحاء منطقة الشرق الأوسط وشمال إفريقيا 
+                    لتوفير خيارات دفع محلية لكل دولة، مما يسمح للعملاء بالدفع بعملتهم المحلية باستخدام طرق الدفع المفضلة لديهم.
+                </p>
+                
+                <h4>دعم بوابات الدفع الإقليمية</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الدولة</th>
+                            <th>العملة</th>
+                            <th>بوابة الدفع</th>
+                            <th>طرق الدفع المدعومة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>الإمارات</td>
+                            <td>درهم إماراتي</td>
+                            <td>Amazon Payment Services, Telr</td>
+                            <td>البطاقات، Apple Pay، Samsung Pay، Google Pay</td>
+                        </tr>
+                        <tr>
+                            <td>السعودية</td>
+                            <td>ريال سعودي</td>
+                            <td>Tap Payments, PayTabs, STC Pay</td>
+                            <td>مدى، البطاقات، Apple Pay، STC Pay</td>
+                        </tr>
+                        <tr>
+                            <td>مصر</td>
+                            <td>جنيه مصري</td>
+                            <td>Paymob, Fawry, PayTabs</td>
+                            <td>البطاقات، فوري، المحافظ الإلكترونية، التقسيط</td>
+                        </tr>
+                        <tr>
+                            <td>الأردن</td>
+                            <td>دينار أردني</td>
+                            <td>MadfooatCom, eFAWATEERcom</td>
+                            <td>البطاقات، إي فواتيركم، التحويلات البنكية</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>4.2 تدفق الدفع الكامل</h3>
+                <div class="workflow-box">
+                    <div class="step">
+                        <h5>الخطوة 1: بدء عملية الدفع</h5>
+                        <ul>
+                            <li>يراجع المستخدم عناصر السلة ويتابع إلى الدفع</li>
+                            <li>يكتشف النظام بلد المستخدم بناءً على الملف الشخصي/عنوان IP</li>
+                            <li>يتم عرض الأسعار بالعملة المحلية للمستخدم</li>
+                            <li>يتم عرض طرق الدفع المتاحة لبلد المستخدم</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>الخطوة 2: اختيار طريقة الدفع</h5>
+                        <ul>
+                            <li>يختار المستخدم طريقة الدفع المفضلة:
+                                <ul>
+                                    <li>بطاقة ائتمان/خصم</li>
+                                    <li>طريقة دفع محلية (مثل مدى، فوري، KNET)</li>
+                                    <li>محفظة رقمية (Apple Pay, Google Pay)</li>
+                                    <li>تحويل بنكي (حيثما كان متاحاً)</li>
+                                    <li>رصيد محفظة المنصة (إذا كان كافياً)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cryptocurrency Integration -->
+        <div class="section">
+            <h2>5. Cryptocurrency Integration | تكامل العملات المشفرة</h2>
+            
+            <!-- English Section -->
+            <div>
+                <h3>5.1 USDT Wallet System</h3>
+                <p>
+                    Niqati will implement a robust USDT (Tether) wallet system for merchant settlements, 
+                    enabling seamless transfer of funds across borders without traditional banking 
+                    limitations. The platform will support TRC-20 and ERC-20 USDT tokens.
+                </p>
+                
+                <div class="workflow-box">
+                    <h4>USDT Settlement Architecture</h4>
+                    <div class="step">
+                        <h5>Wallet Creation</h5>
+                        <ul>
+                            <li>Merchants can create a USDT wallet through the merchant portal</li>
+                            <li>Each merchant receives a unique wallet address</li>
+                            <li>Multi-signature (2-of-3) wallet architecture for security</li>
+                            <li>Private keys stored securely using Hardware Security Modules (HSMs)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Settlement Process</h5>
+                        <ul>
+                            <li>Customer purchases product using local payment method</li>
+                            <li>Platform processes payment and confirms transaction</li>
+                            <li>System calculates settlement amount after platform fee</li>
+                            <li>Local currency converted to USDT at current market rate</li>
+                            <li>USDT transferred to merchant's wallet address</li>
+                            <li>Transaction recorded on blockchain with transaction hash</li>
+                            <li>Notification sent to merchant with settlement details</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Withdrawal Options</h5>
+                        <ul>
+                            <li>Direct withdrawal to external wallet</li>
+                            <li>Conversion to local currency and bank deposit (where available)</li>
+                            <li>Reinvestment in platform inventory</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>5.2 Security Measures</h3>
+                <ul>
+                    <li><strong>Multi-Signature Wallets:</strong> 2-of-3 multi-sig requiring multiple approvals for transactions</li>
+                    <li><strong>Cold Storage:</strong> Majority of funds stored in cold wallets</li>
+                    <li><strong>Hot Wallets:</strong> Limited funds in hot wallets for immediate settlements</li>
+                    <li><strong>Transaction Monitoring:</strong> Real-time monitoring for suspicious activities</li>
+                    <li><strong>Withdrawal Limits:</strong> Daily/weekly/monthly limits based on account tier</li>
+                    <li><strong>Enhanced KYC:</strong> Additional verification for high-value transactions</li>
+                    <li><strong>Two-Factor Authentication:</strong> Required for all wallet operations</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>Implementation Considerations:</strong>
+                    <ul>
+                        <li>Preferred Network: TRC-20 (Tron) for lower fees and faster transactions</li>
+                        <li>Alternative: ERC-20 (Ethereum) for broader compatibility</li>
+                        <li>Gas fee management for efficient transaction processing</li>
+                        <li>Blockchain integration with Web3.js and specialized libraries</li>
+                        <li>Real-time USDT price feeds from reliable sources</li>
+                        <li>Compliance with crypto regulations in each operating country</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Arabic Section -->
+            <div class="ar">
+                <h3>5.1 نظام محفظة USDT</h3>
+                <p>
+                    ستقوم منصة نقاطي بتنفيذ نظام محفظة USDT (تيثر) قوي لتسويات التجار، 
+                    مما يتيح نقل الأموال بسلاسة عبر الحدود دون قيود المصارف التقليدية. 
+                    ستدعم المنصة رموز USDT على شبكات TRC-20 وERC-20.
+                </p>
+                
+                <div class="workflow-box">
+                    <h4>هندسة تسوية USDT</h4>
+                    <div class="step">
+                        <h5>إنشاء المحفظة</h5>
+                        <ul>
+                            <li>يمكن للتجار إنشاء محفظة USDT من خلال بوابة التاجر</li>
+                            <li>يتلقى كل تاجر عنوان محفظة فريد</li>
+                            <li>هندسة محفظة متعددة التوقيعات (2 من 3) للأمان</li>
+                            <li>تخزين المفاتيح الخاصة بشكل آمن باستخدام وحدات أمان الأجهزة (HSMs)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>عملية التسوية</h5>
+                        <ul>
+                            <li>يشتري العميل المنتج باستخدام طريقة دفع محلية</li>
+                            <li>تعالج المنصة الدفع وتؤكد المعاملة</li>
+                            <li>يحسب النظام مبلغ التسوية بعد رسوم المنصة</li>
+                            <li>يتم تحويل العملة المحلية إلى USDT بسعر السوق الحالي</li>
+                            <li>يتم تحويل USDT إلى عنوان محفظة التاجر</li>
+                            <li>تسجل المعاملة على البلوكشين مع رمز المعاملة</li>
+                            <li>يتم إرسال إشعار إلى التاجر مع تفاصيل التسوية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

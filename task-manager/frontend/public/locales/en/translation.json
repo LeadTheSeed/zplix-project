@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "Task Manager",
+    "welcome": "Welcome to Task Manager!",
+    "description": "A simple application to manage your daily tasks"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "confirmPassword": "Confirm Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "addNew": "Add New Task",
+    "edit": "Edit Task",
+    "delete": "Delete Task",
+    "markComplete": "Mark as Complete",
+    "markIncomplete": "Mark as Incomplete",
+    "noTasks": "No Tasks",
+    "createFirst": "Create your first task!"
+  },
+  "task": {
+    "title": "Title",
+    "description": "Description",
+    "dueDate": "Due Date",
+    "priority": "Priority",
+    "status": "Status",
+    "completed": "Completed",
+    "incomplete": "Incomplete",
+    "actions": "Actions"
+  },
+  "priority": {
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back"
+  },
+  "messages": {
+    "welcome": "Hello, {{username}}!",
+    "taskAdded": "Task added successfully",
+    "taskUpdated": "Task updated successfully",
+    "taskDeleted": "Task deleted successfully",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Account created successfully",
+    "logoutSuccess": "Logout successful",
+    "serverError": "Server error occurred"
+  },
+  "navigation": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "profile": "Profile",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "language": {
+    "title": "Language",
+    "english": "English",
+    "arabic": "العربية"
+  }
+}

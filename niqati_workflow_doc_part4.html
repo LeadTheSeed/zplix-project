@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - User Wallet & Purchase Flow | محفظة المستخدم وتدفق الشراء</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6772e5;
+            --accent-color: #8e44ad;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        
+        h4 {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .workflow-box {
+            background: var(--light-gray);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step h5 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        th {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        /* Arabic styles */
+        .ar {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .ar ul, .ar ol {
+            margin-left: 0;
+            margin-right: 25px;
+        }
+        
+        .ar .step {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .info-box, .ar .warning-box {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .warning-box {
+            border-right-color: #ffc107;
+        }
+        
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- User Wallet System -->
+        <div class="section">
+            <h2>6. User Wallet & Balance System | نظام المحفظة ورصيد المستخدم</h2>
+            
+            <!-- English Section -->
+            <div>
+                <h3>6.1 Wallet System Overview</h3>
+                <p>
+                    The Niqati platform will feature a comprehensive user wallet system that allows users 
+                    to store credit, make purchases, and manage their transactions in a single place. Each 
+                    user will automatically receive a wallet upon account creation.
+                </p>
+                
+                <div class="workflow-box">
+                    <h4>Key Wallet Features</h4>
+                    <div class="step">
+                        <h5>Multi-Currency Support</h5>
+                        <ul>
+                            <li>Primary wallet balance in user's local currency</li>
+                            <li>Currency conversion for cross-border transactions</li>
+                            <li>Support for all MENA region currencies</li>
+                            <li>Real-time exchange rate updates</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Balance Top-up Methods</h5>
+                        <ul>
+                            <li>Credit/Debit card payment</li>
+                            <li>Bank transfer</li>
+                            <li>Cash payment at partner locations (where available)</li>
+                            <li>Mobile money transfer</li>
+                            <li>Prepaid vouchers/codes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Auto-Recharge</h5>
+                        <ul>
+                            <li>Configurable auto top-up when balance falls below threshold</li>
+                            <li>Scheduled recurring top-ups (weekly/monthly)</li>
+                            <li>Pre-authorized payment methods for seamless experience</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Transaction Management</h5>
+                        <ul>
+                            <li>Complete transaction history</li>
+                            <li>Detailed receipts and invoices</li>
+                            <li>Spending analytics and reports</li>
+                            <li>Transaction categorization</li>
+                            <li>Export functionality (PDF, CSV)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>6.2 Wallet Management Flow</h3>
+                <div class="workflow-box">
+                    <div class="step">
+                        <h5>Wallet Creation</h5>
+                        <ul>
+                            <li>Automatic creation upon successful account verification</li>
+                            <li>Assignment of unique wallet ID</li>
+                            <li>Initial balance set to zero</li>
+                            <li>Default currency set based on user's country</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Credit Top-up Flow</h5>
+                        <ul>
+                            <li>User selects "Add Credit" option</li>
+                            <li>Specifies amount to add</li>
+                            <li>Selects payment method</li>
+                            <li>Completes payment via appropriate gateway</li>
+                            <li>Balance updated in real-time</li>
+                            <li>Confirmation notification sent to user</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Making Purchases with Wallet</h5>
+                        <ul>
+                            <li>User selects "Pay with Wallet" at checkout</li>
+                            <li>System checks available balance</li>
+                            <li>If sufficient, amount deducted from wallet</li>
+                            <li>If insufficient, offers to top-up or use alternative payment</li>
+                            <li>Transaction recorded in wallet history</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Withdrawals (Optional)</h5>
+                        <ul>
+                            <li>User requests withdrawal to bank account/mobile wallet</li>
+                            <li>Verification process triggered for security</li>
+                            <li>Processing period of 1-3 business days</li>
+                            <li>Confirmation sent when withdrawal complete</li>
+                            <li>Transaction fee applied based on withdrawal method and amount</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>6.3 Database Schema</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Fields</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>wallets</td>
+                            <td>id, user_id, currency, balance, created_at, updated_at, status</td>
+                            <td>Main wallet information</td>
+                        </tr>
+                        <tr>
+                            <td>wallet_transactions</td>
+                            <td>id, wallet_id, type, amount, reference, description, status, created_at</td>
+                            <td>All wallet transactions</td>
+                        </tr>
+                        <tr>
+                            <td>top_up_methods</td>
+                            <td>id, name, provider, status, fees, processing_time, countries</td>
+                            <td>Available top-up methods</td>
+                        </tr>
+                        <tr>
+                            <td>withdrawal_methods</td>
+                            <td>id, name, provider, status, fees, processing_time, countries, min_amount</td>
+                            <td>Available withdrawal methods</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="info-box">
+                    <strong>Security Features:</strong>
+                    <ul>
+                        <li>All wallet operations require authentication</li>
+                        <li>High-value transactions require additional verification (OTP)</li>
+                        <li>Transaction limits based on account verification level</li>
+                        <li>Fraud detection algorithms monitor unusual activity</li>
+                        <li>All transactions are encrypted and immutably logged</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Arabic Section -->
+            <div class="ar">
+                <h3>6.1 نظرة عامة على نظام المحفظة</h3>
+                <p>
+                    ستتضمن منصة نقاطي نظام محفظة شامل للمستخدم يسمح للمستخدمين 
+                    بتخزين الرصيد وإجراء المشتريات وإدارة معاملاتهم في مكان واحد. سيحصل كل 
+                    مستخدم تلقائياً على محفظة عند إنشاء الحساب.
+                </p>
+                
+                <div class="workflow-box">
+                    <h4>ميزات المحفظة الرئيسية</h4>
+                    <div class="step">
+                        <h5>دعم العملات المتعددة</h5>
+                        <ul>
+                            <li>رصيد المحفظة الرئيسي بالعملة المحلية للمستخدم</li>
+                            <li>تحويل العملات للمعاملات عبر الحدود</li>
+                            <li>دعم لجميع عملات منطقة الشرق الأوسط وشمال إفريقيا</li>
+                            <li>تحديثات أسعار الصرف في الوقت الفعلي</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>طرق تعبئة الرصيد</h5>
+                        <ul>
+                            <li>الدفع ببطاقة الائتمان/الخصم</li>
+                            <li>التحويل المصرفي</li>
+                            <li>الدفع النقدي في مواقع الشركاء (حيثما كان متاحاً)</li>
+                            <li>تحويل الأموال عبر الهاتف المحمول</li>
+                            <li>القسائم/الرموز المدفوعة مسبقاً</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>إعادة الشحن التلقائي</h5>
+                        <ul>
+                            <li>إعادة تعبئة تلقائية قابلة للتكوين عندما ينخفض الرصيد عن الحد</li>
+                            <li>إعادة تعبئة متكررة مجدولة (أسبوعية/شهرية)</li>
+                            <li>طرق دفع مصرح بها مسبقاً لتجربة سلسة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete Purchase Flow -->
+        <div class="section">
+            <h2>7. Complete Purchase Flow | تدفق الشراء الكامل</h2>
+            
+            <!-- English Section -->
+            <div>
+                <h3>7.1 End-to-End Purchase Process</h3>
+                <p>
+                    This section outlines the complete user journey from product browsing to order fulfillment,
+                    integrating all previously described components into a seamless experience.
+                </p>
+                
+                <div class="workflow-box">
+                    <div class="step">
+                        <h5>Step 1: Product Discovery & Selection</h5>
+                        <ul>
+                            <li>User browses catalog with filters (category, price, popularity)</li>
+                            <li>Product prices shown in user's local currency</li>
+                            <li>Detailed product information and available quantities displayed</li>
+                            <li>User selects product and specifies desired quantity</li>
+                            <li>Product added to shopping cart</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 2: Cart Management & Checkout</h5>
+                        <ul>
+                            <li>User reviews items in cart</li>
+                            <li>Can modify quantities or remove items</li>
+                            <li>System validates product availability in real-time</li>
+                            <li>User applies any available promo codes</li>
+                            <li>Order summary shown with subtotal, fees, and total</li>
+                            <li>User proceeds to checkout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 3: Payment Processing</h5>
+                        <ul>
+                            <li>User selects payment method:
+                                <ul>
+                                    <li>Platform wallet balance</li>
+                                    <li>Credit/debit card</li>
+                                    <li>Local payment options</li>
+                                    <li>Bank transfer</li>
+                                </ul>
+                            </li>
+                            <li>System routes to appropriate payment flow</li>
+                            <li>User completes payment authentication if required</li>
+                            <li>Payment confirmation received and verified</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 4: Order Processing</h5>
+                        <ul>
+                            <li>System generates unique order ID</li>
+                            <li>Creates digital inventory reservation</li>
+                            <li>Updates inventory counts</li>
+                            <li>Records transaction in financial systems</li>
+                            <li>Triggers fulfillment process</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 5: Fulfillment & Delivery</h5>
+                        <ul>
+                            <li>Digital product codes generated or retrieved from inventory</li>
+                            <li>Secure delivery method based on product type:
+                                <ul>
+                                    <li>Direct display in user account</li>
+                                    <li>Email delivery with encryption</li>
+                                    <li>SMS delivery with verification</li>
+                                    <li>In-app notification</li>
+                                </ul>
+                            </li>
+                            <li>Confirmation message with usage instructions</li>
+                            <li>Redemption instructions provided where applicable</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>Step 6: Post-Purchase</h5>
+                        <ul>
+                            <li>Receipt/invoice generated and provided to user</li>
+                            <li>Purchase history updated in user account</li>
+                            <li>Loyalty points awarded if applicable</li>
+                            <li>Follow-up notification for product activation verification</li>
+                            <li>User prompted to rate experience</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>7.2 Error Handling Scenarios</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>System Response</th>
+                            <th>User Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Payment Failure</td>
+                            <td>Transaction marked failed, inventory released, retry options presented</td>
+                            <td>Clear error message with alternative payment suggestions</td>
+                        </tr>
+                        <tr>
+                            <td>Product Out of Stock</td>
+                            <td>Real-time inventory check, notification to operations team</td>
+                            <td>Option to be notified when available or view alternatives</td>
+                        </tr>
+                        <tr>
+                            <td>Code Delivery Failure</td>
+                            <td>Automated retry mechanism, escalation to customer support</td>
+                            <td>Status updates and alternative delivery method options</td>
+                        </tr>
+                        <tr>
+                            <td>Code Redemption Issues</td>
+                            <td>Verification system, troubleshooting flow</td>
+                            <td>Step-by-step guidance and direct support channel</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="warning-box">
+                    <strong>Critical Integration Requirements:</strong>
+                    <ul>
+                        <li>Real-time inventory management to prevent overselling</li>
+                        <li>Secure code storage with encryption at rest and in transit</li>
+                        <li>Redundant delivery channels for critical notifications</li>
+                        <li>Transaction logging for auditing and troubleshooting</li>
+                        <li>Automatic retry mechanisms for failed processes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Arabic Section -->
+            <div class="ar">
+                <h3>7.1 عملية الشراء الكاملة من البداية إلى النهاية</h3>
+                <p>
+                    يوضح هذا القسم رحلة المستخدم الكاملة من تصفح المنتج إلى تنفيذ الطلب،
+                    مع دمج جميع المكونات الموصوفة سابقاً في تجربة سلسة.
+                </p>
+                
+                <div class="workflow-box">
+                    <div class="step">
+                        <h5>الخطوة 1: اكتشاف المنتج واختياره</h5>
+                        <ul>
+                            <li>يتصفح المستخدم الكتالوج باستخدام المرشحات (الفئة، السعر، الشعبية)</li>
+                            <li>تظهر أسعار المنتجات بالعملة المحلية للمستخدم</li>
+                            <li>عرض معلومات تفصيلية عن المنتج والكميات المتاحة</li>
+                            <li>يختار المستخدم المنتج ويحدد الكمية المطلوبة</li>
+                            <li>تتم إضافة المنتج إلى سلة التسوق</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>الخطوة 2: إدارة السلة والدفع</h5>
+                        <ul>
+                            <li>يراجع المستخدم العناصر الموجودة في السلة</li>
+                            <li>يمكن تعديل الكميات أو إزالة العناصر</li>
+                            <li>يتحقق النظام من توفر المنتج في الوقت الفعلي</li>
+                            <li>يطبق المستخدم أي رموز ترويجية متاحة</li>
+                            <li>يتم عرض ملخص الطلب مع المجموع الفرعي والرسوم والإجمالي</li>
+                            <li>يتابع المستخدم إلى الدفع</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <h5>الخطوة 3: معالجة الدفع</h5>
+                        <ul>
+                            <li>يختار المستخدم طريقة الدفع:
+                                <ul>
+                                    <li>رصيد محفظة المنصة</li>
+                                    <li>بطاقة ائتمان/خصم</li>
+                                    <li>خيارات الدفع المحلية</li>
+                                    <li>تحويل بنكي</li>
+                                </ul>
+                            </li>
+                            <li>يوجه النظام إلى تدفق الدفع المناسب</li>
+                            <li>يكمل المستخدم مصادقة الدفع إذا لزم الأمر</li>
+                            <li>يتم استلام تأكيد الدفع والتحقق منه</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

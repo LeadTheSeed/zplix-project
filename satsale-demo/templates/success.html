@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config.title }} - تم الدفع بنجاح</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            --primary-color: {{ config.template.primary_color }};
+            --accent-color: {{ config.template.accent_color }};
+            --background-color: {{ config.template.background_color }};
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="payment-card success-card">
+            {% if config.template.show_logo %}
+            <div class="logo">
+                <img src="{{ config.template.logo_url }}" alt="Logo">
+            </div>
+            {% endif %}
+            
+            <h1>تم الدفع بنجاح!</h1>
+            
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <p class="success-message">
+                تم استلام مدفوعاتك بنجاح. شكرًا لاستخدامك Zplix SatSale!
+            </p>
+            
+            <div class="action-buttons">
+                <a href="/" class="btn primary-btn">العودة للرئيسية</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>مدعوم بواسطة <a href="https://github.com/SatSale/SatSale" target="_blank">SatSale</a></p>
+        </div>
+    </div>
+</body>
+</html>

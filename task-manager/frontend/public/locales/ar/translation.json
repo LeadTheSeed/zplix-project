@@ -1,0 +1,77 @@
+{
+  "app": {
+    "title": "مدير المهام",
+    "welcome": "مرحباً بك في مدير المهام!",
+    "description": "تطبيق بسيط لإدارة المهام اليومية"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "username": "اسم المستخدم",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "لديك حساب بالفعل؟"
+  },
+  "tasks": {
+    "title": "المهام",
+    "addNew": "إضافة مهمة جديدة",
+    "edit": "تعديل المهمة",
+    "delete": "حذف المهمة",
+    "markComplete": "تحديد كمكتملة",
+    "markIncomplete": "تحديد كغير مكتملة",
+    "noTasks": "لا توجد مهام",
+    "createFirst": "قم بإنشاء أول مهمة!"
+  },
+  "task": {
+    "title": "العنوان",
+    "description": "الوصف",
+    "dueDate": "تاريخ الاستحقاق",
+    "priority": "الأولوية",
+    "status": "الحالة",
+    "completed": "مكتملة",
+    "incomplete": "غير مكتملة",
+    "actions": "إجراءات"
+  },
+  "priority": {
+    "high": "عالية",
+    "medium": "متوسطة",
+    "low": "منخفضة"
+  },
+  "buttons": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "submit": "إرسال",
+    "add": "إضافة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "back": "رجوع"
+  },
+  "messages": {
+    "welcome": "مرحبًا، {{username}}!",
+    "taskAdded": "تمت إضافة المهمة بنجاح",
+    "taskUpdated": "تم تحديث المهمة بنجاح",
+    "taskDeleted": "تم حذف المهمة بنجاح",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "registerSuccess": "تم إنشاء الحساب بنجاح",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح",
+    "serverError": "حدث خطأ في الخادم"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "tasks": "المهام",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "about": "حول التطبيق"
+  },
+  "language": {
+    "title": "اللغة",
+    "english": "English",
+    "arabic": "العربية"
+  }
+}

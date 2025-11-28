@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Platform - Complete Technical Workflow | وثيقة سير العمل الفني لمنصة نقاطي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6772e5;
+            --accent-color: #8e44ad;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .version-info {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        
+        h4 {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .workflow-box {
+            background: var(--light-gray);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step h5 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        
+        th {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light-gray);
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        /* Arabic styles */
+        .ar {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .ar ul, .ar ol {
+            margin-left: 0;
+            margin-right: 25px;
+        }
+        
+        .ar .step {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .info-box, .ar .warning-box {
+            border-left: none;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .ar .info-box.warning-box {
+            border-right-color: #ffc107;
+        }
+        
+        @media print {
+            body {
+                font-size: 11pt;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+            
+            .header {
+                background: white !important;
+                color: var(--text-color) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Niqati Platform | منصة نقاطي</h1>
+        <p>Complete Technical Workflow Document | وثيقة سير العمل الفني الكاملة</p>
+        <div class="version-info">
+            Version 2.0 - Production Ready | الإصدار 2.0 - جاهز للإنتاج
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>1. Executive Summary | الملخص التنفيذي</h2>
+            
+            <!-- English Section -->
+            <div>
+                <h3>Project Overview</h3>
+                <p>
+                    Niqati is a comprehensive digital points marketplace platform designed to serve the entire MENA region. 
+                    This document outlines the complete end-to-end workflow and technical specifications for transforming the 
+                    MVP into a full-scale production system with advanced features including multi-currency support, 
+                    cryptocurrency integration, user authentication systems, and digital wallet functionality.
+                </p>
+                
+                <h4>Key Objectives</h4>
+                <ul>
+                    <li>Develop a robust, scalable platform supporting all MENA countries and currencies</li>
+                    <li>Implement comprehensive user authentication with email and OTP verification</li>
+                    <li>Integrate multiple payment gateways with localized payment methods</li>
+                    <li>Establish USDT cryptocurrency settlement system for merchants</li>
+                    <li>Create digital wallet functionality with balance management</li>
+                    <li>Deploy advanced security measures and fraud prevention</li>
+                    <li>Support multilingual interfaces (Arabic/English) with RTL/LTR layouts</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>Target Market Coverage:</strong> UAE, Saudi Arabia, Egypt, Jordan, Kuwait, Qatar, Bahrain, Oman, 
+                    Morocco, Tunisia, Algeria, Lebanon, Iraq, and other MENA countries.
+                </div>
+            </div>
+            
+            <!-- Arabic Section -->
+            <div class="ar">
+                <h3>نظرة عامة على المشروع</h3>
+                <p>
+                    نقاطي هي منصة شاملة لسوق النقاط الرقمية مصممة لخدمة منطقة الشرق الأوسط وشمال أفريقيا بأكملها.
+                    توضح هذه الوثيقة سير العمل الكامل من البداية إلى النهاية والمواصفات الفنية لتحويل النموذج الأولي
+                    إلى نظام إنتاج كامل النطاق مع ميزات متقدمة تشمل دعم العملات المتعددة، وتكامل العملات المشفرة،
+                    وأنظمة مصادقة المستخدم، ووظائف المحفظة الرقمية.
+                </p>
+                
+                <h4>الأهداف الرئيسية</h4>
+                <ul>
+                    <li>تطوير منصة قوية وقابلة للتوسع تدعم جميع دول وعملات منطقة الشرق الأوسط وشمال أفريقيا</li>
+                    <li>تنفيذ مصادقة شاملة للمستخدمين مع التحقق عبر البريد الإلكتروني ورمز OTP</li>
+                    <li>دمج بوابات دفع متعددة مع طرق دفع محلية</li>
+                    <li>إنشاء نظام تسوية بالعملة المشفرة USDT للتجار</li>
+                    <li>إنشاء وظائف محفظة رقمية مع إدارة الرصيد</li>
+                    <li>نشر تدابير أمنية متقدمة ومنع الاحتيال</li>
+                    <li>دعم واجهات متعددة اللغات (العربية/الإنجليزية) مع تخطيطات RTL/LTR</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>تغطية السوق المستهدفة:</strong> الإمارات، السعودية، مصر، الأردن، الكويت، قطر، البحرين، عمان،
+                    المغرب، تونس، الجزائر، لبنان، العراق، وغيرها من دول الشرق الأوسط وشمال أفريقيا.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

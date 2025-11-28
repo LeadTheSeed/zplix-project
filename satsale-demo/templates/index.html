@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            --primary-color: {{ config.template.primary_color }};
+            --accent-color: {{ config.template.accent_color }};
+            --background-color: {{ config.template.background_color }};
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="payment-card">
+            {% if config.template.show_logo %}
+            <div class="logo">
+                <img src="{{ config.template.logo_url }}" alt="Logo">
+            </div>
+            {% endif %}
+            
+            <h1>{{ config.template.name }}</h1>
+            <p class="description">{{ config.template.description }}</p>
+            
+            <div class="payment-details">
+                <div class="amount">
+                    <span class="label">المبلغ:</span>
+                    <span class="value">{{ amount_btc }} BTC</span>
+                    <span class="satoshis">({{ payment.amount }} ساتوشي)</span>
+                </div>
+                
+                <div class="qr-code">
+                    <img src="data:image/png;base64,{{ payment.qr_code }}" alt="QR Code">
+                </div>
+                
+                <div class="address">
+                    <span class="label">عنوان الدفع:</span>
+                    <div class="address-container">
+                        <input type="text" id="address" value="{{ payment.address }}" readonly>
+                        <button class="copy-btn" onclick="copyAddress()">نسخ</button>
+                    </div>
+                </div>
+                
+                <div class="timer">
+                    <span class="label">وقت الانتهاء:</span>
+                    <span id="timer">60:00</span>
+                </div>
+                
+                <div id="status-container" class="status pending">
+                    <span class="status-label">الحالة:</span>
+                    <span id="status">في انتظار الدفع</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>مدعوم بواسطة <a href="https://github.com/SatSale/SatSale" target="_blank">SatSale</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // معرف الدفع الحالي
+        const paymentId = "{{ payment.id }}";
+        // وقت انتهاء صلاحية الدفع
+        const expiresAt = {{ payment.expires_at }} * 1000; // تحويل إلى ميلي ثانية
+        
+        // تحديث العداد التنازلي
+        function updateTimer() {
+            const now = new Date().getTime();
+            const timeLeft = expiresAt - now;
+            
+            if (timeLeft <= 0) {
+                document.getElementById("timer").textContent = "00:00";
+                document.getElementById("status").textContent = "انتهت الصلاحية";
+                document.getElementById("status-container").className = "status expired";
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById("timer").textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+            // التحقق من حالة الدفع كل 5 ثواني
+            if (seconds % 5 === 0) {
+                checkPaymentStatus();
+            }
+        }
+        
+        // التحقق من حالة الدفع
+        function checkPaymentStatus() {
+            fetch(`/api/check-payment/${paymentId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "paid") {
+                        document.getElementById("status").textContent = "تم الدفع";
+                        document.getElementById("status-container").className = "status paid";
+                        // الانتقال إلى صفحة النجاح بعد ثانيتين
+                        setTimeout(() => {
+                            window.location.href = "/payment/success";
+                        }, 2000);
+                    } else if (data.status === "expired") {
+                        document.getElementById("status").textContent = "انتهت الصلاحية";
+                        document.getElementById("status-container").className = "status expired";
+                    }
+                })
+                .catch(error => console.error("Error checking payment status:", error));
+        }
+        
+        // نسخ العنوان إلى الحافظة
+        function copyAddress() {
+            const addressInput = document.getElementById("address");
+            addressInput.select();
+            document.execCommand("copy");
+            
+            const copyBtn = document.querySelector(".copy-btn");
+            copyBtn.textContent = "تم النسخ!";
+            setTimeout(() => {
+                copyBtn.textContent = "نسخ";
+            }, 2000);
+        }
+        
+        // تحديث العداد كل ثانية
+        setInterval(updateTimer, 1000);
+        // تشغيل العداد فور تحميل الصفحة
+        updateTimer();
+    </script>
+</body>
+</html>

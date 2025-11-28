@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati - مكونات التحميل والانتظار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .loaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .loader-card {
+            background: #0F0F14;
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        
+        .loader-name {
+            margin-top: 20px;
+            color: #A1A1AA;
+            font-size: 0.9rem;
+        }
+        
+        /* Spinner Loader */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Gradient Spinner */
+        .spinner-gradient {
+            width: 50px;
+            height: 50px;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), white calc(100% - 4px));
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Dots Loader */
+        .dots-loader {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: dotPulse 1.5s infinite ease-in-out;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes dotPulse {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        /* Pulse Loader */
+        .pulse-loader {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Bar Loader */
+        .bar-loader {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .bar {
+            width: 5px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            animation: barGrow 1s infinite ease-in-out;
+        }
+        
+        .bar:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .bar:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .bar:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        .bar:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes barGrow {
+            0%, 40%, 100% {
+                transform: scaleY(0.5);
+            }
+            20% {
+                transform: scaleY(1);
+            }
+        }
+        
+        /* Square Loader */
+        .square-loader {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+        
+        .square {
+            background: var(--primary);
+            animation: squarePulse 1.3s infinite;
+        }
+        
+        .square:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+        
+        .square:nth-child(3) {
+            animation-delay: 0.30s;
+        }
+        
+        .square:nth-child(4) {
+            animation-delay: 0.45s;
+        }
+        
+        @keyframes squarePulse {
+            0%, 70%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            35% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Progress Bar */
+        .progress-loader {
+            width: 200px;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            animation: progressFill 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressFill {
+            0% {
+                width: 0%;
+                transform: translateX(0);
+            }
+            50% {
+                width: 100%;
+                transform: translateX(0);
+            }
+            100% {
+                width: 100%;
+                transform: translateX(100%);
+            }
+        }
+        
+        /* Skeleton Loader */
+        .skeleton-card {
+            width: 100%;
+            padding: 20px;
+            background: #0F0F14;
+            border-radius: 10px;
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 6px;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        .skeleton-title {
+            height: 20px;
+            width: 60%;
+            margin-bottom: 15px;
+        }
+        
+        .skeleton-text {
+            height: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .skeleton-text:last-child {
+            width: 80%;
+        }
+        
+        /* Full Screen Loader */
+        .fullscreen-demo {
+            position: relative;
+            height: 300px;
+            background: #0F0F14;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fullscreen-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 15, 20, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            border-radius: 10px;
+        }
+        
+        .loader-text {
+            color: #A1A1AA;
+            margin-top: 20px;
+        }
+        
+        /* Custom Animated Logo */
+        .logo-loader {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+        
+        .logo-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .logo-circle:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-top-color: var(--secondary);
+            animation-direction: reverse;
+            animation-duration: 0.8s;
+        }
+        
+        .logo-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">مكونات التحميل والانتظار</h1>
+            <p class="subtitle">جميع أنواع مؤشرات التحميل المستخدمة في منصة نقاطي</p>
+        </header>
+        
+        <!-- Basic Spinners -->
+        <section class="section">
+            <h2 class="section-title">🔄 مؤشرات دوارة</h2>
+            
+            <div class="loaders-grid">
+                <div class="loader-card">
+                    <div class="spinner"></div>
+                    <span class="loader-name">Spinner عادي</span>
+                </div>
+                
+                <div class="loader-card">
+                    <div class="spinner-gradient"></div>
+                    <span class="loader-name">Spinner متدرج</span>
+                </div>
+                
+                <div class="loader-card">
+                    <div class="pulse-loader"></div>
+                    <span class="loader-name">نبضة</span>
+                </div>
+                
+                <div class="loader-card">
+                    <div class="logo-loader">
+                        <div class="logo-circle"></div>
+                        <div class="logo-circle"></div>
+                        <div class="logo-center">ن</div>
+                    </div>
+                    <span class="loader-name">شعار متحرك</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dots and Bars -->
+        <section class="section">
+            <h2 class="section-title">⚫ نقاط وأشرطة</h2>
+            
+            <div class="loaders-grid">
+                <div class="loader-card">
+                    <div class="dots-loader">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <span class="loader-name">نقاط متحركة</span>
+                </div>
+                
+                <div class="loader-card">
+                    <div class="bar-loader">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <span class="loader-name">أشرطة صوتية</span>
+                </div>
+                
+                <div class="loader-card">
+                    <div class="square-loader">
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                        <div class="square"></div>
+                    </div>
+                    <span class="loader-name">مربعات</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Progress Bars -->
+        <section class="section">
+            <h2 class="section-title">📊 أشرطة التقدم</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <div class="loader-card" style="width: 100%;">
+                    <div class="progress-loader">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="loader-name">شريط تقدم متحرك</span>
+                </div>
+                
+                <div style="background: #0F0F14; padding: 30px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 20px;">شريط تقدم مع نسبة</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>جاري التحميل...</span>
+                        <span style="color: var(--primary);">75%</span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 75%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+                    </div>
+                </div>
+                
+                <div style="background: #0F0F14; padding: 30px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 20px;">شريط تقدم متعدد المراحل</h3>
+                    <div style="display: flex; gap: 5px;">
+                        <div style="flex: 1; height: 8px; background: var(--success); border-radius: 4px;"></div>
+                        <div style="flex: 1; height: 8px; background: var(--success); border-radius: 4px;"></div>
+                        <div style="flex: 1; height: 8px; background: var(--primary); border-radius: 4px; position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: loading 1.5s infinite;"></div>
+                        </div>
+                        <div style="flex: 1; height: 8px; background: var(--border); border-radius: 4px;"></div>
+                    </div>
+                    <p style="color: #A1A1AA; margin-top: 10px; text-align: center;">الخطوة 3 من 4</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skeleton Screens -->
+        <section class="section">
+            <h2 class="section-title">🦴 شاشات الهيكل العظمي</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                
+                <div class="skeleton-card">
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                        <div class="skeleton" style="width: 50px; height: 50px; border-radius: 50%;"></div>
+                        <div style="flex: 1;">
+                            <div class="skeleton" style="height: 20px; width: 60%; margin-bottom: 10px;"></div>
+                            <div class="skeleton" style="height: 14px; width: 40%;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Full Screen Loaders -->
+        <section class="section">
+            <h2 class="section-title">🖥️ مؤشرات ملء الشاشة</h2>
+            
+            <div class="fullscreen-demo">
+                <div class="fullscreen-loader">
+                    <div class="spinner" style="width: 60px; height: 60px;"></div>
+                    <div class="loader-text">جاري التحميل...</div>
+                </div>
+            </div>
+            
+            <div class="fullscreen-demo" style="margin-top: 20px;">
+                <div class="fullscreen-loader">
+                    <div class="logo-loader" style="width: 80px; height: 80px;">
+                        <div class="logo-circle"></div>
+                        <div class="logo-circle"></div>
+                        <div class="logo-center" style="font-size: 1.5rem;">نقاطي</div>
+                    </div>
+                    <div class="loader-text">جاري معالجة المعاملة...</div>
+                    <div class="dots-loader">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Loading States -->
+        <section class="section">
+            <h2 class="section-title">📝 حالات التحميل</h2>
+            
+            <div style="display: grid; gap: 20px;">
+                <div style="background: #0F0F14; padding: 30px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 20px;">حالات الأزرار</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <button style="padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <div class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>
+                            جاري المعالجة...
+                        </button>
+                        
+                        <button style="padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-check"></i>
+                            تم بنجاح
+                        </button>
+                        
+                        <button style="padding: 12px 24px; background: #DC2626; color: white; border: none; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-times"></i>
+                            فشلت العملية
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="background: #0F0F14; padding: 30px; border-radius: 10px;">
+                    <h3 style="margin-bottom: 20px;">رسائل التحميل</h3>
+                    <div style="display: grid; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="dots-loader">
+                                <div class="dot" style="width: 8px; height: 8px;"></div>
+                                <div class="dot" style="width: 8px; height: 8px;"></div>
+                                <div class="dot" style="width: 8px; height: 8px;"></div>
+                            </div>
+                            <span>جاري جلب البيانات...</span>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                            <span>جاري التحقق من المعلومات...</span>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>تم التحميل بنجاح!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

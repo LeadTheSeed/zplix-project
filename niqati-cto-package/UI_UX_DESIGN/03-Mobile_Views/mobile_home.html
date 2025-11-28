@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niqati Mobile - الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B3FF2;
+            --secondary: #00D4AA;
+            --dark: #0F0F14;
+            --card-bg: #1A1A23;
+            --border: #2D2D3A;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--dark);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .mobile-container {
+            max-width: 430px;
+            margin: 0 auto;
+            background: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #A1A1AA;
+        }
+        
+        .status-time {
+            font-weight: 600;
+        }
+        
+        .status-icons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        /* Header */
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 20px;
+        }
+        
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .hero-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .action-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 8px;
+            background: rgba(123, 63, 242, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .action-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 0 20px;
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(123, 63, 242, 0.2), rgba(0, 212, 170, 0.2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .feature-content {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .feature-desc {
+            font-size: 0.85rem;
+            color: #A1A1AA;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* Promo Banner */
+        .promo-banner {
+            padding: 0 20px 20px;
+        }
+        
+        .promo-card {
+            background: linear-gradient(135deg, #10B981, #00D4AA);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .promo-icon {
+            font-size: 2.5rem;
+        }
+        
+        .promo-content {
+            flex: 1;
+        }
+        
+        .promo-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .promo-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-time">9:41</span>
+            <div class="status-icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-three-quarters"></i>
+            </div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">نقاطي</div>
+            <div class="header-actions">
+                <div class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="icon-btn">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <h1 class="hero-title">تداول USDT بسهولة</h1>
+                    <p class="hero-subtitle">منصة آمنة ومتوافقة مع الشريعة</p>
+                    <a href="#" class="hero-btn">
+                        <span>ابدأ التداول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="#" class="action-item">
+                <div class="action-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <span class="action-label">إيداع</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <span class="action-label">سحب</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <span class="action-label">تحويل</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="action-label">تداول</span>
+            </a>
+        </div>
+        
+        <!-- Features -->
+        <div class="features">
+            <h2 class="section-title">مميزات المنصة</h2>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-content">
+                    <h3 class="feature-title">أمان متقدم</h3>
+                    <p class="feature-desc">حماية متعددة الطبقات لأموالك</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-content">
+                    <h3 class="feature-title">معاملات سريعة</h3>
+                    <p class="feature-desc">تنفيذ فوري لجميع العمليات</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-content">
+                    <h3 class="feature-title">رسوم منخفضة</h3>
+                    <p class="feature-desc">أقل رسوم في السوق</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Promo Banner -->
+        <div class="promo-banner">
+            <div class="promo-card">
+                <div class="promo-icon">🎁</div>
+                <div class="promo-content">
+                    <h3 class="promo-title">مكافأة ترحيبية!</h3>
+                    <p class="promo-desc">احصل على 100 نقطة عند أول إيداع</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>التداول</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>السجل</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bars"></i>
+                <span>المزيد</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

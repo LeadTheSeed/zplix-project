@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان متطلبات منصة نقاطي | Niqati Platform Requirements Questionnaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #6772e5;
+            --accent-color: #8e44ad;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding-bottom: 50px;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 15px 20px;
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+        }
+        
+        .question-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+        }
+        
+        .help-text {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-right: 4px solid var(--primary-color);
+            display: none;
+        }
+        
+        .term {
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: help;
+        }
+        
+        .form-check {
+            margin-bottom: 10px;
+            padding-right: 1.8rem;
+        }
+        
+        .form-check-input {
+            margin-right: -1.8rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        #summary-section {
+            display: none;
+        }
+        
+        .summary-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .summary-section h5 {
+            color: #0d6efd;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .summary-section strong {
+            color: #495057;
+        }
+        
+        .ai-recommendations .recommendation {
+            background-color: #e9f2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .ai-recommendations h6 {
+            color: #0d6efd;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .ai-recommendations ul {
+            padding-left: 20px;
+        }
+        
+        .ai-recommendations .important-note {
+            background-color: #fff8e6;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .ai-recommendations .important-note h6 {
+            color: #856404;
+        }
+
+        /* الأنماط الخاصة بالطباعة */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            header, .question-section, button, .progress, footer {
+                display: none !important;
+            }
+            
+            #summary-section {
+                display: block !important;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .card {
+                border: none;
+                box-shadow: none;
+            }
+            
+            .card-header {
+                background-color: #f8f9fa !important;
+                color: #000 !important;
+                padding: 10px 0;
+            }
+            
+            .card-body {
+                padding: 0;
+            }
+            
+            .summary-section {
+                break-inside: avoid;
+            }
+            
+            .recommendation {
+                break-inside: avoid;
+            }
+        }    
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        /* أنماط الحقول المخصصة */
+        .custom-question-area {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .custom-question {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .remove-custom-question {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .hide-question-btn {
+            float: left;
+            margin-top: -5px;
+        }
+        
+        .hidden-question {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .custom-option-text {
+            margin-right: 25px;
+            margin-top: 5px;
+        }
+        
+        /* أنماط التقرير القابل للتحرير */
+        .editable-section {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .editable-section:hover {
+            background-color: #f8f9fa;
+            cursor: text;
+        }
+        
+        [contenteditable="true"] {
+            outline: none;
+            border: 2px dashed transparent;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        
+        [contenteditable="true"]:focus {
+            border: 2px dashed #0d6efd;
+            background-color: white;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.25);
+        }
+        
+        .edit-toolbar {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            display: none;
+        }
+        
+        .edit-mode .edit-toolbar {
+            display: block;
+        }
+        
+        .edit-btn {
+            display: block;
+            margin: 5px 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #f8f9fa;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background: #0d6efd;
+            color: white;
+        }
+        
+        .custom-notes-section {
+            background: #fffef5;
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .add-section-btn {
+            width: 100%;
+            border: 2px dashed #6c757d;
+            background: transparent;
+            color: #6c757d;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-section-btn:hover {
+            border-color: #0d6efd;
+            color: #0d6efd;
+            background: #f0f8ff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4 no-print">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-currency-exchange me-2"></i>
+                استبيان منصة نقاطي
+            </a>
+            <div class="ms-auto">
+                <span class="text-white" id="completion-percentage">0%</span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>التقدم في الاستبيان</span>
+                        <span id="progress-text">0/8 أقسام</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="progress" style="height: 10px; border-radius: 0;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    هذا الاستبيان مصمم لمساعدتك في تحديد متطلبات منصة نقاطي لتداول USDT. أكمل جميع الأقسام للحصول على تقرير تنفيذي شامل يمكنك تسليمه للمدير التقني.
+                </div>
+
+                <!-- القسم 1: معلومات المشروع الأساسية -->
+                <div id="section1" class="question-section">
+                    <h3 class="section-title">القسم 1: معلومات المشروع الأساسية</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            1.1. ما هو الاسم الرسمي للمنصة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-1-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="platform-name" placeholder="مثال: نقاطي، Niqati، إلخ." value="نقاطي | Niqati">
+                        </div>
+                        <div class="help-text" id="help-1-1">
+                            الاسم الرسمي سيظهر في جميع واجهات المستخدم، وثائق API، والمراسلات. يفضل أن يكون سهل النطق والتذكر ويعكس طبيعة المنصة.
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            1.2. ما هي الأسواق المستهدفة للمنصة؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-1-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-uae" checked>
+                            <label class="form-check-label" for="market-uae">
+                                الإمارات العربية المتحدة (UAE)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-ksa" checked>
+                            <label class="form-check-label" for="market-ksa">
+                                المملكة العربية السعودية (KSA)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-bahrain">
+                            <label class="form-check-label" for="market-bahrain">
+                                البحرين (Bahrain)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-kuwait">
+                            <label class="form-check-label" for="market-kuwait">
+                                الكويت (Kuwait)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-qatar">
+                            <label class="form-check-label" for="market-qatar">
+                                قطر (Qatar)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-oman">
+                            <label class="form-check-label" for="market-oman">
+                                عمان (Oman)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-egypt">
+                            <label class="form-check-label" for="market-egypt">
+                                مصر (Egypt)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-jordan">
+                            <label class="form-check-label" for="market-jordan">
+                                الأردن (Jordan)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="market-other">
+                            <label class="form-check-label" for="market-other">
+                                أخرى (حدد أدناه)
+                            </label>
+                        </div>
+                        <div class="mb-3 mt-2" id="other-markets-container" style="display: none;">
+                            <input type="text" class="form-control" id="other-markets" placeholder="اذكر الأسواق الأخرى المستهدفة مفصولة بفواصل">
+                        </div>
+                        <div class="help-text" id="help-1-2">
+                            تحديد الأسواق المستهدفة مهم لمعرفة المتطلبات التنظيمية المحلية، العملات المدعومة، وطرق الدفع التي يجب دمجها في المنصة. كل سوق له متطلبات امتثال خاصة يجب مراعاتها.
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            1.3. ما هي اللغات التي يجب أن تدعمها المنصة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-1-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="languages" id="lang-ar-en" checked>
+                            <label class="form-check-label" for="lang-ar-en">
+                                العربية والإنجليزية فقط
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="languages" id="lang-ar-en-more">
+                            <label class="form-check-label" for="lang-ar-en-more">
+                                العربية والإنجليزية وأكثر
+                            </label>
+                        </div>
+                        <div class="mb-3 mt-2" id="other-languages-container" style="display: none;">
+                            <input type="text" class="form-control" id="other-languages" placeholder="اذكر اللغات الإضافية مفصولة بفواصل">
+                        </div>
+                        <div class="help-text" id="help-1-3">
+                            دعم اللغات المتعددة يحسن تجربة المستخدم ويوسع قاعدة المستخدمين. العربية والإنجليزية هما الحد الأدنى للمنطقة، لكن دعم لغات إضافية مثل الأوردو أو الهندية قد يكون مفيدًا إذا كنت تستهدف العمال المغتربين.
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            1.4. ما هو الجدول الزمني المستهدف لإطلاق النسخة الأولية (MVP) من المنصة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-1-4')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="timeline" id="timeline-3m" checked>
+                            <label class="form-check-label" for="timeline-3m">
+                                3 أشهر أو أقل
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="timeline" id="timeline-6m">
+                            <label class="form-check-label" for="timeline-6m">
+                                4-6 أشهر
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="timeline" id="timeline-9m">
+                            <label class="form-check-label" for="timeline-9m">
+                                7-9 أشهر
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="timeline" id="timeline-12m">
+                            <label class="form-check-label" for="timeline-12m">
+                                10-12 شهرًا
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-1-4">
+                            الجدول الزمني الواقعي يؤثر على نطاق المشروع ومراحل التنفيذ. نسخة MVP بسيطة مع وظائف محدودة يمكن إطلاقها في غضون 3-6 أشهر، بينما تتطلب المنصة الكاملة مع جميع الميزات وقتًا أطول.
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            1.5. ما هو متوسط حجم المعاملات المتوقع يوميًا في المرحلة الأولية؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-1-5')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="volume" id="volume-small" checked>
+                            <label class="form-check-label" for="volume-small">
+                                صغير (أقل من 100 معاملة يومياً)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="volume" id="volume-medium">
+                            <label class="form-check-label" for="volume-medium">
+                                متوسط (100-1000 معاملة يومياً)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="volume" id="volume-large">
+                            <label class="form-check-label" for="volume-large">
+                                كبير (أكثر من 1000 معاملة يومياً)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-1-5">
+                            حجم المعاملات المتوقع يؤثر على متطلبات البنية التحتية، قابلية التوسع، واختيار قواعد البيانات المناسبة. البدء بتوقعات متحفظة ثم تحجيم البنية التحتية عند الحاجة هو نهج أكثر فعالية من حيث التكلفة.
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-primary" onclick="nextSection(1)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 2: المتطلبات التقنية والبنية التحتية -->                <div id="section2" class="question-section" style="display: none;">                    <h3 class="section-title">القسم 2: المتطلبات التقنية والبنية التحتية</h3>                    <div class="question-container">                        <div class="question-title">                            2.1. ما هو نوع تطبيق الواجهة الأمامية المفضل للمنصة؟                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-2-1')">                                <i class="bi bi-question-circle"></i>                            </button>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="frontend-type" id="frontend-responsive" checked>                            <label class="form-check-label" for="frontend-responsive">                                موقع ويب متجاوب فقط (Responsive Web Application)                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="frontend-type" id="frontend-web-mobile">                            <label class="form-check-label" for="frontend-web-mobile">                                موقع ويب متجاوب + تطبيقات موبايل (Web + Native Mobile Apps)                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="frontend-type" id="frontend-pwa">                            <label class="form-check-label" for="frontend-pwa">                                تطبيق ويب تقدمي (Progressive Web App)                            </label>                        </div>                        <div class="help-text" id="help-2-1">                            <p>تطبيق الويب المتجاوب: أسرع وأقل تكلفة في التطوير، ويعمل على جميع الأجهزة، لكن تجربة المستخدم قد تكون أقل سلاسة من التطبيقات الأصلية.</p>                            <p>تطبيقات الموبايل الأصلية: توفر تجربة مستخدم أفضل وميزات متقدمة مثل الإشعارات، لكنها أكثر تكلفة وتتطلب صيانة منفصلة لكل منصة (iOS وأندرويد).</p>                            <p>تطبيق الويب التقدمي: حل وسط يوفر بعض ميزات التطبيقات الأصلية مثل العمل دون اتصال والإشعارات مع تكلفة تطوير أقل.</p>                        </div>                    </div>                    <div class="question-container">                        <div class="question-title">                            2.2. ما هي شبكات البلوك تشين التي ترغب في دعمها لتداول USDT؟ (يمكن اختيار أكثر من خيار)                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-2-2')">                                <i class="bi bi-question-circle"></i>                            </button>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="blockchain-trc20" checked>                            <label class="form-check-label" for="blockchain-trc20">                                ترون (Tron TRC-20) - رسوم منخفضة، سرعة عالية                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="blockchain-erc20">                            <label class="form-check-label" for="blockchain-erc20">                                إيثيريوم (Ethereum ERC-20) - انتشار واسع، رسوم مرتفعة                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="blockchain-bep20">                            <label class="form-check-label" for="blockchain-bep20">                                بينانس سمارت تشين (Binance Smart Chain BEP-20) - رسوم متوسطة                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="blockchain-solana">                            <label class="form-check-label" for="blockchain-solana">                                سولانا (Solana) - رسوم منخفضة جداً، سرعة عالية جداً                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="blockchain-other">                            <label class="form-check-label" for="blockchain-other">                                شبكات أخرى (حدد أدناه)                            </label>                        </div>                        <div class="mb-3 mt-2" id="other-blockchains-container" style="display: none;">                            <input type="text" class="form-control" id="other-blockchains" placeholder="اذكر الشبكات الأخرى المطلوب دعمها">                        </div>                        <div class="help-text" id="help-2-2">                            <p><strong>ترون (TRC20)</strong>: الأكثر شيوعاً في منطقة الشرق الأوسط لتحويلات USDT بسبب الرسوم المنخفضة (أقل من $1) وسرعة المعاملات.</p>                            <p><strong>إيثيريوم (ERC20)</strong>: أوسع انتشاراً عالمياً لكن رسوم التحويل عالية (تتراوح من $5 إلى $50 حسب ازدحام الشبكة).</p>                            <p><strong>بينانس سمارت تشين (BEP20)</strong>: خيار جيد مع رسوم متوسطة (حوالي $0.5) وشائع في منصات التداول.</p>                            <p>ننصح بدعم TRC20 على الأقل في البداية، ثم إضافة الشبكات الأخرى في المراحل اللاحقة.</p>                        </div>                    </div>                    <div class="question-container">                        <div class="question-title">                            2.3. ما هو نموذج استضافة البنية التحتية المفضل؟                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-2-3')">                                <i class="bi bi-question-circle"></i>                            </button>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="hosting-model" id="hosting-cloud" checked>                            <label class="form-check-label" for="hosting-cloud">                                استضافة سحابية كاملة (Full Cloud Hosting)                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="hosting-model" id="hosting-hybrid">                            <label class="form-check-label" for="hosting-hybrid">                                استضافة هجينة (Hybrid Hosting)                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="hosting-model" id="hosting-onprem">                            <label class="form-check-label" for="hosting-onprem">                                استضافة محلية (On-Premises)                            </label>                        </div>                        <div class="help-text" id="help-2-3">                            <p><strong>استضافة سحابية</strong>: أقل تكلفة بداية، سهولة التوسع، لكن قد تكون أعلى تكلفة على المدى الطويل. مناسبة للبدء سريعاً.</p>                            <p><strong>استضافة هجينة</strong>: تجمع بين السحابة والخوادم المحلية، حيث يمكن استضافة البيانات الحساسة محلياً والباقي في السحابة.</p>                            <p><strong>استضافة محلية</strong>: تحكم كامل في البنية التحتية، قد تكون مطلوبة لبعض المتطلبات التنظيمية، لكنها أعلى تكلفة ابتدائية وتتطلب فريق عمليات.</p>                        </div>                    </div>                    <div class="question-container">                        <div class="question-title">                            2.4. هل ترغب في دعم واجهة برمجة التطبيقات (API) للمطورين الخارجيين أو التجار؟                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-2-4')">                                <i class="bi bi-question-circle"></i>                            </button>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="api-support" id="api-yes">                            <label class="form-check-label" for="api-yes">                                نعم، من البداية                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="api-support" id="api-later" checked>                            <label class="form-check-label" for="api-later">                                نعم، ولكن في مرحلة لاحقة                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="radio" name="api-support" id="api-no">                            <label class="form-check-label" for="api-no">                                لا، غير مطلوب حالياً                            </label>                        </div>                        <div class="help-text" id="help-2-4">                            <p>واجهة برمجة التطبيقات (API) تسمح للمطورين الخارجيين والتجار بالتكامل مع منصتك، مما يتيح:</p>                            <ul>                                <li>تمكين التجار من دمج خدمات الدفع في متاجرهم</li>                                <li>توفير بيانات أسعار USDT للمواقع الخارجية</li>                                <li>إنشاء تطبيقات طرف ثالث تستخدم منصتك</li>                            </ul>                            <p>لا يلزم دعم API من البداية، ويمكن تأجيله للمراحل اللاحقة بعد إطلاق المنصة الأساسية.</p>                        </div>                    </div>                    <div class="question-container">                        <div class="question-title">                            2.5. هل ترغب في دعم إشعارات المستخدم في الوقت الفعلي؟ (يمكن اختيار أكثر من خيار)                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-2-5')">                                <i class="bi bi-question-circle"></i>                            </button>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="notification-email" checked>                            <label class="form-check-label" for="notification-email">                                إشعارات البريد الإلكتروني                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="notification-sms" checked>                            <label class="form-check-label" for="notification-sms">                                رسائل SMS                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="notification-push">                            <label class="form-check-label" for="notification-push">                                إشعارات الدفع (للتطبيقات المحمولة أو المتصفح)                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="notification-whatsapp">                            <label class="form-check-label" for="notification-whatsapp">                                رسائل واتساب                            </label>                        </div>                        <div class="form-check">                            <input class="form-check-input" type="checkbox" id="notification-telegram">                            <label class="form-check-label" for="notification-telegram">                                رسائل تيليجرام                            </label>                        </div>                        <div class="help-text" id="help-2-5">                            <p>الإشعارات في الوقت الفعلي مهمة لإعلام المستخدمين بحالة معاملاتهم وتعزيز المشاركة.</p>                            <p>البريد الإلكتروني ورسائل SMS هما الحد الأدنى المطلوب عادةً.</p>                            <p>إشعارات الدفع تتطلب تطبيقات جوال أو دعم متصفح محدد.</p>                            <p>رسائل واتساب شائعة جداً في منطقة الشرق الأوسط وشمال إفريقيا وتحظى بمعدلات فتح عالية.</p>                        </div>                    </div>                    <div class="mt-4 d-flex justify-content-between">                        <button class="btn btn-secondary" onclick="prevSection(2)"><i class="bi bi-arrow-right"></i> السابق</button>                        <button class="btn btn-primary" onclick="nextSection(2)">التالي <i class="bi bi-arrow-left"></i></button>                    </div>                </div>                <!-- القسم 3: متطلبات الدفع والتداول -->
+                <div id="section3" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 3: متطلبات الدفع والتداول</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            3.1. ما هي طرق الدفع التي تريد دعمها للإيداع (شراء USDT)؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-3-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="payment-bank-transfer" checked>
+                            <label class="form-check-label" for="payment-bank-transfer">
+                                التحويل البنكي المحلي
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="payment-debit-card">
+                            <label class="form-check-label" for="payment-debit-card">
+                                بطاقات الخصم المباشر (Debit Cards)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="payment-credit-card">
+                            <label class="form-check-label" for="payment-credit-card">
+                                بطاقات الائتمان (Credit Cards)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="payment-wallet">
+                            <label class="form-check-label" for="payment-wallet">
+                                محافظ رقمية محلية (Apple Pay, STC Pay, إلخ)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="payment-cash">
+                            <label class="form-check-label" for="payment-cash">
+                                الدفع النقدي (عبر نقاط البيع)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-3-1">
+                            <p>التحويل البنكي: الأكثر أماناً وشيوعاً لكن قد يستغرق وقتاً أطول.</p>
+                            <p>بطاقات الدفع: فورية لكن قد تحمل رسوماً أعلى ومخاطر احتيال.</p>
+                            <p>المحافظ الرقمية: سريعة وشائعة في المنطقة خاصة STC Pay في السعودية.</p>
+                            <p>ننصح بالبدء بالتحويل البنكي في المرحلة الأولى ثم إضافة طرق أخرى تدريجياً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            3.2. ما هو الحد الأدنى والأقصى للإيداع الذي تريد تطبيقه؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-3-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">الحد الأدنى للإيداع (USD)</label>
+                                <input type="number" class="form-control" id="min-deposit" placeholder="مثال: 50" value="50">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">الحد الأقصى للإيداع (USD)</label>
+                                <input type="number" class="form-control" id="max-deposit" placeholder="مثال: 10000" value="10000">
+                            </div>
+                        </div>
+                        <div class="help-text" id="help-3-2">
+                            <p>الحد الأدنى يجب أن يغطي تكاليف المعاملة وأن يكون منطقياً للسوق المستهدف.</p>
+                            <p>الحد الأقصى يعتمد على المتطلبات التنظيمية وقدرة السيولة لديك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            3.3. ما هي نسبة العمولة أو الرسوم التي تنوي فرضها على المعاملات؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-3-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="fee-structure" id="fee-percentage" checked>
+                            <label class="form-check-label" for="fee-percentage">
+                                نسبة مئوية من قيمة المعاملة
+                            </label>
+                        </div>
+                        <div class="mb-3 mt-2" id="percentage-fee-container">
+                            <input type="number" class="form-control" id="percentage-fee" placeholder="مثال: 2.5" value="2.5" step="0.1" min="0" max="10">
+                            <small class="text-muted">نسبة مئوية (%)</small>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="fee-structure" id="fee-fixed">
+                            <label class="form-check-label" for="fee-fixed">
+                                مبلغ ثابت لكل معاملة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="fee-structure" id="fee-mixed">
+                            <label class="form-check-label" for="fee-mixed">
+                                مزيج من النسبة المئوية والمبلغ الثابت
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-3-3">
+                            <p>معدل العمولة في السوق يتراوح عادة بين 1-3% للمنصات المشابهة.</p>
+                            <p>كن واضحاً بشأن الرسوم وتجنب الرسوم المخفية لبناء الثقة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            3.4. كيف تريد تسعير USDT مقابل العملات المحلية؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-3-4')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pricing-model" id="pricing-market" checked>
+                            <label class="form-check-label" for="pricing-market">
+                                سعر السوق الحي + هامش ربح ثابت
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pricing-model" id="pricing-fixed">
+                            <label class="form-check-label" for="pricing-fixed">
+                                سعر ثابت يتم تحديثه يدوياً
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="pricing-model" id="pricing-dynamic">
+                            <label class="form-check-label" for="pricing-dynamic">
+                                تسعير ديناميكي بناءً على حجم المعاملة
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-3-4">
+                            <p>السعر الحي يضمن عدم الخسارة بسبب تقلبات السوق.</p>
+                            <p>التسعير الثابت أبسط لكن يتطلب مراقبة مستمرة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(3)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary" onclick="nextSection(3)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 4: الأمان والامتثال -->
+                <div id="section4" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 4: الأمان والامتثال</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            4.1. ما هو مستوى التحقق من الهوية (KYC) المطلوب للمستخدمين؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-4-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="kyc-level" id="kyc-basic" checked>
+                            <label class="form-check-label" for="kyc-basic">
+                                أساسي (الاسم والبريد الإلكتروني والهاتف)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="kyc-level" id="kyc-intermediate">
+                            <label class="form-check-label" for="kyc-intermediate">
+                                متوسط (+ صورة الهوية وإثبات العنوان)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="kyc-level" id="kyc-advanced">
+                            <label class="form-check-label" for="kyc-advanced">
+                                متقدم (+ التحقق بالفيديو ومصدر الأموال)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-4-1">
+                            <p>KYC (اعرف عميلك) مطلوب تنظيمياً لمكافحة غسل الأموال.</p>
+                            <p>البدء بمستوى أساسي للمعاملات الصغيرة ومستوى أعلى للمبالغ الكبيرة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            4.2. هل تحتاج إلى التوافق مع الشريعة الإسلامية؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-4-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shariah" id="shariah-yes">
+                            <label class="form-check-label" for="shariah-yes">
+                                نعم، مطلوب
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="shariah" id="shariah-no" checked>
+                            <label class="form-check-label" for="shariah-no">
+                                لا، غير مطلوب حالياً
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-4-2">
+                            <p>التوافق مع الشريعة قد يكون مطلوباً في بعض الأسواق مثل البحرين والسعودية.</p>
+                            <p>يتطلب الحصول على شهادة من هيئة رقابة شرعية معتمدة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            4.3. ما هي آليات الأمان المطلوبة؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-4-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="security-2fa" checked>
+                            <label class="form-check-label" for="security-2fa">
+                                المصادقة الثنائية (2FA)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="security-cold-storage" checked>
+                            <label class="form-check-label" for="security-cold-storage">
+                                التخزين البارد للأصول (Cold Storage)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="security-multisig" checked>
+                            <label class="form-check-label" for="security-multisig">
+                                محافظ متعددة التوقيع (Multi-signature)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="security-insurance">
+                            <label class="form-check-label" for="security-insurance">
+                                تأمين على الأصول الرقمية
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-4-3">
+                            <p>المصادقة الثنائية والتخزين البارد هما الحد الأدنى المطلوب.</p>
+                            <p>المحافظ متعددة التوقيع تحمي من السرقة الداخلية.</p>
+                            <p>التأمين يبني الثقة لكن قد يكون مكلفاً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(4)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary" onclick="nextSection(4)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 5: تجربة المستخدم والواجهات -->
+                <div id="section5" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 5: تجربة المستخدم والواجهات</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            5.1. ما هو نمط التصميم المفضل للواجهة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-5-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="design-style" id="design-modern" checked>
+                            <label class="form-check-label" for="design-modern">
+                                عصري وبسيط (Modern & Minimalist)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="design-style" id="design-traditional">
+                            <label class="form-check-label" for="design-traditional">
+                                تقليدي ومألوف للمنطقة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="design-style" id="design-professional">
+                            <label class="form-check-label" for="design-professional">
+                                مهني ورسمي (Professional & Corporate)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-5-1">
+                            <p>التصميم العصري البسيط يوحي بالثقة والاحترافية.</p>
+                            <p>التصميم التقليدي قد يكون أكثر ألفة للمستخدمين المحليين.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            5.2. ما هي الميزات الإضافية التي تريد توفيرها للمستخدمين؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-5-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature-dashboard" checked>
+                            <label class="form-check-label" for="feature-dashboard">
+                                لوحة تحكم شاملة للمستخدم
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature-reports" checked>
+                            <label class="form-check-label" for="feature-reports">
+                                تقارير وإحصائيات المعاملات
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature-referral">
+                            <label class="form-check-label" for="feature-referral">
+                                برنامج الإحالة والمكافآت
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature-calculator">
+                            <label class="form-check-label" for="feature-calculator">
+                                حاسبة تحويل العملات
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="feature-chat">
+                            <label class="form-check-label" for="feature-chat">
+                                دعم فني مباشر (Live Chat)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-5-2">
+                            <p>الميزات الإضافية تحسن تجربة المستخدم وتزيد المشاركة.</p>
+                            <p>ابدأ بالميزات الأساسية ثم أضف الميزات المتقدمة لاحقاً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            5.3. هل تحتاج إلى تطبيق للهاتف المحمول؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-5-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="mobile-app" id="mobile-now">
+                            <label class="form-check-label" for="mobile-now">
+                                نعم، من البداية
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="mobile-app" id="mobile-later" checked>
+                            <label class="form-check-label" for="mobile-later">
+                                نعم، لكن في مرحلة لاحقة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="mobile-app" id="mobile-no">
+                            <label class="form-check-label" for="mobile-no">
+                                لا، الموقع المتجاوب كافٍ
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-5-3">
+                            <p>التطبيقات المحمولة توفر تجربة أفضل لكنها تتطلب استثماراً أكبر.</p>
+                            <p>يمكن البدء بموقع متجاوب ثم تطوير تطبيقات لاحقاً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(5)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary" onclick="nextSection(5)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 6: العمليات والإدارة -->
+                <div id="section6" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 6: العمليات والإدارة</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            6.1. ما هو حجم فريق الدعم الفني المتوقع؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-6-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="support-team" id="support-small" checked>
+                            <label class="form-check-label" for="support-small">
+                                صغير (1-3 أشخاص)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="support-team" id="support-medium">
+                            <label class="form-check-label" for="support-medium">
+                                متوسط (4-10 أشخاص)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="support-team" id="support-large">
+                            <label class="form-check-label" for="support-large">
+                                كبير (أكثر من 10 أشخاص)
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-6-1">
+                            <p>حجم الفريق يعتمد على حجم العمليات المتوقع.</p>
+                            <p>يمكن البدء بفريق صغير والتوسع حسب الحاجة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            6.2. ما هي أدوات الإدارة التي تحتاجها؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-6-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="admin-dashboard" checked>
+                            <label class="form-check-label" for="admin-dashboard">
+                                لوحة تحكم إدارية شاملة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="admin-kyc" checked>
+                            <label class="form-check-label" for="admin-kyc">
+                                نظام إدارة KYC والتحقق
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="admin-reports" checked>
+                            <label class="form-check-label" for="admin-reports">
+                                نظام تقارير مالية وتنظيمية
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="admin-monitoring">
+                            <label class="form-check-label" for="admin-monitoring">
+                                أدوات مراقبة الأداء
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="admin-audit">
+                            <label class="form-check-label" for="admin-audit">
+                                سجلات تدقيق شاملة
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-6-2">
+                            <p>الأدوات الإدارية تسهل العمليات اليومية وتضمن الامتثال.</p>
+                            <p>لوحة التحكم ونظام KYC أساسيان للبداية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            6.3. كيف تريد إدارة السيولة والاحتياطيات؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-6-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="liquidity" id="liquidity-self" checked>
+                            <label class="form-check-label" for="liquidity-self">
+                                إدارة ذاتية للسيولة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="liquidity" id="liquidity-partner">
+                            <label class="form-check-label" for="liquidity-partner">
+                                شراكة مع مزود سيولة
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="liquidity" id="liquidity-hybrid">
+                            <label class="form-check-label" for="liquidity-hybrid">
+                                نموذج مختلط
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-6-3">
+                            <p>الإدارة الذاتية توفر تحكماً أكبر لكن تتطلب رأس مال أكبر.</p>
+                            <p>الشراكة مع مزود سيولة أسرع للبدء لكن بتكلفة أعلى.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(6)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary" onclick="nextSection(6)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 7: الميزانية والتسعير -->
+                <div id="section7" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 7: الميزانية والتسعير</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            7.1. ما هي الميزانية المبدئية للمشروع (التطوير والإطلاق)؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-7-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="budget" id="budget-small" checked>
+                            <label class="form-check-label" for="budget-small">
+                                أقل من 50,000 دولار
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="budget" id="budget-medium">
+                            <label class="form-check-label" for="budget-medium">
+                                50,000 - 150,000 دولار
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="budget" id="budget-large">
+                            <label class="form-check-label" for="budget-large">
+                                150,000 - 300,000 دولار
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="budget" id="budget-xlarge">
+                            <label class="form-check-label" for="budget-xlarge">
+                                أكثر من 300,000 دولار
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-7-1">
+                            <p>الميزانية تحدد نطاق المشروع والميزات المتاحة في المرحلة الأولى.</p>
+                            <p>يمكن البدء بـ MVP بميزانية أقل ثم التوسع تدريجياً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            7.2. ما هو رأس المال المخصص للسيولة الأولية؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-7-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="number" class="form-control" id="liquidity-capital" placeholder="مثال: 100000" value="100000">
+                                <small class="text-muted">بالدولار الأمريكي (USD)</small>
+                            </div>
+                        </div>
+                        <div class="help-text" id="help-7-2">
+                            <p>رأس مال السيولة ضروري لتلبية طلبات الشراء والبيع الفورية.</p>
+                            <p>يجب أن يكون كافياً لتغطية حجم المعاملات المتوقع يومياً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            7.3. ما هي ميزانية التسويق الشهرية المتوقعة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-7-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="marketing-budget" id="mbudget-small" checked>
+                            <label class="form-check-label" for="mbudget-small">
+                                أقل من 5,000 دولار شهرياً
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="marketing-budget" id="mbudget-medium">
+                            <label class="form-check-label" for="mbudget-medium">
+                                5,000 - 20,000 دولار شهرياً
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="marketing-budget" id="mbudget-large">
+                            <label class="form-check-label" for="mbudget-large">
+                                أكثر من 20,000 دولار شهرياً
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-7-3">
+                            <p>التسويق ضروري لجذب المستخدمين وبناء الثقة.</p>
+                            <p>ابدأ بميزانية صغيرة وزدها عند رؤية نتائج إيجابية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(7)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary" onclick="nextSection(7)">التالي <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- القسم 8: الإطلاق والخطوات التالية -->
+                <div id="section8" class="question-section" style="display: none;">
+                    <h3 class="section-title">القسم 8: الإطلاق والخطوات التالية</h3>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            8.1. ما هي استراتيجية الإطلاق المفضلة؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-8-1')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="launch-strategy" id="launch-soft" checked>
+                            <label class="form-check-label" for="launch-soft">
+                                إطلاق تدريجي (Soft Launch)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="launch-strategy" id="launch-beta">
+                            <label class="form-check-label" for="launch-beta">
+                                نسخة تجريبية مع مستخدمين محددين
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="launch-strategy" id="launch-full">
+                            <label class="form-check-label" for="launch-full">
+                                إطلاق عام مباشر
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-8-1">
+                            <p>الإطلاق التدريجي يسمح باكتشاف وإصلاح المشاكل مبكراً.</p>
+                            <p>النسخة التجريبية توفر ملاحظات قيمة قبل الإطلاق الرسمي.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            8.2. ما هي قنوات التسويق المخطط استخدامها؟ (يمكن اختيار أكثر من خيار)
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-8-2')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketing-social" checked>
+                            <label class="form-check-label" for="marketing-social">
+                                وسائل التواصل الاجتماعي
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketing-google" checked>
+                            <label class="form-check-label" for="marketing-google">
+                                إعلانات جوجل والبحث المدفوع
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketing-influencers">
+                            <label class="form-check-label" for="marketing-influencers">
+                                المؤثرون والشراكات
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketing-content">
+                            <label class="form-check-label" for="marketing-content">
+                                التسويق بالمحتوى
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="marketing-email">
+                            <label class="form-check-label" for="marketing-email">
+                                البريد الإلكتروني والنشرات
+                            </label>
+                        </div>
+                        <div class="help-text" id="help-8-2">
+                            <p>التنوع في قنوات التسويق يضمن وصولاً أوسع.</p>
+                            <p>وسائل التواصل الاجتماعي وجوجل أساسية للبداية.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-title">
+                            8.3. هل لديك ملاحظات أو متطلبات إضافية؟
+                            <button class="btn btn-sm btn-outline-primary float-start" onclick="toggleHelp('help-8-3')">
+                                <i class="bi bi-question-circle"></i>
+                            </button>
+                        </div>
+                        <textarea class="form-control" id="additional-notes" rows="4" placeholder="اكتب أي متطلبات خاصة أو ملاحظات إضافية هنا..."></textarea>
+                        <div class="help-text" id="help-8-3">
+                            <p>هنا يمكنك إضافة أي تفاصيل أو متطلبات خاصة لم يتم تغطيتها في الأسئلة السابقة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button class="btn btn-secondary" onclick="prevSection(8)"><i class="bi bi-arrow-right"></i> السابق</button>
+                        <button class="btn btn-primary btn-lg" onclick="generateReport()">إنشاء التقرير التنفيذي <i class="bi bi-file-earmark-text"></i></button>
+                    </div>
+                </div>
+
+                <!-- ملخص التقرير -->
+                <div id="summary-section" class="mb-5" style="display: none;">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">ملخص تنفيذي للمتطلبات التقنية</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">تاريخ التقرير: <span id="report-date"></span></span>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-warning mx-1" id="edit-mode-btn" onclick="toggleEditMode()">
+                                        <i class="bi bi-pencil"></i> تحرير التقرير
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-info mx-1" onclick="addCustomReportSection()">
+                                        <i class="bi bi-plus-square"></i> إضافة قسم
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary mx-1" onclick="printReport()">
+                                        <i class="bi bi-printer"></i> طباعة
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success mx-1" onclick="saveAsPDF()">
+                                        <i class="bi bi-file-pdf"></i> PDF
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary mx-1" onclick="startOver()">
+                                        <i class="bi bi-arrow-clockwise"></i> بدء جديد
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- ملخص المشروع -->
+                            <div id="project-summary" class="mb-4"></div>
+                            
+                            <!-- المتطلبات التقنية -->
+                            <div id="tech-requirements" class="mb-4"></div>
+                            
+                            <!-- توصيات الذكاء الاصطناعي -->
+                            <div id="ai-recommendations" class="mb-4"></div>
+                            
+                            <!-- ملاحظات ختامية -->
+                            <div class="mt-4">
+                                <h5>ملاحظات ختامية</h5>
+                                <p>يعتبر هذا التقرير ملخصاً للمتطلبات التقنية الرئيسية بناءً على المعلومات المقدمة. يمكن لفريق التطوير استخدام هذه المعلومات كأساس لتقدير التكلفة والجدول الزمني وخطة التنفيذ.</p>
+                            </div>
+                            
+                            <div class="mt-4 no-print">
+                                <button class="btn btn-primary" onclick="printReport()">
+                                    <i class="bi bi-printer"></i> طباعة التقرير
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="saveAsPDF()">
+                                    <i class="bi bi-file-earmark-pdf"></i> حفظ كـ PDF
+                                </button>
+                                <button class="btn btn-outline-primary ms-2" onclick="startOver()">
+                                    <i class="bi bi-arrow-repeat"></i> البدء من جديد
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- لترجمة التاريخ إلى العربية -->
+    <script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment/locale/ar-sa.js"></script>
+    <!-- مكتبة لتحويل HTML إلى PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // متغيرات عامة
+        const totalSections = 8;
+        let currentSection = 1;
+        
+        // وظائف مساعدة
+        function toggleHelp(helpId) {
+            const helpText = document.getElementById(helpId);
+            if (helpText.style.display === 'none' || !helpText.style.display) {
+                helpText.style.display = 'block';
+            } else {
+                helpText.style.display = 'none';
+            }
+        }
+        
+        function updateProgress() {
+            const progressPercentage = (currentSection / totalSections) * 100;
+            document.querySelector('.progress-bar').style.width = progressPercentage + '%';
+            document.getElementById('completion-percentage').textContent = Math.round(progressPercentage) + '%';
+            document.getElementById('progress-text').textContent = currentSection + '/' + totalSections + ' أقسام';
+        }
+        
+        function nextSection(sectionNum) {
+            // إخفاء القسم الحالي
+            document.getElementById(`section${sectionNum}`).style.display = 'none';
+            
+            // عرض القسم التالي أو الملخص
+            currentSection++;
+            
+            if (currentSection <= totalSections) {
+                document.getElementById(`section${currentSection}`).style.display = 'block';
+            } else {
+                generateSummary();
+                document.getElementById('summary-section').style.display = 'block';
+            }
+            
+            // تحديث شريط التقدم
+            updateProgress();
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function prevSection(sectionNum) {
+            // إخفاء القسم الحالي
+            document.getElementById(`section${sectionNum}`).style.display = 'none';
+            
+            // عرض القسم السابق
+            currentSection--;
+            document.getElementById(`section${currentSection}`).style.display = 'block';
+            
+            // تحديث شريط التقدم
+            updateProgress();
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function generateReport() {
+            try {
+                console.log('بدء إنشاء التقرير...');
+                
+                // تحديث تاريخ التقرير
+                const today = new Date();
+                document.getElementById('report-date').textContent = today.toLocaleDateString('ar-SA');
+                
+                // جمع بيانات الاستبيان الرئيسية
+                const platformName = document.getElementById('platform-name').value || 'نقاطي';
+                const description = document.getElementById('platform-description').value || 'منصة لتداول USDT';
+                
+                // توليد ملخص المشروع
+                let projectSummary = '<div class="summary-section">';
+                projectSummary += '<h5><i class="bi bi-info-circle"></i> معلومات المشروع الأساسية</h5>';
+                projectSummary += `<p><strong>اسم المنصة:</strong> ${platformName}</p>`;
+                projectSummary += `<p><strong>الوصف:</strong> ${description}</p>`;
+                
+                // الأسواق المستهدفة
+                const markets = [];
+                if (document.getElementById('market-uae').checked) markets.push('الإمارات');
+                if (document.getElementById('market-saudi').checked) markets.push('السعودية');
+                if (document.getElementById('market-bahrain').checked) markets.push('البحرين');
+                if (document.getElementById('market-kuwait').checked) markets.push('الكويت');
+                if (document.getElementById('market-qatar').checked) markets.push('قطر');
+                if (document.getElementById('market-oman').checked) markets.push('عُمان');
+                
+                projectSummary += `<p><strong>الأسواق المستهدفة:</strong> ${markets.join(', ') || 'غير محدد'}</p>`;
+                
+                // اللغة الرئيسية
+                let primaryLang = 'arabic';
+                const langElement = document.querySelector('input[name="primary-language"]:checked');
+                if (langElement) {
+                    primaryLang = langElement.id.replace('lang-', '');
+                }
+                
+                const langText = primaryLang === 'english' ? 'الإنجليزية' : 'العربية';
+                projectSummary += `<p><strong>اللغة الرئيسية:</strong> ${langText}</p>`;
+                
+                // الجدول الزمني
+                let timeline = 'normal';
+                const timelineElement = document.querySelector('input[name="timeline"]:checked');
+                if (timelineElement) {
+                    timeline = timelineElement.id.replace('timeline-', '');
+                }
+                
+                const timelineText = {
+                    'urgent': '1-2 شهور (عاجل)',
+                    'normal': '3-4 شهور (عادي)',
+                    'flexible': '5-6 شهور (مرن)'
+                };
+                
+                projectSummary += `<p><strong>الجدول الزمني:</strong> ${timelineText[timeline] || '3-4 شهور'}</p>`;
+                
+                // حجم المعاملات
+                let volume = 'small';
+                const volumeElement = document.querySelector('input[name="volume"]:checked');
+                if (volumeElement) {
+                    volume = volumeElement.id.replace('volume-', '');
+                }
+                
+                const volumeText = {
+                    'small': 'أقل من 100 معاملة يومياً',
+                    'medium': '100-1000 معاملة يومياً',
+                    'large': 'أكثر من 1000 معاملة يومياً'
+                };
+                
+                projectSummary += `<p><strong>حجم المعاملات المتوقع:</strong> ${volumeText[volume] || 'غير محدد'}</p>`;
+                projectSummary += '</div>';
+                
+                // إضافة ملخص المشروع
+                document.getElementById('project-summary').innerHTML = projectSummary;
+                console.log('تم إنشاء ملخص المشروع');
+                
+                // إضافة المتطلبات التقنية
+                const techReqs = generateTechRequirements();
+                document.getElementById('tech-requirements').innerHTML = techReqs;
+                console.log('تم إنشاء المتطلبات التقنية');
+                
+                // إضافة توصيات AI الذكية
+                const aiRecommendations = generateAIRecommendations();
+                document.getElementById('ai-recommendations').innerHTML = aiRecommendations;
+                console.log('تم إنشاء توصيات الذكاء الاصطناعي');
+                
+                // إخفاء القسم الحالي
+                document.getElementById('section8').style.display = 'none';
+                
+                // عرض قسم التقرير
+                document.getElementById('summary-section').style.display = 'block';
+                console.log('تم عرض التقرير');
+                
+                // تحديث شريط التقدم إلى 100%
+                document.querySelector('.progress-bar').style.width = '100%';
+                document.querySelector('.progress-text').textContent = '8/8 أقسام';
+                document.querySelector('.progress-bar').textContent = 'مكتمل 100%';
+                
+                // التمرير لأعلى الصفحة
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('حدث خطأ في إنشاء التقرير:', error);
+                // في حالة حدوث خطأ، نعرض تقريرًا بقيم افتراضية
+                try {
+                    document.getElementById('report-date').textContent = new Date().toLocaleDateString('ar-SA');
+                    
+                    let fallbackSummary = '<div class="summary-section">';
+                    fallbackSummary += '<h5><i class="bi bi-info-circle"></i> معلومات المشروع الأساسية</h5>';
+                    fallbackSummary += '<p><strong>اسم المنصة:</strong> نقاطي</p>';
+                    fallbackSummary += '<p><strong>الوصف:</strong> منصة رقمية لتداول USDT</p>';
+                    fallbackSummary += '<p><strong>الأسواق المستهدفة:</strong> دول الخليج العربي</p>';
+                    fallbackSummary += '<p><strong>اللغة الرئيسية:</strong> العربية</p>';
+                    fallbackSummary += '<p><strong>الجدول الزمني:</strong> 3-4 شهور</p>';
+                    fallbackSummary += '<p><strong>حجم المعاملات المتوقع:</strong> متوسط</p>';
+                    fallbackSummary += '</div>';
+                    
+                    document.getElementById('project-summary').innerHTML = fallbackSummary;
+                    
+                    // المتطلبات التقنية الافتراضية
+                    let fallbackTech = '<div class="summary-section">';
+                    fallbackTech += '<h5><i class="bi bi-gear"></i> المتطلبات التقنية والفنية</h5>';
+                    fallbackTech += '<p><strong>نوع التطبيق:</strong> موقع ويب متجاوب</p>';
+                    fallbackTech += '<p><strong>شبكات البلوكتشين:</strong> Tron (TRC20)</p>';
+                    fallbackTech += '<p><strong>نموذج الاستضافة:</strong> استضافة سحابية</p>';
+                    fallbackTech += '<p><strong>طرق الدفع:</strong> تحويل بنكي</p>';
+                    fallbackTech += '<p><strong>متطلبات الأمان:</strong> المصادقة الثنائية، التخزين البارد</p>';
+                    fallbackTech += '</div>';
+                    
+                    document.getElementById('tech-requirements').innerHTML = fallbackTech;
+                    
+                    // توصيات AI الافتراضية
+                    const aiRecommendations = generateAIRecommendations();
+                    document.getElementById('ai-recommendations').innerHTML = aiRecommendations;
+                    
+                    // إخفاء القسم الحالي وعرض التقرير
+                    document.getElementById('section8').style.display = 'none';
+                    document.getElementById('summary-section').style.display = 'block';
+                    
+                    // تحديث شريط التقدم
+                    document.querySelector('.progress-bar').style.width = '100%';
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } catch (fallbackError) {
+                    console.error('خطأ في التقرير الاحتياطي:', fallbackError);
+                    alert('عذرًا، حدث خطأ. يرجى إعادة تحميل الصفحة والمحاولة مرة أخرى.');
+                }
+            }
+        }
+        
+        function generateSummary() {
+            generateReport();
+        }
+        
+        function generateTechRequirements() {
+            try {
+                let html = '<div class="summary-section">';
+                html += '<h5><i class="bi bi-gear"></i> المتطلبات التقنية والفنية</h5>';
+                
+                // نوع الواجهة
+                let frontendType = 'responsive';
+                const frontendElement = document.querySelector('input[name="frontend-type"]:checked');
+                if (frontendElement) {
+                    frontendType = frontendElement.id.replace('frontend-', '');
+                }
+            const frontendText = {
+                'responsive': 'موقع ويب متجاوب فقط',
+                'web-mobile': 'موقع ويب متجاوب + تطبيقات موبايل',
+                'pwa': 'تطبيق ويب تقدمي (PWA)'
+            };
+            html += `<p><strong>نوع التطبيق:</strong> ${frontendText[frontendType] || 'غير محدد'}</p>`;
+            
+                // شبكات البلوك تشين
+                const blockchains = [];
+                const trc20 = document.getElementById('blockchain-trc20');
+                const erc20 = document.getElementById('blockchain-erc20');
+                const bep20 = document.getElementById('blockchain-bep20');
+                const solana = document.getElementById('blockchain-solana');
+                
+                if (trc20 && trc20.checked) blockchains.push('Tron (TRC20)');
+                if (erc20 && erc20.checked) blockchains.push('Ethereum (ERC20)');
+                if (bep20 && bep20.checked) blockchains.push('Binance Smart Chain (BEP20)');
+                if (solana && solana.checked) blockchains.push('Solana');
+            
+            html += `<p><strong>شبكات البلوكتشين:</strong> ${blockchains.join(', ') || 'ترون (TRC20) فقط'}</p>`;
+            
+                // نموذج الاستضافة
+                let hosting = 'cloud';
+                const hostingElement = document.querySelector('input[name="hosting-model"]:checked');
+                if (hostingElement) {
+                    hosting = hostingElement.id.replace('hosting-', '');
+                }
+            const hostingText = {
+                'cloud': 'استضافة سحابية كاملة',
+                'hybrid': 'استضافة هجينة',
+                'onprem': 'استضافة محلية'
+            };
+            html += `<p><strong>نموذج الاستضافة:</strong> ${hostingText[hosting] || 'غير محدد'}</p>`;
+            
+                // طرق الدفع
+                const paymentMethods = [];
+                const bankTransfer = document.getElementById('payment-bank-transfer');
+                const debitCard = document.getElementById('payment-debit-card');
+                const creditCard = document.getElementById('payment-credit-card');
+                const wallet = document.getElementById('payment-wallet');
+                
+                if (bankTransfer && bankTransfer.checked) paymentMethods.push('تحويل بنكي');
+                if (debitCard && debitCard.checked) paymentMethods.push('بطاقات خصم');
+                if (creditCard && creditCard.checked) paymentMethods.push('بطاقات ائتمان');
+                if (wallet && wallet.checked) paymentMethods.push('محافظ رقمية');
+            
+            html += `<p><strong>طرق الدفع:</strong> ${paymentMethods.join(', ') || 'تحويل بنكي فقط'}</p>`;
+            
+                // متطلبات الأمان
+                const security = [];
+                const twoFA = document.getElementById('security-2fa');
+                const coldStorage = document.getElementById('security-cold-storage');
+                const multiSig = document.getElementById('security-multisig');
+                
+                if (twoFA && twoFA.checked) security.push('المصادقة الثنائية');
+                if (coldStorage && coldStorage.checked) security.push('التخزين البارد للأصول');
+                if (multiSig && multiSig.checked) security.push('محافظ متعددة التوقيع');
+                
+                html += `<p><strong>متطلبات الأمان:</strong> ${security.join(', ') || 'المصادقة الثنائية'}</p>`;
+                
+                html += '</div>';
+                return html;
+            } catch (error) {
+                console.error('خطأ في توليد المتطلبات التقنية:', error);
+                // إرجاع قيم افتراضية
+                return '<div class="summary-section"><h5><i class="bi bi-gear"></i> المتطلبات التقنية والفنية</h5><p>لم يتم تحديد متطلبات تقنية محددة بعد.</p></div>';
+            }
+        }
+        
+        function generateAIRecommendations() {
+            let html = '<div class="summary-section ai-recommendations">';
+            html += '<h5><i class="bi bi-lightbulb"></i> توصيات الذكاء الاصطناعي</h5>';
+            
+            // الفريق المقترح
+            html += '<div class="recommendation">';
+            html += '<h6>الفريق التقني المقترح:</h6>';
+            html += '<ul>';
+            html += '<li>مدير مشروع تقني (1)</li>';
+            html += '<li>مطور واجهات أمامية (2)</li>';
+            html += '<li>مطور واجهات خلفية (2)</li>';
+            html += '<li>خبير بلوكتشين (1)</li>';
+            html += '<li>مهندس حلول دفع (1)</li>';
+            html += '<li>اختصاصي امتثال وإجراءات KYC/AML (1)</li>';
+            html += '<li>مختبر ضمان جودة (1)</li>';
+            html += '</ul>';
+            html += '</div>';
+            
+            // نموذج التطوير والتنفيذ
+            html += '<div class="recommendation">';
+            html += '<h6>نموذج التطوير والتنفيذ المقترح:</h6>';
+            html += '<ul>';
+            html += '<li><strong>المرحلة الأولى (4-6 أسابيع):</strong> تطوير البنية التحتية الأساسية ونظام المحافظ والمعاملات</li>';
+            html += '<li><strong>المرحلة الثانية (2-4 أسابيع):</strong> تكامل بوابات الدفع ونظام KYC</li>';
+            html += '<li><strong>المرحلة الثالثة (2-3 أسابيع):</strong> تطوير واجهة المستخدم والوحة الإدارية</li>';
+            html += '<li><strong>المرحلة الرابعة (2 أسبوع):</strong> الاختبار والتحسين وإطلاق نسخة تجريبية</li>';
+            html += '</ul>';
+            html += '</div>';
+            
+            // التقنيات المقترحة
+            html += '<div class="recommendation">';
+            html += '<h6>التقنيات والأدوات المقترحة:</h6>';
+            html += '<ul>';
+            html += '<li><strong>الواجهة الأمامية:</strong> React.js/Next.js مع دعم اللغة العربية (RTL) والتصميم المتجاوب</li>';
+            html += '<li><strong>الواجهة الخلفية:</strong> Node.js أو Python مع قاعدة بيانات PostgreSQL</li>';
+            html += '<li><strong>البلوكتشين:</strong> واجهة برمجة موحدة للتعامل مع شبكات USDT المتعددة</li>';
+            html += '<li><strong>الأمان:</strong> نظام محافظ متعدد المستويات (Hot/Warm/Cold)</li>';
+            html += '<li><strong>الإشعارات:</strong> خدمة متعددة القنوات (بريد إلكتروني، SMS، دفع)</li>';
+            html += '</ul>';
+            html += '</div>';
+            
+            // ملاحظات مخاطر وتحذيرات مهمة
+            html += '<div class="recommendation important-note">';
+            html += '<h6><i class="bi bi-exclamation-triangle"></i> ملاحظات مهمة:</h6>';
+            html += '<ul>';
+            html += '<li>يجب الحصول على الموافقات التنظيمية المطلوبة من الجهات الرقابية قبل الإطلاق</li>';
+            html += '<li>مراعاة متطلبات القاعدة السادسة (Travel Rule) في حال تجاوز الحدود التنظيمية</li>';
+            html += '<li>مراجعة عقود الخدمة وسياسات الخصوصية من الجهات القانونية المختصة</li>';
+            html += '</ul>';
+            html += '</div>';
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function printReport() {
+            window.print();
+        }
+        
+        // لا نستخدم document.write لأنها تسبب مشاكل
+        // سنعتمد على مكتبة HTML2PDF المتضمنة في الرأس
+        
+        function saveAsPDF() {
+            try {
+                alert('جاري تنزيل التقرير كملف PDF، يرجى الانتظار...');
+                
+                const element = document.getElementById('summary-section');
+                const options = {
+                    margin: 10,
+                    filename: 'niqati-technical-requirements-report.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                html2pdf(element, options);
+            } catch (error) {
+                console.error('Error saving PDF:', error);
+                alert('حدث خطأ في حفظ الملف. يرجى المحاولة مرة أخرى.');
+            }
+        }
+        
+        function startOver() {
+            location.reload();
+        }
+        
+        // وظائف الحقول المخصصة
+        let customQuestions = {};
+        
+        function addCustomQuestion(sectionId) {
+            if (!customQuestions[sectionId]) {
+                customQuestions[sectionId] = [];
+            }
+            
+            const questionId = `custom-${sectionId}-${Date.now()}`;
+            const questionHtml = `
+                <div class="custom-question" id="${questionId}">
+                    <button class="btn btn-sm btn-danger remove-custom-question" onclick="removeCustomQuestion('${questionId}')">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" placeholder="عنوان السؤال..." id="${questionId}-title">
+                    </div>
+                    <div class="mb-2">
+                        <select class="form-control" id="${questionId}-type" onchange="updateQuestionType('${questionId}')">
+                            <option value="text">حقل نص</option>
+                            <option value="textarea">نص طويل</option>
+                            <option value="radio">خيار واحد</option>
+                            <option value="checkbox">خيارات متعددة</option>
+                            <option value="number">رقم</option>
+                        </select>
+                    </div>
+                    <div id="${questionId}-options" class="options-container"></div>
+                    <div id="${questionId}-answer"></div>
+                </div>
+            `;
+            
+            const container = document.getElementById(`custom-questions-${sectionId}`);
+            if (container) {
+                container.insertAdjacentHTML('beforeend', questionHtml);
+                updateQuestionType(questionId);
+                customQuestions[sectionId].push(questionId);
+            }
+        }
+        
+        function removeCustomQuestion(questionId) {
+            const element = document.getElementById(questionId);
+            if (element) {
+                element.remove();
+            }
+        }
+        
+        function updateQuestionType(questionId) {
+            const type = document.getElementById(`${questionId}-type`).value;
+            const answerDiv = document.getElementById(`${questionId}-answer`);
+            
+            if (type === 'text') {
+                answerDiv.innerHTML = '<input type="text" class="form-control" placeholder="الإجابة...">';
+            } else if (type === 'textarea') {
+                answerDiv.innerHTML = '<textarea class="form-control" rows="3" placeholder="الإجابة..."></textarea>';
+            } else if (type === 'number') {
+                answerDiv.innerHTML = '<input type="number" class="form-control" placeholder="الإجابة...">';
+            } else if (type === 'radio' || type === 'checkbox') {
+                answerDiv.innerHTML = `
+                    <div class="mb-2">
+                        <input type="text" class="form-control option-input" placeholder="خيار 1">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" class="form-control option-input" placeholder="خيار 2">
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="addOption('${questionId}')">
+                        <i class="bi bi-plus"></i> إضافة خيار
+                    </button>
+                `;
+            }
+        }
+        
+        function addOption(questionId) {
+            const answerDiv = document.getElementById(`${questionId}-answer`);
+            const optionCount = answerDiv.querySelectorAll('.option-input').length + 1;
+            const newOption = `
+                <div class="mb-2">
+                    <input type="text" class="form-control option-input" placeholder="خيار ${optionCount}">
+                </div>
+            `;
+            const button = answerDiv.querySelector('button');
+            button.insertAdjacentHTML('beforebegin', newOption);
+        }
+        
+        // وظائف إخفاء الأسئلة
+        function toggleQuestion(questionElement) {
+            questionElement.classList.toggle('hidden-question');
+            const button = questionElement.querySelector('.hide-question-btn');
+            if (button) {
+                const icon = button.querySelector('i');
+                if (questionElement.classList.contains('hidden-question')) {
+                    icon.className = 'bi bi-eye';
+                } else {
+                    icon.className = 'bi bi-eye-slash';
+                }
+            }
+        }
+        
+        // وظائف التحرير في التقرير
+        let editMode = false;
+        
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.body.classList.toggle('edit-mode');
+            
+            const reportSections = document.querySelectorAll('#summary-section .summary-section, #summary-section p, #summary-section h5');
+            reportSections.forEach(section => {
+                section.contentEditable = editMode;
+                if (editMode) {
+                    section.classList.add('editable-section');
+                } else {
+                    section.classList.remove('editable-section');
+                }
+            });
+            
+            // تحديث زر التحرير
+            const editBtn = document.getElementById('edit-mode-btn');
+            if (editBtn) {
+                if (editMode) {
+                    editBtn.innerHTML = '<i class="bi bi-check-circle"></i> حفظ التعديلات';
+                    editBtn.classList.remove('btn-outline-warning');
+                    editBtn.classList.add('btn-success');
+                } else {
+                    editBtn.innerHTML = '<i class="bi bi-pencil"></i> تحرير التقرير';
+                    editBtn.classList.remove('btn-success');
+                    editBtn.classList.add('btn-outline-warning');
+                }
+            }
+        }
+        
+        // إضافة قسم مخصص في التقرير
+        function addCustomReportSection() {
+            const customSection = `
+                <div class="summary-section custom-notes-section" contenteditable="true">
+                    <h5><i class="bi bi-pencil-square"></i> قسم مخصص</h5>
+                    <p>اكتب هنا أي ملاحظات أو توصيات إضافية...</p>
+                </div>
+            `;
+            
+            const aiRecommendations = document.getElementById('ai-recommendations');
+            if (aiRecommendations) {
+                aiRecommendations.insertAdjacentHTML('afterend', customSection);
+            }
+        }
+        
+        // مستمعو الأحداث
+        document.addEventListener('DOMContentLoaded', function() {
+            // معالجة الأسواق المستهدفة الأخرى
+            document.getElementById('market-other').addEventListener('change', function() {
+                document.getElementById('other-markets-container').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // معالجة اللغات الإضافية
+            document.getElementById('lang-additional').addEventListener('change', function() {
+                document.getElementById('additional-langs-container').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // معالجة شبكات بلوكتشين أخرى
+            document.getElementById('blockchain-other').addEventListener('change', function() {
+                document.getElementById('other-blockchains-container').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // معالجة أزرار إنشاء التقرير
+            document.getElementById('totalSections').textContent = totalSections;
+            updateProgress();
+            document.getElementById('lang-ar-en-more').addEventListener('change', function() {
+                document.getElementById('other-languages-container').style.display = this.checked ? 'block' : 'none';
+            });
+            
+            document.getElementById('lang-ar-en').addEventListener('change', function() {
+                document.getElementById('other-languages-container').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

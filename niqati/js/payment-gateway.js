@@ -3,61 +3,142 @@
 document.addEventListener('DOMContentLoaded', function() {
     const paymentRequestsContainer = document.getElementById('paymentRequests');
     const receiptModal = document.getElementById('receiptModal');
-
+    
     // =============================================
     // INITIALIZATION
     // =============================================
-    loadPendingTickets();
     
-    // Make loadPendingTickets available globally for same-window communication
-    window.loadPendingTickets = loadPendingTickets;
-    window.paymentGatewayLoaded = true;
-    
-    // Listen for localStorage changes in other tabs/windows
-    window.addEventListener('storage', (e) => {
-        if (e.key === 'pendingTickets' || e.key === 'pendingTicketsTimestamp') {
+    // تأكد من تحميل خدمة المزامنة أولاً
+    loadSyncService().then(() => {
+        // تحميل الطلبات المعلقة
+        loadPendingTickets();
+        
+        // جعل الوظائف متاحة عالمياً للتواصل داخل النافذة
+        window.loadPendingTickets = loadPendingTickets;
+        window.paymentGatewayLoaded = true;
+        
+        // الاشتراك في تحديثات الطلبات المعلقة
+        window.syncService.subscribe('pendingTickets', () => {
+            console.log('Received pendingTickets update notification');
             loadPendingTickets();
-        }
+        });
+        
+        // التحقق من وجود طلبات جديدة كل دقيقة (احتياط إضافي)
+        setInterval(() => {
+            console.log('Periodic check for new tickets');
+            loadPendingTickets();
+        }, 60000);
     });
     
-    // Check for new tickets every 5 seconds as a fallback
-    setInterval(loadPendingTickets, 5000);
+    // وظيفة لتحميل خدمة المزامنة
+    function loadSyncService() {
+        return new Promise((resolve, reject) => {
+            // تحقق مما إذا كانت الخدمة محملة بالفعل
+            if (window.syncService) {
+                console.log('Sync service already loaded');
+                resolve(window.syncService);
+                return;
+            }
+            
+            // إنشاء عنصر script
+            const script = document.createElement('script');
+            script.src = '/niqati/js/sync-service.js';
+            script.onload = () => {
+                console.log('Sync service loaded successfully');
+                resolve(window.syncService);
+            };
+            script.onerror = (error) => {
+                console.error('Failed to load sync service:', error);
+                reject(error);
+            };
+            
+            // إضافة العنصر إلى الصفحة
+            document.head.appendChild(script);
+        });
+    }
 
     // =============================================
     // CORE FUNCTIONS
     // =============================================
 
     function loadPendingTickets() {
-        console.log('Loading pending tickets...');
-        const tickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
-        console.log('Found', tickets.length, 'pending tickets');
-        
-        // Clear previous timers to prevent memory leaks
-        if (paymentRequestsContainer) {
-            Array.from(paymentRequestsContainer.children).forEach(card => {
-                const timerId = card.dataset.timerIntervalId;
-                if (timerId) {
-                    clearInterval(parseInt(timerId));
-                }
-            });
-
-            paymentRequestsContainer.innerHTML = ''; // Clear the view
-
-            if (tickets.length === 0) {
-                paymentRequestsContainer.innerHTML = '<p class="no-requests">لا توجد طلبات دفع حالية.</p>';
+        try {
+            console.log('Loading pending tickets...');
+            
+            // إظهار حالة التحميل
+            if (paymentRequestsContainer) {
+                paymentRequestsContainer.classList.add('loading');
+            }
+            
+            // التحقق من وجود خدمة المزامنة
+            if (!window.syncService) {
+                console.warn('Sync service not available, falling back to direct localStorage access');
+                fallbackLoadTickets();
                 return;
             }
-
-            // Sort tickets by timestamp (newest first)
-            tickets.sort((a, b) => b.timestamp - a.timestamp);
             
-            tickets.forEach(ticket => {
-                const newPaymentCard = createPaymentCard(ticket);
-                paymentRequestsContainer.appendChild(newPaymentCard);
-            });
-        } else {
-            console.error('Payment requests container not found!');
+            // استخدام خدمة المزامنة للحصول على التذاكر
+            const tickets = window.syncService.get('pendingTickets', []);
+            console.log('Found', tickets.length, 'pending tickets');
+            
+            renderTickets(tickets);
+        } catch (error) {
+            console.error('Error loading pending tickets:', error);
+            showToast('حدث خطأ أثناء تحميل الطلبات');
+            
+            // استخدام الطريقة الاحتياطية في حالة حدوث خطأ
+            fallbackLoadTickets();
+        } finally {
+            // إزالة حالة التحميل
+            if (paymentRequestsContainer) {
+                paymentRequestsContainer.classList.remove('loading');
+            }
         }
+    }
+    
+    // طريقة احتياطية للوصول المباشر إلى localStorage
+    function fallbackLoadTickets() {
+        try {
+            const tickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
+            renderTickets(tickets);
+        } catch (error) {
+            console.error('Error in fallback loading:', error);
+            if (paymentRequestsContainer) {
+                paymentRequestsContainer.innerHTML = 
+                    '<p class="error-message">حدث خطأ في تحميل الطلبات. يرجى تحديث الصفحة.</p>';
+            }
+        }
+    }
+    
+    // عرض التذاكر في واجهة المستخدم
+    function renderTickets(tickets) {
+        if (!paymentRequestsContainer) {
+            console.error('Payment requests container not found!');
+            return;
+        }
+        
+        // Clear previous timers to prevent memory leaks
+        Array.from(paymentRequestsContainer.children).forEach(card => {
+            const timerId = card.dataset.timerIntervalId;
+            if (timerId) {
+                clearInterval(parseInt(timerId));
+            }
+        });
+
+        paymentRequestsContainer.innerHTML = ''; // Clear the view
+
+        if (tickets.length === 0) {
+            paymentRequestsContainer.innerHTML = '<p class="no-requests">لا توجد طلبات دفع حالية.</p>';
+            return;
+        }
+
+        // Sort tickets by timestamp (newest first)
+        tickets.sort((a, b) => b.timestamp - a.timestamp);
+        
+        tickets.forEach(ticket => {
+            const newPaymentCard = createPaymentCard(ticket);
+            paymentRequestsContainer.appendChild(newPaymentCard);
+        });
     }
 
     function createPaymentCard(ticket) {
@@ -131,40 +212,74 @@ document.addEventListener('DOMContentLoaded', function() {
     // =============================================
 
     function approvePayment(ticketNumber, card) {
-        // Update localStorage: move ticket from pending to verified payments
-        let pendingTickets = JSON.parse(localStorage.getItem('pendingTickets')) || [];
-        const ticketToVerify = pendingTickets.find(t => t.ticketNumber === ticketNumber);
-        if (!ticketToVerify) return;
-
-        // Remove from pending tickets
-        pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
-        localStorage.setItem('pendingTickets', JSON.stringify(pendingTickets));
-        localStorage.setItem('pendingTicketsTimestamp', Date.now());
-
-        // Add to verified payments (not completed yet - waiting for admin approval)
-        let verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
-        ticketToVerify.status = 'verified';
-        ticketToVerify.verifiedAt = new Date().toISOString();
-        ticketToVerify.verifiedBy = 'payment_gateway';
-        verifiedPayments.push(ticketToVerify);
-        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
-        localStorage.setItem('verifiedPaymentsTimestamp', Date.now());
-
-        // Update UI
-        const statusBadge = card.querySelector('.status-badge');
-        statusBadge.textContent = 'تم التحقق';
-        statusBadge.classList.remove('new');
-        statusBadge.classList.add('verified');
-
-        const actionsDiv = card.querySelector('.payment-actions');
-        actionsDiv.innerHTML = `
-            <div class="verification-message">
-                <p>تم التحقق من الدفع بنجاح</p>
-                <p>بانتظار موافقة الإدارة وإصدار كود التفعيل</p>
-            </div>
-        `;
-        
-        showToast('تم التحقق من الدفع بنجاح وإرساله للإدارة');
+        try {
+            // Show loading state
+            const actionsDiv = card.querySelector('.payment-actions');
+            const originalContent = actionsDiv.innerHTML;
+            actionsDiv.innerHTML = `
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>جاري التحقق من الطلب...</span>
+                </div>
+            `;
+            
+            // جلب البيانات من خدمة المزامنة
+            let pendingTickets = window.syncService.get('pendingTickets', []);
+            const ticketToVerify = pendingTickets.find(t => t.ticketNumber === ticketNumber);
+            
+            if (!ticketToVerify) {
+                throw new Error(`Ticket ${ticketNumber} not found in pending tickets`);
+            }
+    
+            // حذف التذكرة من الطلبات المعلقة
+            pendingTickets = pendingTickets.filter(t => t.ticketNumber !== ticketNumber);
+            
+            // إضافة للمدفوعات المتحقق منها
+            let verifiedPayments = window.syncService.get('verifiedPayments', []);
+            ticketToVerify.status = 'verified';
+            ticketToVerify.verifiedAt = new Date().toISOString();
+            ticketToVerify.verifiedBy = 'payment_gateway';
+            verifiedPayments.push(ticketToVerify);
+            
+            // حفظ التغييرات بشكل متزامن
+            window.syncService.setWithSync('pendingTickets', pendingTickets);
+            window.syncService.setWithSync('verifiedPayments', verifiedPayments);
+            
+            // تسجيل للتدقيق
+            const auditLog = {
+                action: 'VERIFY_PAYMENT',
+                timestamp: new Date().toISOString(),
+                ticketNumber: ticketNumber,
+                by: 'payment_gateway',
+                details: {
+                    amount: ticketToVerify.totalAmount,
+                    productName: ticketToVerify.productName
+                }
+            };
+            
+            // حفظ سجل التدقيق
+            let auditLogs = window.syncService.get('auditLogs', []);
+            auditLogs.push(auditLog);
+            window.syncService.setWithSync('auditLogs', auditLogs);
+    
+            // تحديث واجهة المستخدم
+            const statusBadge = card.querySelector('.status-badge');
+            statusBadge.textContent = 'تم التحقق';
+            statusBadge.classList.remove('new');
+            statusBadge.classList.add('verified');
+    
+            actionsDiv.innerHTML = `
+                <div class="verification-message">
+                    <p>تم التحقق من الدفع بنجاح</p>
+                    <p>بانتظار موافقة الإدارة وإصدار كود التفعيل</p>
+                </div>
+            `;
+            
+            showToast('تم التحقق من الدفع بنجاح وإرساله للإدارة');
+        } catch (error) {
+            console.error('Error approving payment:', error);
+            showToast('حدث خطأ أثناء التحقق من الدفع');
+        }
     }
 
     function rejectPayment(ticketNumber, card) {

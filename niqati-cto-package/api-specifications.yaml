@@ -1,0 +1,531 @@
+openapi: 3.0.0
+info:
+  title: Niqati Platform API
+  description: API for USDT trading platform with points interface
+  version: 1.0.0
+  contact:
+    name: Niqati Technical Team
+    email: tech@niqati.com
+
+servers:
+  - url: https://api.niqati.com/v1
+    description: Production server
+  - url: https://staging-api.niqati.com/v1
+    description: Staging server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+paths:
+  # Authentication Endpoints
+  /auth/register:
+    post:
+      summary: Register new user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - phone
+                - country
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                phone:
+                  type: string
+                country:
+                  type: string
+                  enum: [AE, SA, EG, JO, KW, QA, BH, MA]
+      responses:
+        201:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  wallet_address:
+                    type: string
+                  verification_required:
+                    type: boolean
+
+  /auth/verify-otp:
+    post:
+      summary: Verify OTP for phone number
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phone
+                - otp
+              properties:
+                phone:
+                  type: string
+                otp:
+                  type: string
+      responses:
+        200:
+          description: OTP verified successfully
+
+  # USDT/Points Operations
+  /points/balance:
+    get:
+      summary: Get user points balance (USDT value)
+      tags:
+        - Points/USDT
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Balance retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  points_balance:
+                    type: number
+                  usdt_value:
+                    type: number
+                  locked_balance:
+                    type: number
+                  available_balance:
+                    type: number
+
+  /points/purchase:
+    post:
+      summary: Purchase points (buy USDT)
+      tags:
+        - Points/USDT
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+                - currency
+                - payment_method
+              properties:
+                amount:
+                  type: number
+                  description: Amount in local currency
+                currency:
+                  type: string
+                  enum: [AED, SAR, EGP, JOD, KWD, QAR, BHD, MAD]
+                payment_method:
+                  type: string
+                  enum: [bank_transfer]
+      responses:
+        200:
+          description: Purchase initiated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order_id:
+                    type: string
+                  points_to_receive:
+                    type: number
+                  usdt_value:
+                    type: number
+                  exchange_rate:
+                    type: number
+                  platform_fee:
+                    type: number
+                  payment_instructions:
+                    type: object
+                    properties:
+                      bank_name:
+                        type: string
+                      account_number:
+                        type: string
+                      iban:
+                        type: string
+                      reference_number:
+                        type: string
+                      amount_to_transfer:
+                        type: number
+                      validity_hours:
+                        type: integer
+
+  /points/sell:
+    post:
+      summary: Sell points (convert to USDT and withdraw)
+      tags:
+        - Points/USDT
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - points_amount
+                - withdrawal_method
+              properties:
+                points_amount:
+                  type: number
+                withdrawal_method:
+                  type: string
+                  enum: [usdt_wallet, bank_account]
+                wallet_address:
+                  type: string
+                  description: Required if withdrawal_method is usdt_wallet
+                bank_details:
+                  type: object
+                  description: Required if withdrawal_method is bank_account
+      responses:
+        200:
+          description: Sell order created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction_id:
+                    type: string
+                  usdt_amount:
+                    type: number
+                  platform_fee:
+                    type: number
+                  net_amount:
+                    type: number
+                  estimated_completion:
+                    type: string
+                    format: date-time
+
+  /points/exchange-rate:
+    get:
+      summary: Get current points to USDT exchange rate
+      tags:
+        - Points/USDT
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [AED, SAR, EGP, JOD, KWD, QAR, BHD, MAD]
+      responses:
+        200:
+          description: Exchange rates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  buy_rate:
+                    type: number
+                    description: Rate for buying points (includes margin)
+                  sell_rate:
+                    type: number
+                    description: Rate for selling points (includes margin)
+                  usdt_price:
+                    type: number
+                    description: Current USDT price in local currency
+                  platform_margin:
+                    type: number
+                    description: Platform margin percentage
+                  last_updated:
+                    type: string
+                    format: date-time
+
+  # Transaction Management
+  /transactions:
+    get:
+      summary: Get user transaction history
+      tags:
+        - Transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [buy, sell, transfer, all]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, completed, failed]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        200:
+          description: Transaction list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        points_amount:
+                          type: number
+                        usdt_amount:
+                          type: number
+                        status:
+                          type: string
+                        blockchain_tx_hash:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+
+  /transactions/{transactionId}/confirm-payment:
+    post:
+      summary: Confirm bank transfer payment
+      tags:
+        - Transactions
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - proof_of_payment
+              properties:
+                proof_of_payment:
+                  type: string
+                  format: binary
+                  description: Image of bank transfer receipt
+                transfer_reference:
+                  type: string
+      responses:
+        200:
+          description: Payment confirmation received
+
+  # Merchant Operations
+  /merchant/settlements:
+    get:
+      summary: Get merchant settlement history
+      tags:
+        - Merchant
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Settlement history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settlements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        usdt_amount:
+                          type: number
+                        wallet_address:
+                          type: string
+                        tx_hash:
+                          type: string
+                        status:
+                          type: string
+                        settlement_date:
+                          type: string
+                          format: date-time
+
+  /merchant/request-settlement:
+    post:
+      summary: Request USDT settlement
+      tags:
+        - Merchant
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+                - wallet_address
+              properties:
+                amount:
+                  type: number
+                  description: USDT amount to settle
+                wallet_address:
+                  type: string
+                  description: TRC-20 or ERC-20 wallet address
+                network:
+                  type: string
+                  enum: [TRC20, ERC20]
+                  default: TRC20
+      responses:
+        200:
+          description: Settlement requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settlement_id:
+                    type: string
+                  estimated_completion:
+                    type: string
+                    format: date-time
+
+  # Admin Operations
+  /admin/verify-payment:
+    post:
+      summary: Admin verify bank transfer
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - transaction_id
+                - verified
+              properties:
+                transaction_id:
+                  type: string
+                verified:
+                  type: boolean
+                notes:
+                  type: string
+      responses:
+        200:
+          description: Payment verified
+
+  /admin/blockchain/wallet-status:
+    get:
+      summary: Get blockchain wallet status
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Wallet status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hot_wallet:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                      balance:
+                        type: number
+                      percentage_of_total:
+                        type: number
+                  cold_wallet:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                      balance:
+                        type: number
+                      percentage_of_total:
+                        type: number
+                  total_usdt_balance:
+                    type: number
+                  pending_settlements:
+                    type: number
+
+  # Webhooks
+  /webhooks/blockchain-confirmation:
+    post:
+      summary: Webhook for blockchain transaction confirmations
+      tags:
+        - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tx_hash:
+                  type: string
+                confirmations:
+                  type: integer
+                status:
+                  type: string
+                amount:
+                  type: number
+                from_address:
+                  type: string
+                to_address:
+                  type: string
+      responses:
+        200:
+          description: Webhook received
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
